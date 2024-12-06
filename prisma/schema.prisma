@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int       @id @default(autoincrement())
+  email      String    @unique
+  name       String?
+  password   String?
+  status     Boolean   @default(true)
+  type       UserType
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt // Automatically updates on modification
+  deleted_at DateTime?
+
+  votes Voting[]
+
+  @@map("tbl_user")
+}
+
+enum UserType {
+  STUDENT
+  TEACHER
+  OTHER
+}
+
+model Admin {
+  id         Int       @id @default(autoincrement())
+  email      String    @unique
+  name       String?
+  status     Boolean   @default(true)
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
+  deleted_at DateTime?
+
+  @@map("tbl_admin")
+}
+
+model Selection {
+  id             Int       @id @default(autoincrement())
+  name           String
+  image          String
+  age            Int
+  dob            DateTime?
+  address        String
+  selection_year String
+  selected       Boolean   @default(false)
+  created_at     DateTime  @default(now())
+  updated_at     DateTime? @updatedAt
+  deleted_at     DateTime?
+
+  votes Voting[]
+
+  @@map("tbl_selection")
+}
+
+model Voting {
+  id           Int       @id @default(autoincrement())
+  user_id      Int
+  selection_id Int
+  voting_year  String
+  created_at   DateTime  @default(now())
+  updated_at   DateTime? @updatedAt
+  deleted_at   DateTime?
+
+  user      User      @relation(fields: [user_id], references: [id])
+  selection Selection @relation(fields: [selection_id], references: [id])
+
+  @@unique([user_id, selection_id, voting_year]) // Ensures a user can vote for a selection only once per year
+  @@map("tbl_voting")
+}
