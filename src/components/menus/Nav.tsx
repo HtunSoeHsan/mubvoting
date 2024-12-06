@@ -7,7 +7,7 @@ export const Nav = () => {
   const [nav, setNav] = useState(false);
   return (
     <>
-      <TopMenu nav={nav} openNav={() => setNav(true)} />
+      <TopMenu openNav={() => setNav(true)} />
       <MobileNav nav={nav} closeNav={() => setNav(false)} />
     </>
   );

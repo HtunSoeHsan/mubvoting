@@ -2,13 +2,11 @@
 
 import { conf } from "@/config";
 import Link from "next/link";
-import { useState } from "react";
 
 interface Props {
-  nav: boolean;
   openNav: () => void;
 }
-export const TopMenu = ({ nav, openNav }: Props) => {
+export const TopMenu = ({ openNav }: Props) => {
   return (
     <div className="container mx-auto px-4 py-5 flex justify-between items-center z-100">
       <Link href={conf.site.link} className="text-lg font-bold">
