@@ -1,7 +1,7 @@
 "use client";
 import { conf } from "@/config";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 
 interface Props {
   nav: boolean;
@@ -10,11 +10,11 @@ interface Props {
 
 const MobileNav = ({ nav, closeNav }: Props) => {
   const navAnimation = nav ? "translate-x-0" : "translate-x-[-100%]";
-  const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
+  // const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
 
-  const toggleDropdown = (index: number) => {
-    setActiveDropdown(activeDropdown === index ? null : index);
-  };
+  // const toggleDropdown = (index: number) => {
+  //   setActiveDropdown(activeDropdown === index ? null : index);
+  // };
 
   //   const scrollToSection = (sectionId: string) => {
   //     const section = document.getElementById(sectionId);

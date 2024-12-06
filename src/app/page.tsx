@@ -3,7 +3,6 @@ import { TypeTextAni } from "@/components/cell";
 import { Header } from "@/components/header";
 import { Nav } from "@/components/menus/Nav";
 import StudentCard from "@/components/student-card";
-import Image from "next/image";
 
 const students = [
   {
