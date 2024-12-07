@@ -13,13 +13,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserType {
+  STUDENT
+  TEACHER
+  OTHER
+}
+
 model User {
   id         Int       @id @default(autoincrement())
   email      String    @unique
   name       String?
   password   String?
   status     Boolean   @default(true)
-  type       UserType
+  type       UserType  
   created_at DateTime  @default(now())
   updated_at DateTime? @updatedAt // Automatically updates on modification
   deleted_at DateTime?
@@ -29,11 +35,7 @@ model User {
   @@map("tbl_user")
 }
 
-enum UserType {
-  STUDENT
-  TEACHER
-  OTHER
-}
+
 
 model Admin {
   id         Int       @id @default(autoincrement())
