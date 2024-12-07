@@ -18,11 +18,14 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.4",
     "@types/nodemailer": "^6.4.17",
+    "@types/otp-generator": "^4.0.2",
+    "bullmq": "^5.31.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.468.0",
     "next": "15.0.4",
     "nodemailer": "^6.9.16",
+    "otp-generator": "^4.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-type-animation": "^3.2.0",
@@ -30,6 +33,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@types/bull": "^4.10.4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
