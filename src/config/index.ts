@@ -3,6 +3,7 @@ import { links } from "./link";
 
 export const conf = {
     site: {link: links.homme, label: "www.mubvoting.com"},
+    site_title: "Voting System",
     icon: "",
     menus: [
         {

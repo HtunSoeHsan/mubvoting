@@ -2,6 +2,7 @@
 
 import { conf } from "@/config";
 import Link from "next/link";
+import { ModeToggle } from "../cell/mode";
 
 interface Props {
   openNav: () => void;
@@ -18,21 +19,15 @@ export const TopMenu = ({ openNav }: Props) => {
         <ul className="flex justify-center items-center space-x-6 space-y-0">
           {conf.menus.map((menu, index) => (
             <li key={index} className="relative group">
-              <Link href={menu.link} className="nav-link">
+              <Link href={menu.link} className="font-bold">
                 {menu.label}
               </Link>
             </li>
           ))}
-          {/* <li className="hidden lg:block">
-            <Link
-              href={conf.consult.link}
-              className="p-4 hover:bg-white border rounded-full hover:text-black hover:border-yellow-400"
-            >
-              {conf.consult.label}
-            </Link>
-          </li> */}
+          <ModeToggle />
         </ul>
       </nav>
+
       {/* Hamburger Menu for Mobile */}
       <button
         className="lg:hidden text-yellow-400 flex items-center text-black hover:text-gray-700 z-20"

@@ -2,6 +2,7 @@
 import { conf } from "@/config";
 import Link from "next/link";
 import React from "react";
+import { ModeToggle } from "../cell/mode";
 
 interface Props {
   nav: boolean;
@@ -25,7 +26,7 @@ const MobileNav = ({ nav, closeNav }: Props) => {
   //   };
   return (
     <div
-      className={`fixed ${navAnimation} transform transition-all duration-300 top-0 left-0 right-0 buttom-0 z-[100000] bg-[#09101a]/95 opacity`}
+      className={`fixed ${navAnimation} transform transition-all duration-300 top-0 left-0 right-0 buttom-0 z-[100000] bg-background text-foreground`}
     >
       <div className="w-[100vw] h-[100vh] flex flex-col items-center justify-center">
         {conf.menus.map((menu, index) => (
@@ -39,7 +40,7 @@ const MobileNav = ({ nav, closeNav }: Props) => {
           //   </Link>
           //   </div>
           <div key={index} className="w-full">
-            <div className="flex justify-center items-center px-4 py-3 text-black cursor-pointer">
+            <div className="flex justify-center items-center px-4 py-3 cursor-pointer">
               <Link
                 href={menu.link}
                 // onClick={() => {
@@ -52,6 +53,7 @@ const MobileNav = ({ nav, closeNav }: Props) => {
             </div>
           </div>
         ))}
+        <ModeToggle />
         <div
           onClick={closeNav}
           className="absolute cursor-pointer top-[2rem] right-[2rem] w-[2rem] h-[2rem] text-yellow-400"

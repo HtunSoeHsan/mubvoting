@@ -89,9 +89,9 @@ const students = [
 
 export default function Home() {
   return (
-    <>
+    <div className="bg-background text-foreground">
       <Header
-        bg="https://cdn.discordapp.com/attachments/1189886368277594116/1314585485804568587/FB_IMG_1733312834668.jpg?ex=67544ea3&is=6752fd23&hm=ea47d96282e1c608b5bf1e1a59bd8fb31e927dcba39ef925882317aee5018f04&"
+        bg="/mub-poly.jpg"
         nav={<Nav />}
         hero={
           <div className="flex justify-center lg:pt-[200px] px-5 lg:text-4xl">
@@ -99,7 +99,7 @@ export default function Home() {
           </div>
         }
       />
-      <div className="min-h-screen bg-gray-100 py-8">
+      <div className="min-h-screen py-8">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {students.map((student) => (
             <StudentCard
@@ -113,6 +113,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
