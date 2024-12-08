@@ -1,7 +1,7 @@
 // import { sendEmail } from "@/helper/sendEmail";
 // import { EmailTypes } from "@/types";
 
-import { sendEmail } from "@/helper/sendEmail";
+import { sendEmail } from "@/lib/sendEmail";
 import { EmailTypes } from "@/types";
 import { Queue, Worker } from "bullmq";
 
