@@ -2,13 +2,17 @@
 import RoundedCircle from "@/components/ui/rounded-circle";
 import { Button } from "@/components/ui/button";
 import LoginCard from "@/components/LoginCard";
+import Image from "next/image";
 
 const config = {
-  imgUrl: "/login_mail.svg",
+  imgUrl: "/otp.svg",
   content: {
     title: "Enter Your Email",
-    description: "If you enter you email that have on our member,we will send OTP code",
+    description:
+      "If you enter you email that have on our member,we will send OTP code",
   },
+  btnText: "Continue with Google",
+  btnIcon: "/google.svg",
 };
 
 export default function Page() {
@@ -32,12 +36,18 @@ export default function Page() {
           opacity={60}
         />
         <LoginCard imgUrl={config.imgUrl} content={config.content}>
-          <div className="flex flex-col lg:flex-row gap-5 lg:gap-2 justify-center items-center">
-            <input
-              type="email"
-              className="w-full lg:w-[350px] bg-slate-200 px-5 py-2 ring-1 ring-gold rounded-sm"
-            />
-            <Button className="bg-gold w-full flex-1 py-3 lg:py-5 text-[16px]">Send OTP</Button>
+          <div className="">
+            <Button className="bg-gradient-to-tr  from-gold to-yellow-700 hover:from-black hover:opacity-90 transition ease-in duration-500 w-full flex-1 py-6 text-[18px] lg:text-[16px]">
+              <Image
+                src={config.btnIcon}
+                alt={`svg photo`}
+                width={30}
+                height={30}
+                className=""
+                priority
+              />
+              {config.btnText}
+            </Button>
           </div>
         </LoginCard>
       </div>

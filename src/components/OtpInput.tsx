@@ -1,4 +1,5 @@
 "use client";
+import { log } from "console";
 import React, { useRef, useState } from "react";
 
 export default function OtpInput() {
@@ -17,10 +18,13 @@ export default function OtpInput() {
     }
 
     if (e.key === "Delete" || e.key === "Backspace") {
+      console.log(e.target);
+      
       const index = inputRefs.current.indexOf(e.target);
+      console.log(index);
       if (index > 0) {
         setOtp((prevOtp) => [
-          ...prevOtp.slice(0, index - 1),
+          ...prevOtp.slice(0, index -1),
           "",
           ...prevOtp.slice(index),
         ]);
