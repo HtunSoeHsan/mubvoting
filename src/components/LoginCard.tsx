@@ -22,7 +22,7 @@ const LoginCard: FC<LoginCardProps> = ({ imgUrl, content, children ,current_emai
           alt={`svg photo`}
           width={300}
           height={300}
-          className=" lg:w-[80%] mx-auto"
+          className=" lg:w-[80%] mx-auto lg:mx-0"
           priority
         />
       </div>
