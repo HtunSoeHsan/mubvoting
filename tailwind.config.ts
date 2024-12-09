@@ -1,13 +1,14 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: ["class"],
-  content: [
+    darkMode: ["class"],
+    content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+<<<<<<< HEAD
 <<<<<<< HEAD
     extend: {
       keyframes: {
@@ -79,6 +80,8 @@ export default {
       },
     },
 =======
+=======
+>>>>>>> parent of 81a2b5c (login design finish)
   	extend: {
   		colors: {
   			background: 'hsl(var(--background))',
@@ -130,19 +133,27 @@ export default {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
+<<<<<<< HEAD
   			},
 			  warning: "hsl(var(--warning))",
 			  "warning-foreground": "hsl(var(--warning-foreground))",
 			  horver: "hsl(var(--horver))",
+=======
+  			}
+>>>>>>> parent of 81a2b5c (login design finish)
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		}
+<<<<<<< HEAD
 		
   	}
 >>>>>>> dev
+=======
+  	}
+>>>>>>> parent of 81a2b5c (login design finish)
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
