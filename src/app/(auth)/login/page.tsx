@@ -9,7 +9,7 @@ const config = {
   content: {
     title: "Enter Your Email",
     description:
-      "If you enter you email that have on our member,we will send OTP code",
+      "You can esily login with your gmail account",
   },
   btnText: "Continue with Google",
   btnIcon: "/google.svg",
