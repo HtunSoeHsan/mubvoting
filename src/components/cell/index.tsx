@@ -42,7 +42,7 @@ export const TypeTextAni = () => {
       ]}
       //   wrapper="span"
       speed={50}
-      className="text-white mt-20 mb-5 p-2 rounded-lg"
+      className="mt-20 mb-5 p-2 rounded-lg"
       style={{
         fontSize: "2rem",
         display: "inline-block",
