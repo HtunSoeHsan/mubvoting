@@ -28,7 +28,7 @@ const RoundedCircle: FC<RoundedCircleProps> = ({
   return (
     <div
       style={positionStyles}
-      className={`absolute animate-zoomIn z-[-4] lg:flex  rounded-full ${bgColor} opacity-${opacity}`}
+      className={`absolute animate-zoomIn z-[-4] lg:flex dark:bg-white  rounded-full ${bgColor} opacity-${opacity}`}
     ></div>
   );
 };
