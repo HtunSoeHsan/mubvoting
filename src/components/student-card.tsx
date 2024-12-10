@@ -18,7 +18,7 @@ const StudentCard: FC<StudentCardProps> = ({
   onVote,
 }) => {
   return (
-    <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+    <div className="w-full max-w-sm border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow">
       <div className="relative w-full h-48">
         <Image
           src={image}
@@ -29,12 +29,12 @@ const StudentCard: FC<StudentCardProps> = ({
         />
       </div>
       <div className="p-4">
-        <h3 className="text-xl font-bold text-gray-800">{name}</h3>
-        <p className="text-sm text-gray-500">Grade: {grade}</p>
-        <p className="mt-2 text-gray-600 text-sm">{bio}</p>
+        <h3 className="text-xl font-bold ">{name}</h3>
+        <p className="text-sm ">Grade: {grade}</p>
+        <p className="mt-2  text-sm">{bio}</p>
         <Button
           onClick={onVote}
-          className="mt-4 w-full bg-blue-500 text-white hover:bg-blue-600"
+          className="mt-4 w-full bg-primary  hover:bg-horver"
         >
           Vote for {name}
         </Button>

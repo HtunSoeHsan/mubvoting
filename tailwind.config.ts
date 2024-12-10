@@ -77,6 +77,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
     },
+  	
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;

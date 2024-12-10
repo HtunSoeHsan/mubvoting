@@ -18,7 +18,7 @@ const config = {
 export default function Page() {
   return (
     <>
-      <div className="relative h-screen w-screen flex justify-center items-center flex-col">
+      <div className="relative h-screen w-screen overflow-hidden flex justify-center items-center flex-col">
         <RoundedCircle
           top={-30}
           left={-10}

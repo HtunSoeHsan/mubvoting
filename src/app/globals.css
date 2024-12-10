@@ -47,7 +47,10 @@ html {
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-    --gold-color : rgb(202, 149, 56)
+    --gold-color : rgb(202, 149, 56);
+    --warning: 38 92% 50%;
+    --warning-foreground: 48 96% 89%;
+    --horver: 20 20% 25%;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -83,6 +86,9 @@ html {
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
+    --warning: 48 96% 89%;
+    --warning-foreground: 38 92% 50%;
+    --horver: 20 20% 90%;
   }
 }
 
@@ -98,11 +104,11 @@ html {
 
 @layer components {
   .nav-link {
-    @apply relative font-semibold text-white cursor-pointer text-[17px] w-fit md:block after:block after:content-[''] after:absolute after:h-[3px] after:bg-yellow-400 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center hidden
+    @apply relative font-semibold cursor-pointer text-[17px] w-fit md:block after:block after:content-[''] after:absolute after:h-[3px] after:bg-yellow-400 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center hidden
 }
 
 .nav-link-mobile {
-  @apply relative mb-[2rem] font-semibold text-white cursor-pointer text-[27px] w-fit md:block after:block after:content-[''] after:absolute after:h-[3px] after:bg-yellow-400 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center 
+  @apply relative mb-[2rem] font-semibold cursor-pointer text-[27px] w-fit md:block after:block after:content-[''] after:absolute after:h-[3px] after:bg-yellow-400 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center 
 }
 
 .scroll-watcher {
