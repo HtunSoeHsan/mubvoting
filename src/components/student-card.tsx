@@ -18,26 +18,26 @@ const StudentCard: FC<StudentCardProps> = ({
   onVote,
 }) => {
   return (
-    <div className="border hover:scale-105 transition-all duration-200 ease-in-out rounded-lg flex flex-col shadow-sm hover:shadow-lg">
+    <div className=" border-4 border-golden bg-fadeDark hover:scale-105 transition-all duration-200 ease-in-out rounded-lg flex flex-col shadow-md hover:shadow-lg">
       <div className="p-4">
         <Image
           src={image}
           alt={`${name}'s photo`}
           width={500}
           height={500}
-          className="w-full h-[250px] rounded-lg  object-cover"
+          className="w-full h-[240px] rounded-lg  object-cover"
           priority
         />
       </div>
       <div className="py-3 flex flex-col gap-1">
         <h3 className="bg-gradient-to-tr from-gold to-yellow-700 p-2 w-[80%] rounded-r-full text-white">
-          Zaw Hien htet
+          {name}
         </h3>
-        <p className="p-2 opacity-85">{bio}</p>
+        <p className="text-white p-2  opacity-75">{bio}</p>
 
         <div className="flex justify-between p-2 items-center">
-          <p className="font-bold">Vote here : </p>
-          <Button className="w-[40%] text-lg">
+          <p className="font-bold text-golden">Vote here : </p>
+          <Button className="w-[40%] text-lg bg-gradient-to-r from-gold to-yellow-900">
              <Image
               src={"/paper-airplane.png"}
               alt={`${name}'s photo`}

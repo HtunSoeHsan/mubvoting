@@ -4,7 +4,6 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  
 }
 
 html {
@@ -47,10 +46,14 @@ html {
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-    --gold-color : rgb(202, 149, 56);
+    --gold-color: rgb(202, 149, 56);
     --warning: 38 92% 50%;
     --warning-foreground: 48 96% 89%;
     --horver: 20 20% 25%;
+    --gold: #ffb338;
+    --light-shadow: #77571d;
+    --dark-shadow: #3e2904;
+    --light-black:#1e2127;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -101,29 +104,83 @@ html {
   }
 }
 
-
 @layer components {
   .nav-link {
-    @apply relative font-semibold cursor-pointer text-[17px] w-fit md:block after:block after:content-[''] after:absolute after:h-[3px] after:bg-yellow-400 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center hidden
+    @apply relative font-semibold cursor-pointer text-[17px] w-fit md:block after:block after:content-[''] after:absolute after:h-[3px] after:bg-yellow-400 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center hidden;
+  }
+
+  .nav-link-mobile {
+    @apply relative mb-[2rem] font-semibold cursor-pointer text-[27px] w-fit md:block after:block after:content-[''] after:absolute after:h-[3px] after:bg-yellow-400 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center;
+  }
+
+  .scroll-watcher {
+    height: 2px;
+    position: fixed;
+    top: 0;
+    z-index: 100000;
+    background-color: #e5da0b;
+    width: 100%;
+    scale: 0 1;
+    transform-origin: left;
+    animation: scroll-watcher linear;
+    animation-timeline: scroll();
+  }
+  @keyframes scroll-watcher {
+    to {
+      scale: 1 1;
+    }
+  }
 }
 
-.nav-link-mobile {
-  @apply relative mb-[2rem] font-semibold cursor-pointer text-[27px] w-fit md:block after:block after:content-[''] after:absolute after:h-[3px] after:bg-yellow-400 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center 
+.text-container {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: #363833;
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-size: clamp(3em, 1vw, 5rem);
+  grid-area: overlap;
+  letter-spacing: 1px;
+  -webkit-text-stroke: 4px transparent;
 }
 
-.scroll-watcher {
-  height: 2px;
-  position: fixed;
-  top: 0;
-  z-index: 100000;
-  background-color: #e5da0b;
-  width: 100%;
-  scale: 0 1;
-  transform-origin: left;
-  animation: scroll-watcher linear;
-  animation-timeline: scroll();
+.text-background {
+  background-image: repeating-linear-gradient(
+    105deg,
+    var(--gold) 0%,
+    var(--dark-shadow) 5%,
+    var(--gold) 12%
+  );
+  color: transparent;
+  filter: drop-shadow(5px 15px 15px rgba(0, 0, 0, 0.147));
+  transform: scaleY(1.05);
+  transform-origin: top;
 }
-@keyframes scroll-watcher {
-  to {scale: 1 1;}
+.text-front {
+  background-image: repeating-linear-gradient(
+    5deg,
+    var(--gold) 0%,
+    var(--light-shadow) 23%,
+    var(--gold) 31%
+  );
+  color: #1e2127;
+  transform: scale(1);
 }
+
+.text-wrapper{
+  /* background: radial-gradient(#272727, #1b1b1b); */
+  display: grid;
+  grid-template-areas: 'overlap';
+  place-content: center;
+  text-transform: uppercase;
+  
+}
+
+.soft-dark{
+  background-image: repeating-linear-gradient(
+    105deg,
+    var(--gold) 0%,
+    var(--dark-shadow) 5%,
+    var(--gold) 30%
+  );
 }

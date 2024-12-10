@@ -20,6 +20,8 @@ export default {
       },
       colors: {
         gold: "var(--gold-color)",
+        golden : "var(--gold)",
+        fadeDark : "var(--light-black)",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

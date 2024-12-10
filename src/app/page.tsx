@@ -2,8 +2,29 @@
 import { TypeTextAni } from "@/components/cell";
 import { Header } from "@/components/header";
 import { Nav } from "@/components/menus/Nav";
+import SectionHeader from "@/components/SectionHeader";
 import StudentCard from "@/components/student-card";
-import Image from "next/image";
+
+const contents = {
+  boys: {
+    title: "Please Vote to choose KING and POPULAR",
+    subtitle: "Who will be KING or POPULAR",
+    images: {
+      first: "/young-man.png",
+      second: "/crown.png",
+      third: "/young-man.png",
+    },
+  },
+  girls: {
+    title: "Please Vote to choose QUEEN and INNOCENT",
+    subtitle: "Who will be QUEEN or INNOCENT",
+    images: {
+      first: "/woman.png",
+      second: "/crown.png",
+      third: "/woman.png",
+    },
+  },
+};
 
 const students = [
   {
@@ -60,57 +81,63 @@ export default function Home() {
           </div>
         }
       />
-      <div className="min-h-screen dark:bg-background bg-slate-100 py-8">
-        <h2 className="text-4xl text-center py-10 font-bold mb-5">
-          Our King & Queen Selection
-        </h2>
-        <div className="w-screen lg:max-w-7xl  space-y-5 md:space-y-10 mx-auto">
-          <div className="flex justify-between items-center">
-            <div className="px-5">
-              <h4 className="text-xl capitalize">
-                Please Vote to choose King and Popular
-              </h4>
-              <p className="text-sm opacity-75">Who will be KING or POPULAR</p>
-            </div>
-            <div className="gap-2 hidden md:flex">
-              <Image
-                src={"/young-man.png"}
-                alt={`${name}'s photo`}
-                width={100}
-                height={100}
-                className="w-[50px] h-[50px] object-contain"
-                priority
-              />
-              <Image
-                src={"/crown.png"}
-                alt={`${name}'s photo`}
-                width={100}
-                height={100}
-                className="w-[40px] h-[40px] animate-bounce object-contain"
-                priority
-              />
-              <Image
-                src={"/young-man.png"}
-                alt={`${name}'s photo`}
-                width={100}
-                height={100}
-                className="w-[50px] h-[50px] object-contain"
-                priority
-              />
+      {/* <h2 className="text-4xl text-center py-10 font-bold mb-5">
+            Our King & Queen Selection
+          </h2> */}
+      <div className="min-h-screen dark:bg-background soft-dark py-8">
+        <div className="text-wrapper mb-10 md:mb-20 text-center">
+          <div className="text-container text-background">
+            King & Queen Selection
+          </div>
+          <div className="text-container text-front">
+            King & Queen Selection
+          </div>
+        </div>
+
+        <div className="w-screen lg:max-w-[90%]  space-y-5 md:space-y-28 mx-auto">
+
+          {/* For king Selection */}
+          <div className="space-y-10">
+            <SectionHeader
+              title={contents.boys.title}
+              subTitle={contents.boys.subtitle}
+              images={contents.boys.images}
+            />
+
+            <div className="mx-auto p-5 md:p-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+              {students.map((student) => (
+                <StudentCard
+                  key={student.id}
+                  name={student.name}
+                  grade={student.grade}
+                  image={student.image}
+                  bio={student.bio}
+                  onVote={() => {}}
+                />
+              ))}
             </div>
           </div>
 
-          <div className="mx-auto p-5 md:p-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-            {students.map((student) => (
-              <StudentCard
-                key={student.id}
-                name={student.name}
-                grade={student.grade}
-                image={student.image}
-                bio={student.bio}
-                onVote={() => {}}
-              />
-            ))}
+          {/* For Queen Selection */}
+          <div className="space-y-10">
+            <SectionHeader
+              title={contents.girls.title}
+              subTitle={contents.girls.subtitle}
+              images={contents.girls.images}
+            />
+
+            <div className="mx-auto p-5 md:p-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+              {students.map((student) => (
+                <StudentCard
+                  key={student.id}
+                  name={student.name}
+                  grade={student.grade}
+                  image={student.image}
+                  bio={student.bio}
+                  onVote={() => {}}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
