@@ -1,7 +1,3 @@
-<<<<<<< Updated upstream
-export default function Page() {
-  return <div>admin page</div>;
-=======
 import {
   Card,
   CardDescription,
@@ -85,5 +81,4 @@ export default function Page() {
 
     </div>
   );
->>>>>>> Stashed changes
 }
