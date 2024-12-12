@@ -3,3 +3,12 @@ export interface EmailTypes {
   subject: string;
   html: string;
 }
+
+
+export interface UserTypes {
+  email: string;
+  name: string;
+  password?: string;
+  image: string
+
+}
