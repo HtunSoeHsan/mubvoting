@@ -5,8 +5,6 @@ import {
   CardTitle,
   
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-
 export default function Page() {
   return (
     <div className="m-4">
@@ -71,7 +69,7 @@ export default function Page() {
       <td className="px-4 py-2  text-left">The Eagles</td>
       <td className="px-4 py-2  text-left">1972</td>
       <td className="flex  ">
-      <button className="flex content-center bg-green-700 font-bold text-xl m-2 px-4 rounded-md">+</button>    
+      <button className="flex content-center bg-green-700 font-bold text-xl m-2 px-4 rounded-md ">+</button>    
       <button className="flex content-center bg-red-700 font-bold text-xl m-2 px-4 rounded-md">-</button>    
       </td>
     </tr>
