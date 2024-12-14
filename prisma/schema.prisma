@@ -96,6 +96,7 @@ enum UserType {
   OTHER
   ADMIN
   DINE
+  USER
 }
 
 enum Gender {
