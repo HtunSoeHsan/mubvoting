@@ -7,6 +7,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <html lang="en" suppressHydrationWarning>
         <head />
         <body className="">
+          <div className="scroll-watcher"></div>
+
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

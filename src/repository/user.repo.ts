@@ -14,7 +14,7 @@ export const getUserByEmail = async (email: string) => {
 export const createUser = async ({ name, email, image }: UserTypes) => {
   if (!name || !email || !image) return false;
   return await prisma.user.create({
-    data: { name, email, image, type: "STUDENT" },
+    data: { name, email, profile: image, type: "STUDENT" },
   });
 };
 
