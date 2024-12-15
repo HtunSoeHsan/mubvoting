@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -17,12 +14,13 @@ model User {
   id         Int       @id @default(autoincrement())
   email      String    @unique
   name       String?
+  profile    String?
   password   String?
   otp        Int?
   status     Boolean   @default(true)
   type       UserType
   created_at DateTime  @default(now())
-  updated_at DateTime? @updatedAt // Automatically updates on modification
+  updated_at DateTime? @updatedAt
   deleted_at DateTime?
 
   votes Voting[]
@@ -30,16 +28,60 @@ model User {
   @@map("tbl_user")
 }
 
-enum UserType {
-  STUDENT
-  TEACHER
-  OTHER
+model Selection {
+  id             Int       @id @default(autoincrement())
+  name           String    @db.VarChar(255)
+  profile        String
+  age            Int?
+  gender         Gender
+  section        String?
+  king           Int?      @default(0)
+  queen          Int?      @default(0)
+  popular        Int?      @default(0)
+  innocent       Int?      @default(0)
+  dob            DateTime?
+  address        String?   @db.VarChar(500)
+  selection_year String?   @db.VarChar(4) // Restrict year format to 4 characters
+  selected       Boolean   @default(false)
+  created_at     DateTime  @default(now())
+  updated_at     DateTime? @updatedAt
+  deleted_at     DateTime?
+
+  votes   Voting[]
+  gallery Gallery[]
+
+  @@map("tbl_selection")
+}
+
+model Gallery {
+  id           Int    @id @default(autoincrement())
+  selection_id Int
+  image        String
+
+  selection Selection @relation(fields: [selection_id], references: [id])
+
+  @@map("tbl_image")
+}
+
+model Voting {
+  id           Int       @id @default(autoincrement())
+  user_id      Int
+  selection_id Int
+  vote_type    VoteType
+  voting_year  String?   @db.VarChar(4)
+  created_at   DateTime  @default(now())
+  updated_at   DateTime? @updatedAt
+  deleted_at   DateTime?
+
+  user      User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  selection Selection @relation(fields: [selection_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, selection_id, voting_year, vote_type]) // Ensures a user can vote for a selection only once per year
+  @@map("tbl_voting")
 }
 
 model Admin {
   id         Int       @id @default(autoincrement())
-  email      String    @unique
-  name       String?
   status     Boolean   @default(true)
   created_at DateTime  @default(now())
   updated_at DateTime? @updatedAt
@@ -48,36 +90,23 @@ model Admin {
   @@map("tbl_admin")
 }
 
-model Selection {
-  id             Int       @id @default(autoincrement())
-  name           String
-  image          String
-  age            Int
-  dob            DateTime?
-  address        String
-  selection_year String
-  selected       Boolean   @default(false)
-  created_at     DateTime  @default(now())
-  updated_at     DateTime? @updatedAt
-  deleted_at     DateTime?
-
-  votes Voting[]
-
-  @@map("tbl_selection")
+enum UserType {
+  STUDENT
+  TEACHER
+  OTHER
+  ADMIN
+  DINE
+  USER
 }
 
-model Voting {
-  id           Int       @id @default(autoincrement())
-  user_id      Int
-  selection_id Int
-  voting_year  String
-  created_at   DateTime  @default(now())
-  updated_at   DateTime? @updatedAt
-  deleted_at   DateTime?
+enum Gender {
+  MALE
+  FEMALE
+}
 
-  user      User      @relation(fields: [user_id], references: [id])
-  selection Selection @relation(fields: [selection_id], references: [id])
-
-  @@unique([user_id, selection_id, voting_year]) // Ensures a user can vote for a selection only once per year
-  @@map("tbl_voting")
+enum VoteType {
+  KING
+  QUEEN
+  POPULAR
+  INNOCENT
 }

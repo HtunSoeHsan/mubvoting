@@ -1,6 +1,10 @@
 import { FC } from "react";
 import { Button } from "@/components/ui/button"; // Adjust path if needed
 import Image from "next/image";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/effect-cards';
+import { EffectCards } from 'swiper/modules';
 
 interface StudentCardProps {
   name: string;
@@ -18,61 +22,64 @@ const StudentCard: FC<StudentCardProps> = ({
   onVote,
 }) => {
   return (
-    <div className=" border-4 border-golden bg-fadeDark hover:scale-105 transition-all duration-200 ease-in-out rounded-lg flex flex-col shadow-md hover:shadow-lg">
-      <div className="p-4">
-        <Image
-          src={image}
-          alt={`${name}'s photo`}
-          width={500}
-          height={500}
-          className="w-full h-[240px] rounded-lg  object-cover"
-          priority
-        />
-      </div>
-      <div className="py-3 flex flex-col gap-1">
-        <h3 className="bg-gradient-to-tr from-gold to-yellow-700 p-2 w-[80%] rounded-r-full text-white">
-          {name}
-        </h3>
-        <p className="text-white p-2  opacity-75">{bio}</p>
-
-        <div className="flex justify-between p-2 items-center">
-          <p className="font-bold text-golden">Vote here : </p>
-          <Button className="w-[40%] text-lg bg-gradient-to-r from-gold to-yellow-900">
-             <Image
-              src={"/paper-airplane.png"}
-              alt={`${name}'s photo`}
-              width={500}
-              height={500}
-              className="w-[20px] h-[20px]"
+    <div className="relative bg-[#143848] w-[340px] py-[30px] rounded-xl space-y-6 mx-auto">
+      <div className="h-[50px] flex justify-center">
+        <div className="absolute top-[-80px] rounded-full w-[140px] h-[140px] border-2 border-black bg-cover overflow-hidden">
+          <Image
+            priority
+            alt={`${name}'s photo`}
+            src={image}
+            width={100}
+            height={100}
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="absolute top-[-15px] right-[-20px]  rounded-full w-[60px] h-[60px] bg-white flex items-center justify-center">
+          <div className="relative border-2 border-black w-[80%] h-[80%] rounded-full flex items-center justify-center">
+            <Image
               priority
-            /> 
-            
-          </Button>
+              alt={`${name}'s photo`}
+              src={"/king-crown.png"}
+              width={100}
+              height={100}
+              className="absolute top-[-20px] right-[-20px]"
+            />
+            <span className="font-extrabold text-[26px]">1</span>
+          </div>
+        </div>
+      </div>
+      <div className=" flex justify-center items-end">
+        <Swiper
+          effect={"cards"}
+          grabCursor={true}
+          modules={[EffectCards]}
+          className="mySwiper"
+        >
+          <SwiperSlide>Slide 1</SwiperSlide>
+          <SwiperSlide>Slide 2</SwiperSlide>
+          <SwiperSlide>Slide 3</SwiperSlide>
+          <SwiperSlide>Slide 4</SwiperSlide>
+          <SwiperSlide>Slide 5</SwiperSlide>
+          <SwiperSlide>Slide 6</SwiperSlide>
+          <SwiperSlide>Slide 7</SwiperSlide>
+          <SwiperSlide>Slide 8</SwiperSlide>
+          <SwiperSlide>Slide 9</SwiperSlide>
+        </Swiper>
+      </div>
+      <div className="space-y-5">
+        <h4 className="p-3 bg-gold w-[70%] rounded-r-full text-[20px] font-bold line-clamp-1">
+          Chit Thel Lay Kain
+        </h4>
+        <div className="flex justify-between items-center">
+          <p className="mx-3 text-white opacity-80 uppercase">
+            First Year Section-A
+          </p>
+          <button className="w-[35%] p-3 bg-gold rounded-l-full text-[18px] font-bold text-right capitalize">
+            Vote now
+          </button>
         </div>
       </div>
     </div>
-    // <div className="w-full max-w-sm border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-    //   <div className="relative w-full h-48">
-    //     <Image
-    //       src={image}
-    //       alt={`${name}'s photo`}
-    //       fill
-    //       className="object-cover rounded-t-lg"
-    //       priority
-    //     />
-    //   </div>
-    //   <div className="p-4">
-    //     <h3 className="text-xl font-bold ">{name}</h3>
-    //     <p className="text-sm ">Grade: {grade}</p>
-    //     <p className="mt-2  text-sm">{bio}</p>
-    //     <Button
-    //       onClick={onVote}
-    //       className="mt-4 w-full bg-primary  hover:bg-horver"
-    //     >
-    //       Vote for {name}
-    //     </Button>
-    //   </div>
-    // </div>
   );
 };
 

@@ -1,7 +1,8 @@
 "use client";
 import { TypeTextAni } from "@/components/cell";
-import { Header } from "@/components/header";
+import { Hero } from "@/components/hero";
 import { Nav } from "@/components/menus/Nav";
+import Navbar from "@/components/menus/Navbar";
 import SectionHeader from "@/components/SectionHeader";
 import StudentCard from "@/components/student-card";
 
@@ -71,20 +72,10 @@ const students = [
 
 export default function Home() {
   return (
-    <div className="bg-background text-foreground overflow-hidden">
-      <Header
-        bg="/mub-poly.jpg"
-        nav={<Nav />}
-        hero={
-          <div className="flex justify-center lg:pt-[200px] px-5 lg:text-4xl">
-            <TypeTextAni />
-          </div>
-        }
-      />
-      {/* <h2 className="text-4xl text-center py-10 font-bold mb-5">
-            Our King & Queen Selection
-          </h2> */}
-      <div className="min-h-screen  dark:bg-background soft-dark py-8">
+    <div className="bg-blue-100 text-foreground overflow-hidden">
+      <Hero />
+      <Navbar />
+      <div className="relative dark:bg-background soft-dark py-8">
         <div className="text-wrapper mb-10 md:mb-20 text-center">
           <div className="text-container text-background">
             King & Queen Selection
@@ -94,17 +85,16 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="w-screen lg:max-w-[90%]  space-y-5 md:space-y-28 mx-auto">
-
+        <div className="lg:max-w-[90%]  space-y-5 md:space-y-28 mx-auto">
           {/* For king Selection */}
-          <div className="space-y-10">
+          <div className="space-y-[100px]">
             <SectionHeader
               title={contents.boys.title}
               subTitle={contents.boys.subtitle}
               images={contents.boys.images}
             />
 
-            <div className="mx-auto p-5 md:p-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            <div className="mx-auto p-5 md:p-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[100px]">
               {students.map((student) => (
                 <StudentCard
                   key={student.id}
@@ -119,14 +109,14 @@ export default function Home() {
           </div>
 
           {/* For Queen Selection */}
-          <div className="space-y-10">
+          <div className="space-y-[100px]">
             <SectionHeader
               title={contents.girls.title}
               subTitle={contents.girls.subtitle}
               images={contents.girls.images}
             />
 
-            <div className="mx-auto p-5 md:p-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            <div className="mx-auto p-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[100px]">
               {students.map((student) => (
                 <StudentCard
                   key={student.id}
