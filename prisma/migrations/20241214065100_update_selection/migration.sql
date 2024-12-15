@@ -1,8 +1,0 @@
--- AlterTable
-ALTER TABLE `tbl_selection` MODIFY `age` INTEGER NULL,
-    MODIFY `king` INTEGER NULL DEFAULT 0,
-    MODIFY `queen` INTEGER NULL DEFAULT 0,
-    MODIFY `popular` INTEGER NULL DEFAULT 0,
-    MODIFY `innocent` INTEGER NULL DEFAULT 0,
-    MODIFY `address` VARCHAR(500) NULL,
-    MODIFY `section` VARCHAR(191) NULL;

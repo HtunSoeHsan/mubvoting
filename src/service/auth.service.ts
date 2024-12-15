@@ -2,24 +2,29 @@ import { createUser, getUserByEmail } from "@/repository/user.repo";
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import { UserTypes } from "@/types";
-import { prisma } from "@/config/db";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [Google],
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        console.log("user:", user)
+        console.log("user:", user);
         const dbUser = await getUserByEmail(user.email as string);
-        console.log({dbUser})
-        if(!dbUser) {
-          if (!user.name || !user.email || !user.image) { token.role = "guest"; return token};
-          const newUser = await createUser({name: user.name, email: user.email, image: user.image});
-          token.role = newUser.type
+        console.log({ dbUser });
+        if (!dbUser) {
+          if (!user.name || !user.email || !user.image) {
+            token.role = "guest";
+            return token;
+          }
+          const newUser = await createUser({
+            name: user.name,
+            email: user.email,
+            image: user.image,
+          });
+          token.role = newUser.type;
         } else {
           token.role = dbUser.type;
         }
-       
       }
       return token;
     },
@@ -29,7 +34,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       return session;
     },
   },
-
 });
 
 export async function signInAction() {
@@ -48,7 +52,7 @@ export async function storeUser({ name, email, image }: UserTypes) {
   }
 
   if (!user) {
-    const new_user = await createUser({ name, email, image, });
+    const new_user = await createUser({ name, email, image });
     console.log(new_user);
   }
 
