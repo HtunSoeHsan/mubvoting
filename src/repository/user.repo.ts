@@ -1,5 +1,6 @@
 import { prisma } from "@/config/db";
 import { UserTypes } from "@/types";
+import { UserType } from "@prisma/client";
 
 export const getUsers = async () => {
   return prisma.user.findMany();
@@ -12,9 +13,8 @@ export const getUserByEmail = async (email: string) => {
 };
 
 export const createUser = async ({ name, email, image }: UserTypes) => {
-  if (!name || !email || !image) return false;
   return await prisma.user.create({
-    data: { name, email, profile: image, type: "STUDENT" },
+    data: { name, email, profile: image, type: UserType.STUDENT },
   });
 };
 
