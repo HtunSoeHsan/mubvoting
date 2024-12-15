@@ -176,11 +176,11 @@ html {
   
 }
 
-.soft-dark{
+/* .soft-dark{
   background-image: repeating-linear-gradient(
     105deg,
-    var(--gold) 0%,
-    var(--dark-shadow) 5%,
+    var(--gold) 1%,
+    var(--dark-shadow) 10%,
     var(--gold) 30%
   );
-}
+} */

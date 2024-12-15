@@ -84,7 +84,7 @@ export default function Home() {
       {/* <h2 className="text-4xl text-center py-10 font-bold mb-5">
             Our King & Queen Selection
           </h2> */}
-      <div className="min-h-screen dark:bg-background soft-dark py-8">
+      <div className="min-h-screen  dark:bg-background soft-dark py-8">
         <div className="text-wrapper mb-10 md:mb-20 text-center">
           <div className="text-container text-background">
             King & Queen Selection
