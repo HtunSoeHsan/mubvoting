@@ -23,7 +23,7 @@ const SectionHeader: FC<SectionHeaderProps> = ({title,subTitle,images}) => {
             {subTitle}
           </p>
         </div>
-        <div className="gap-2 hidden md:flex">
+        {/* <div className="gap-2 hidden md:flex">
           <Image
             src={images.first}
             alt={`${name}'s photo`}
@@ -48,7 +48,7 @@ const SectionHeader: FC<SectionHeaderProps> = ({title,subTitle,images}) => {
             className="w-[50px] h-[50px] object-contain"
             priority
           />
-        </div>
+        </div> */}
       </div>
     )
 }
