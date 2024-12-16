@@ -1,12 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
-
 // Ensure you import or define updateSession and adminLink with their types
 
-export default async function middleware(request: NextRequest) {
-  
-
-}
+export default async function middleware(request: NextRequest) {}
 
 // Specify the path regex to apply the middleware to
 export const config = {

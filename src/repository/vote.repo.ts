@@ -16,16 +16,22 @@ export const getVotes = async () => {
   });
 };
 
-export const getUniqueVote = async (
-  user_id: number,
-  selection_id: number,
-  vote_type: VoteType,
-) => {
+export const getUniqueVote = async (user_id: number, vote_type: VoteType) => {
   return await prisma.voting.findFirst({
     where: {
       user_id,
-      selection_id,
       vote_type,
+    },
+    include: {
+      selection: true
+    }
+  });
+};
+
+export const deleteVote = async (id: number) => {
+  return await prisma.voting.delete({
+    where: {
+      id,
     },
   });
 };
@@ -51,6 +57,14 @@ export const createVote = async ({
       selection_id,
       vote_type,
       voting_year,
+    },
+  });
+};
+
+export const getTotalVoteCount = async (id: number) => {
+  return await prisma.voting.count({
+    where: {
+      user_id: id,
     },
   });
 };

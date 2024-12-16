@@ -36,35 +36,50 @@ export const addSelections = async (selections: Selection[]) => {
   return createdSelections;
 };
 
+export const getAllSelections = async () => {
+  return await prisma.selection.findMany({
+    include: {
+      gallery: true,
+    },
+  });
+};
+
 export const getSelectionById = async (id: number) => {
   return await prisma.selection.findUnique({
     where: { id },
   });
 };
 
-export const updateSelectionVote = async (id: number, vote_type: VoteType) => {
+export const updateSelectionVote = async (
+  id: number,
+  vote_type: VoteType,
+  increment: boolean = true
+) => {
+  let operation: { increment?: number; decrement?: number } = {
+    increment: 1, // Increment the `king` field by 1.
+  };
+  if (!increment) {
+    operation = {
+      decrement: 1,
+    };
+  }
   const vote = {
     KING: {
-      king: {
-        increment: 1, // Increment the `king` field by 1.
-      },
+      king: operation,
     },
     QUEEN: {
-      queen: {
-        increment: 1, // Increment the `queen` field by 1.
-      },
+      queen: operation,
     },
     POPULAR: {
-      popular: {
-        increment: 1, // Increment the `popular` field by 1.
-      },
+      popular: operation,
     },
     INNOCENT: {
-      innocent: {
-        increment: 1, // Increment the `innocent` field by 1.
-      },
+      innocent: operation,
     },
   };
+
+  console.log(vote[vote_type]);
+
   return await prisma.selection.update({
     where: {
       id: id, // This specifies the record to update using the provided `id`.

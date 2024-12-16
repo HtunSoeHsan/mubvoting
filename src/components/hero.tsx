@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
-import { ReactElement } from "react";
 import { TypeTextAni } from "./cell";
+import Particle from "./Particle";
 export const Hero = () => {
   return (
     <div
@@ -12,11 +12,10 @@ export const Hero = () => {
         className="absolute inset-0"
         style={{ backgroundColor: "#09101A", opacity: 0.7 }}
       ></div>
-      
 
+      <Particle />
       {/* {nav && nav} */}
       <div className="grid grid-cols-1 lg:grid-cols-2">
-         
         <Image
           src={"/poly-logo.png"}
           alt="poly-logo"
