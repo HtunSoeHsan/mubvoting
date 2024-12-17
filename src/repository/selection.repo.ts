@@ -1,5 +1,6 @@
 import { prisma } from "@/config/db";
 import { Selection } from "@/interface/selection";
+import { VoteType } from "@prisma/client";
 
 export const addSelections = async (selections: Selection[]) => {
   // Create selections
@@ -33,4 +34,56 @@ export const addSelections = async (selections: Selection[]) => {
   );
 
   return createdSelections;
+};
+
+export const getAllSelections = async () => {
+  return await prisma.selection.findMany({
+    include: {
+      gallery: true,
+    },
+  });
+};
+
+export const getSelectionById = async (id: number) => {
+  return await prisma.selection.findUnique({
+    where: { id },
+  });
+};
+
+export const updateSelectionVote = async (
+  id: number,
+  vote_type: VoteType,
+  increment: boolean = true
+) => {
+  let operation: { increment?: number; decrement?: number } = {
+    increment: 1, // Increment the `king` field by 1.
+  };
+  if (!increment) {
+    operation = {
+      decrement: 1,
+    };
+  }
+  const vote = {
+    KING: {
+      king: operation,
+    },
+    QUEEN: {
+      queen: operation,
+    },
+    POPULAR: {
+      popular: operation,
+    },
+    INNOCENT: {
+      innocent: operation,
+    },
+  };
+
+  console.log(vote[vote_type]);
+
+  return await prisma.selection.update({
+    where: {
+      id: id, // This specifies the record to update using the provided `id`.
+    },
+    data: vote[vote_type],
+  });
 };

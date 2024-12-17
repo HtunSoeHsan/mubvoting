@@ -7,7 +7,7 @@ CREATE TABLE `tbl_user` (
     `password` VARCHAR(191) NULL,
     `otp` INTEGER NULL,
     `status` BOOLEAN NOT NULL DEFAULT true,
-    `type` ENUM('STUDENT', 'TEACHER', 'OTHER', 'ADMIN', 'DINE') NOT NULL,
+    `type` ENUM('STUDENT', 'TEACHER', 'OTHER', 'ADMIN', 'DINE', 'USER') NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NULL,
     `deleted_at` DATETIME(3) NULL,
@@ -17,9 +17,21 @@ CREATE TABLE `tbl_user` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `tbl_admin` (
+CREATE TABLE `tbl_selection` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `status` BOOLEAN NOT NULL DEFAULT true,
+    `name` VARCHAR(255) NOT NULL,
+    `profile` VARCHAR(191) NOT NULL,
+    `age` INTEGER NULL,
+    `gender` ENUM('MALE', 'FEMALE') NOT NULL,
+    `section` VARCHAR(191) NULL,
+    `king` INTEGER NULL DEFAULT 0,
+    `queen` INTEGER NULL DEFAULT 0,
+    `popular` INTEGER NULL DEFAULT 0,
+    `innocent` INTEGER NULL DEFAULT 0,
+    `dob` DATETIME(3) NULL,
+    `address` VARCHAR(500) NULL,
+    `selection_year` VARCHAR(4) NULL,
+    `selected` BOOLEAN NOT NULL DEFAULT false,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NULL,
     `deleted_at` DATETIME(3) NULL,
@@ -28,23 +40,10 @@ CREATE TABLE `tbl_admin` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `tbl_selection` (
+CREATE TABLE `tbl_image` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(255) NOT NULL,
+    `selection_id` INTEGER NOT NULL,
     `image` VARCHAR(191) NOT NULL,
-    `age` INTEGER NOT NULL,
-    `gender` ENUM('MALE', 'FEMALE') NOT NULL,
-    `king` INTEGER NOT NULL DEFAULT 0,
-    `queen` INTEGER NOT NULL DEFAULT 0,
-    `popular` INTEGER NOT NULL DEFAULT 0,
-    `innocent` INTEGER NOT NULL DEFAULT 0,
-    `dob` DATETIME(3) NULL,
-    `address` VARCHAR(500) NOT NULL,
-    `selection_year` VARCHAR(4) NULL,
-    `selected` BOOLEAN NOT NULL DEFAULT false,
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updated_at` DATETIME(3) NULL,
-    `deleted_at` DATETIME(3) NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -63,6 +62,20 @@ CREATE TABLE `tbl_voting` (
     UNIQUE INDEX `tbl_voting_user_id_selection_id_voting_year_vote_type_key`(`user_id`, `selection_id`, `voting_year`, `vote_type`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `tbl_admin` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `status` BOOLEAN NOT NULL DEFAULT true,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated_at` DATETIME(3) NULL,
+    `deleted_at` DATETIME(3) NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `tbl_image` ADD CONSTRAINT `tbl_image_selection_id_fkey` FOREIGN KEY (`selection_id`) REFERENCES `tbl_selection`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `tbl_voting` ADD CONSTRAINT `tbl_voting_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `tbl_user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

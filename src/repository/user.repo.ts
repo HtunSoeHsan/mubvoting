@@ -9,12 +9,15 @@ export const getUsers = async () => {
 export const getUserByEmail = async (email: string) => {
   return await prisma.user.findFirst({
     where: { email: email },
+    include: {
+      votes: true,
+    },
   });
 };
 
 export const createUser = async ({ name, email, image }: UserTypes) => {
   return await prisma.user.create({
-    data: { name, email, profile: image, type: UserType.STUDENT },
+    data: { name, email, type: UserType.STUDENT, profile: image },
   });
 };
 
@@ -29,6 +32,20 @@ export const getRemaingVoteUsers = async () => {
         none: {},
       },
       status: true,
+    },
+  });
+};
+
+export const updateUserVoteStatus = async (
+  id: number,
+  status: boolean = false
+) => {
+  return await prisma.user.update({
+    data: {
+      vote_status: status,
+    },
+    where: {
+      id,
     },
   });
 };
