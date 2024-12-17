@@ -7,18 +7,17 @@ export const conf = {
     site_title: "Voting System",
     icon: "",
     menus: [
+
         {
-          link: links.homme,
-          label: "Home",
+          link: links.king,
+          label: "King",
         },
         {
-          link: links.contact,
-          label: "Contact",
+          link: links.queen,
+          label: "Queen",
         },
-        {
-          link: links.login,
-          label: "Login",
-        },
+        {link: links.popular, label: "Popular"},
+        {link: links.innocent, label: "Innocent"}
         
       ],
     admin_menu:[

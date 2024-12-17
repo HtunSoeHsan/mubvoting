@@ -1,7 +1,6 @@
 "use client";
 import { TypeTextAni } from "@/components/cell";
 import { Hero } from "@/components/hero";
-import { Nav } from "@/components/menus/Nav";
 import Navbar from "@/components/menus/Navbar";
 import SectionHeader from "@/components/SectionHeader";
 import StudentCard from "@/components/student-card";
@@ -73,8 +72,6 @@ const students = [
 export default function Home() {
   return (
     <div className="bg-background text-foreground">
-      <Hero />
-      <Navbar />
       <div className="relative dark:bg-background soft-dark py-8">
         <div className="text-wrapper mb-10 md:mb-20 text-center">
           <div className="text-container text-background">

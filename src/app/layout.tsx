@@ -2,6 +2,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ReactNode } from "react";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
+import Navbar from "@/components/menus/Navbar";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -11,14 +12,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <body className="">
           <div className="scroll-watcher"></div>
           <SessionProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              {children}
-            </ThemeProvider>
+            <Navbar />
+            {children}
           </SessionProvider>
         </body>
       </html>

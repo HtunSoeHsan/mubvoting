@@ -11,9 +11,9 @@ export default async function middleware(request: NextRequest) {
 // Specify the path regex to apply the middleware to
 export const config = {
   matcher: [
-    "/((?!sign-in|logo.png|_next/static|_next/image|.*\\.png$).*)",
+    "/((?!sign-in|logo.png|_next/static|_next/images|.*\\.png$).*)",
     {
-      source: "/((?!sign-in|_next/static|_next/image|favicon.ico|logo.png).*)",
+      source: "/((?!sign-in|_next/static|_next/images|favicon.ico|logo.png).*)",
       missing: [
         { type: "header", key: "next-router-prefetch" },
         { type: "header", key: "next-action" },

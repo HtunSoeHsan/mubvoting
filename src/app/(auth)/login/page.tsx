@@ -29,7 +29,7 @@ export default async function Page() {
         await signInAction();
       }}
     >
-      <div className="relative h-screen w-screen overflow-hidden flex justify-center items-center flex-col">
+      <div className="relative h-screen w-screen overflow-hidden flex justify-center items-center bg-background flex-col">
         <RoundedCircle
           top={-30}
           left={-10}
