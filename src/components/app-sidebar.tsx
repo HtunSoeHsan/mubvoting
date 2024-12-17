@@ -12,27 +12,24 @@ import {
 } from "@/components/ui/sidebar";
 
 // Menu items.
-const items = [
+const 
+items = [
   {
-    title: "Home",
-    url: "#",
+    title: "Dashboard",
+    url: "/admin",
     icon: Home,
   },
   {
-    title: "Inbox",
-    url: "#",
+    title: "User",
+    url: "/admin/user",
     icon: Inbox,
   },
   {
-    title: "Calendar",
-    url: "#",
+    title: "Selection",
+    url: "/admin/selection",
     icon: Calendar,
   },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
+ 
   {
     title: "Settings",
     url: "#",
@@ -40,18 +37,24 @@ const items = [
   },
 ];
 
+const iconLog = '/logo.svg'; 
+
 export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+         <div className="mb-6 rounded-sm p-1 flex items-center ">
+       <img src={iconLog} alt="Logo" className="max-h-24 mx-2"/>
+       <p className="font-xl font-semibold">Voting</p>
+    
+         </div>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <a href={item.url} className="mt-1 p-2 text-bold bg-blue-100">
                       <item.icon />
                       <span>{item.title}</span>
                     </a>
