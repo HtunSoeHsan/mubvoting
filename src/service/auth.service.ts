@@ -22,8 +22,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             image: user.image,
           });
           token.role = newUser.type;
+          token.user_id = newUser.id;
         } else {
           token.role = dbUser.type;
+          token.user_id = dbUser.id;
         }
       }
       return token;
