@@ -11,10 +11,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <head />
         <body className="">
           <div className="scroll-watcher"></div>
-          <SessionProvider>
-            <Navbar />
-            {children}
-          </SessionProvider>
+          <SessionProvider>{children}</SessionProvider>
         </body>
       </html>
     </>

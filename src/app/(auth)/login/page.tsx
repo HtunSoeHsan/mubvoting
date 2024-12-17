@@ -6,13 +6,13 @@ import { auth, signInAction } from "@/service/auth.service";
 import { redirect } from "next/navigation";
 
 const config = {
-  imgUrl: "/otp.svg",
+  imgUrl: "/images/otp.svg",
   content: {
     title: "Enter Your Email",
     description: "You can esily login with your gmail account",
   },
   btnText: "Continue with Google",
-  btnIcon: "/google.svg",
+  btnIcon: "/images/google.svg",
 };
 
 export default async function Page() {
