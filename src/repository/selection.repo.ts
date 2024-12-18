@@ -1,10 +1,10 @@
 import { prisma } from "@/config/db";
 import { Selection } from "@/interface/selection";
-import { VoteType } from "@prisma/client";
+import { Gender, VoteType } from "@prisma/client";
 
+  
 export const addSelections = async (selections: Selection[]) => {
-  // Create selections
-  const createdSelections = await Promise.all(
+   await Promise.all(
     selections.map(async (selection) => {
       const createdSelection = await prisma.selection.create({
         data: {
@@ -19,7 +19,6 @@ export const addSelections = async (selections: Selection[]) => {
         },
       });
 
-      // Create associated gallery images if provided
       if (selection.gallery && selection.gallery.length > 0) {
         await prisma.gallery.createMany({
           data: selection.gallery.map((image) => ({
@@ -33,7 +32,7 @@ export const addSelections = async (selections: Selection[]) => {
     })
   );
 
-  return createdSelections;
+  console.log("######### selection seed successfully #########")
 };
 
 export const getAllSelections = async () => {

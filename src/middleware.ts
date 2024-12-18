@@ -6,8 +6,6 @@ export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.AUTH_SECRET });
   const { pathname } = req.nextUrl;
 
-  console.log({token})
-  console.log("path", req.nextUrl.pathname)
   if (pathname.startsWith("/admin")) {
     if(!token) return NextResponse.redirect(new URL(links.login, req.url));
     if (token?.role !== "ADMIN") return NextResponse.redirect(new URL(links.homme, req.url))
@@ -15,7 +13,7 @@ export async function middleware(req: NextRequest) {
 
   return NextResponse.next();
 }
-// Specify the path regex to apply the middleware to
+
 export const config = {
   matcher: [
     "/((?!login|logo.png|.*\\.svg$|_next/static|_next/images|.*\\.png$).*)",

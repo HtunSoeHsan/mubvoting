@@ -60,8 +60,8 @@ const Navbar = () => {
           className={`hidden lg:block relative top-full left-0 w-full lg:w-auto lg:flex lg:items-center lg:space-x-6 bg-[#0D2E6E] lg:bg-transparent`}
         >
           <ul className="flex flex-row justify-center items-center gap-3 lg:space-y-0 lg:space-x-6 pt-2 lg:px-0 lg:py-0">
-            {conf.menus.map((m) => (
-              <li className="nav-item">
+            {conf.menus.map((m, i) => (
+              <li className="nav-item" key={i}>
                 <Link
                   href={m.link}
                   className={`uppercase text-sm font-medium ${
@@ -118,8 +118,8 @@ const Navbar = () => {
         className={`relative top-full left-0 w-full lg:w-auto lg:flex lg:items-center lg:space-x-6 bg-[#0D2E6E] lg:bg-transparent`}
       >
         <ul className="block lg:hidden flex flex-row justify-center items-center gap-3 lg:space-y-0 lg:space-x-6 text-xs p-2 border-t-2 border-[#e5da0b] lg:px-0 lg:py-0">
-          {conf.menus.map((m) => (
-            <li className="nav-item">
+          {conf.menus.map((m, i) => (
+            <li className="nav-item" key={i}>
               <Link
                 href={m.link}
                 className={`uppercase text-sm font-medium ${
