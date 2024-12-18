@@ -1,4 +1,5 @@
 "use server";
+import { Selection, SelectionPayload } from "@/interface/selection";
 import { addSelections, getAllSelections } from "@/repository/selection.repo";
 import { Gender } from "@prisma/client";
 
@@ -8,7 +9,7 @@ const selections =  [
     name: "Paing Phyo Thu",
     profile: "/images/Paing_Phyo_Thu/profile.jpg", // please follow path format
     age: 19,
-    selecton_no: 1, // ခါးနံပါတ်
+    selection_no: 1, // ခါးနံပါတ်
     gender: Gender.MALE,
     section: "B",
     address: "Kyaiklat",
@@ -18,7 +19,7 @@ const selections =  [
     name: "Ei Shwe Sin Htet",
     profile: "/images/Ei_Shwe_Sin_Htet/profile.jpg",
     age: 18,
-    selecton_no: 1, 
+    selection_no: 1, 
     gender: Gender.FEMALE,
     section: "A",
     address: "Kyaiklat",
@@ -28,7 +29,7 @@ const selections =  [
     name: "Thaw Bhone Htet",
     profile: "/images/Thaw_Bhone_Htet/profile.jpg", // please follow path format
     age: 18,
-    selecton_no: 2, // ခါးနံပါတ်
+    selection_no: 2, // ခါးနံပါတ်
     gender: Gender.MALE,
     section: "A",
     address: "Yangon",
@@ -38,7 +39,7 @@ const selections =  [
     name: "Htet Htet Aung",
     profile: "/images/Htet_Htet_Aung/profile.jpg",
     age: 18,
-    selecton_no: 2, 
+    selection_no: 2, 
     gender: Gender.FEMALE,
     section: "A",
     address: "Maubin",
@@ -48,7 +49,7 @@ const selections =  [
     name: "Okkar Thu",
     profile: "/images/Okkar_Thu/profile.jpg", // please follow path format
     age: 18,
-    selecton_no: 3, // ခါးနံပါတ်
+    selection_no: 3, // ခါးနံပါတ်
     gender: Gender.MALE,
     section: "B",
     address: "Yangon",
@@ -58,7 +59,7 @@ const selections =  [
     name: "Yoon Lae Lae Khaing",
     profile: "/images/Yoon_Lae_Lae_Khaing/profile.jpg",
     age: 18,
-    selecton_no: 3, 
+    selection_no: 3, 
     gender: Gender.FEMALE,
     section: "A",
     address: "Kyaiklat",
@@ -68,7 +69,7 @@ const selections =  [
     name: "Bhone Pyae Khant",
     profile: "/images/Bhone_Pyae_Khant/profile.jpg", // please follow path format
     age: 18,
-    selecton_no: 4, // ခါးနံပါတ်
+    selection_no: 4, // ခါးနံပါတ်
     gender: Gender.MALE,
     section: "A",
     address: "Nyaungdon",
@@ -78,7 +79,7 @@ const selections =  [
     name: "Thein Yati Nwe",
     profile: "/images/Thein_Yati_Nwe/profile.jpg",
     age: 18,
-    selecton_no: 4, 
+    selection_no: 4, 
     gender: Gender.FEMALE,
     section: "B",
     address: "Nay Pyi Taw",
@@ -88,7 +89,7 @@ const selections =  [
     name: "Chit Min Thu",
     profile: "/images/Chit_Min_Thu/profile.jpg", // please follow path format
     age: 18,
-    selecton_no: 5, // ခါးနံပါတ်
+    selection_no: 5, // ခါးနံပါတ်
     gender: Gender.MALE,
     section: "B",
     address: "Pyapon",
@@ -98,7 +99,7 @@ const selections =  [
     name: "Hnin Hnin Hsan",
     profile: "/images/Hnin_Hnin_Hsan/profile.jpg",
     age: 18,
-    selecton_no: 5, 
+    selection_no: 5, 
     gender: Gender.FEMALE,
     section: "A",
     address: "Maubin",
@@ -111,7 +112,6 @@ export const addSelection = async () => {
   return await addSelections(selections);
 };
 
-export const getSelections = async () => {
-  const selections = await getAllSelections();
-  console.log(selections);
+export const getSelections = async (gender?: Gender) => {
+  return await getAllSelections(gender);
 };

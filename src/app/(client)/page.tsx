@@ -4,6 +4,8 @@ import { Hero } from "@/components/hero";
 import Navbar from "@/components/menus/Navbar";
 import SectionHeader from "@/components/SectionHeader";
 import StudentCard from "@/components/student-card";
+import { getSelections } from "@/service/selection.service";
+import { useEffect, useState } from "react";
 
 const contents = {
   boys: {
@@ -80,68 +82,20 @@ const students = [
 ];
 
 export default function Home() {
-  return (
-    <div className="bg-background text-foreground">
-      <div className="relative dark:bg-background soft-dark py-8">
-        <div className="text-wrapper mb-10 md:mb-20 text-center">
-          <div className="text-container text-background">
-            King & Queen Selection
-          </div>
-          <div className="text-container text-front">
-            King & Queen Selection
-          </div>
-        </div>
+  const [selections, setSelections] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const fetch = async () => {
+    await getSelections()
+      .then((data) => {
+        console.log(data);
+        setSelections(data);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+  };
+  useEffect(() => {
+    fetch();
+  }, []);
 
-        <div className="lg:max-w-[90%]  space-y-5 md:space-y-28 mx-auto">
-          {/* For king Selection */}
-          <div className="space-y-[100px]">
-            <SectionHeader
-              title={contents.boys.title}
-              subTitle={contents.boys.subtitle}
-              images={contents.boys.images}
-            />
-
-            <div className="mx-auto p-5 md:p-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-32 md:gap-y-24 lg:gap-y-36">
-              {students.map((student) => (
-                <StudentCard
-                  no={student.no}
-                  key={student.id}
-                  name={student.name}
-                  grade={student.grade}
-                  image={student.image}
-                  gender={student.gender}
-                  bio={student.bio}
-                  onVote={() => {}}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* For Queen Selection */}
-          <div className="space-y-[100px]">
-            <SectionHeader
-              title={contents.girls.title}
-              subTitle={contents.girls.subtitle}
-              images={contents.girls.images}
-            />
-
-            <div className="mx-auto p-5 md:p-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-32 md:gap-y-24 lg:gap-y-36">
-              {students.map((student) => (
-                <StudentCard
-                  no={student.no}
-                  key={student.id}
-                  name={student.name}
-                  grade={student.grade}
-                  image={student.image}
-                  gender={student.gender}
-                  bio={student.bio}
-                  onVote={() => {}}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  return <div className="bg-background text-foreground"></div>;
 }

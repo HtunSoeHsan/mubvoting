@@ -41,6 +41,7 @@ model Selection {
   popular        Int?      @default(0)
   innocent       Int?      @default(0)
   dob            DateTime?
+  selection_no   Int
   vote_status    Boolean   @default(true)
   address        String?   @db.VarChar(500)
   selection_year String?   @db.VarChar(4) // Restrict year format to 4 characters

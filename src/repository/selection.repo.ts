@@ -1,9 +1,9 @@
 import { prisma } from "@/config/db";
-import { Selection } from "@/interface/selection";
+import { SelectionPayload } from "@/interface/selection";
 import { Gender, VoteType } from "@prisma/client";
 
   
-export const addSelections = async (selections: Selection[]) => {
+export const addSelections = async (selections: SelectionPayload[]) => {
    await Promise.all(
     selections.map(async (selection) => {
       const createdSelection = await prisma.selection.create({
@@ -15,6 +15,7 @@ export const addSelections = async (selections: Selection[]) => {
           section: selection.section,
           dob: selection.dob,
           address: selection.address,
+          selection_no: selection.selection_no,
           selection_year: selection.selection_year,
         },
       });
@@ -35,13 +36,18 @@ export const addSelections = async (selections: Selection[]) => {
   console.log("######### selection seed successfully #########")
 };
 
-export const getAllSelections = async () => {
+export const getAllSelections = async (gender?: Gender) => {
+  const where = gender ? { gender } : undefined;
+
   return await prisma.selection.findMany({
-    include: {
+    select: {
+      id: true, age: true, name: true, address: true, gender: true, profile: true,selected: true, selection_no: true, 
       gallery: true,
     },
+    where
   });
 };
+
 
 export const getSelectionById = async (id: number) => {
   return await prisma.selection.findUnique({
