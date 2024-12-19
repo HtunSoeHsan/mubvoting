@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -21,28 +21,36 @@ interface StudentCardProps {
 const StudentCard: FC<StudentCardProps> = ({
   no,
   name,
-  grade,
   image,
-  bio,
   gender,
-  onVote,
   gallery,
 }) => {
-  const isMale = gender === "male";
-  const crownIcon = isMale ? "/king-crown.png" : "/queen-crown.png";
   const isTimeToVote = true;
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const openModal = (image: string) => {
+    setSelectedImage(image);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="relative bg-[#143848] w-[340px] py-[30px] rounded-xl space-y-6 mx-auto">
       <div className="h-[50px] flex justify-center">
         {/* Image at the top,It'used for show profile  */}
-        <div className="absolute top-[-80px] rounded-full w-[140px] h-[140px] border-2 border-black bg-cover overflow-hidden">
+        <div className="absolute top-[-80px] rounded-full w-[140px] h-[140px] border-2 border-white bg-cover overflow-hidden">
           <Image
             priority
-            alt={`${name}'s photo`}
+            alt={`${name} photo`}
             src={image}
-            width={100}
-            height={100}
+            width={1920} // Full HD width
+            height={1080} // Full HD height
             className="w-full h-full rounded-full object-cover"
           />
         </div>
@@ -52,8 +60,12 @@ const StudentCard: FC<StudentCardProps> = ({
             {/* This is image is used as crown icon  */}
             <Image
               priority
-              alt={`${name}'s photo`}
-              src={crownIcon}
+              alt={`${name} photo`}
+              src={
+                gender === "FEMALE"
+                  ? "/images/queen-crown.png"
+                  : "/images/king-crown.png"
+              }
               width={100}
               height={100}
               className="absolute top-[-25px] right-[-10px]"
@@ -72,18 +84,41 @@ const StudentCard: FC<StudentCardProps> = ({
           className="mySwiper"
         >
           {gallery.map((g) => (
-            <SwiperSlide key={g.id}>
+            <SwiperSlide key={g.id} onClick={() => openModal(g.image)}>
               <Image
-                alt={`${name}'s photo`}
+                alt={`${name} photo`}
                 priority
                 src={g.image}
-                width={100}
-                height={100}
-                className="w-full h-full"
+                width={1920}
+                height={1080}
+                className="w-full h-full object-cover"
               />
             </SwiperSlide>
           ))}
         </Swiper>
+        {/* Modal */}
+        {isModalOpen && (
+          <div
+            className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-75 z-50"
+            onClick={closeModal}
+          >
+            <div className="relative max-w-5xl max-h-[90vh] w-full h-full">
+              <Image
+                alt="Enlarged view"
+                src={selectedImage!}
+                layout="fill"
+                objectFit="contain"
+                className="cursor-pointer"
+              />
+            </div>
+            <button
+              className="absolute top-4 right-4 text-white text-2xl"
+              onClick={closeModal}
+            >
+              ✕
+            </button>
+          </div>
+        )}
       </div>
 
       {/* This section show the  name and section of selection  */}
@@ -104,7 +139,7 @@ const StudentCard: FC<StudentCardProps> = ({
               className="w-[50%] p-3 bg-gold rounded-l-full  justify-center items-center gap-2  opacity-50 inline-flex"
             >
               <Loader2 className="animate-spin" />
-              Can't vote now
+              Can&apos;t vote now
             </button>
           )}
         </div>

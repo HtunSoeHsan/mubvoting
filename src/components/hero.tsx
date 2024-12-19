@@ -6,7 +6,7 @@ export const Hero = () => {
   return (
     <div
       className="shadow bg-transparent bg-cover bg-center min-h-[400px] sm:min-h-[500px] lg:min-h-[710px]"
-      style={{ backgroundImage: `url(/mub-poly.jpg)` }}
+      style={{ backgroundImage: `url(/images/mub-poly.jpg)` }}
     >
       <div
         className="absolute inset-0"

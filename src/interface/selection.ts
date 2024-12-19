@@ -6,7 +6,7 @@ export interface SelectionPayload {
   profile: string;
   age?: number;
   gender: Gender;
-  section?: string;
+  section: string;
   selection_no: number;
   king?: number;
   queen?: number;
@@ -30,10 +30,11 @@ export interface Selection {
   id: number;
     name: string;
     profile: string;
-    age: number | null;
+    age?: number | null;
     gender: $Enums.Gender;
     selection_no: number;
-    address: string | null;
+    section: string;
+    address?: string | null;
     selected: boolean;
     gallery: {
         id: number;

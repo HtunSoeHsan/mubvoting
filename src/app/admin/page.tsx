@@ -4,18 +4,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-const iconLog = "/logo.svg";
-const irefresh = "/refresh.png";
 
 export default function Page() {
   const King = [
-    { id: 1, name: "Thaw Bhonte Htet" },
-    { id: 2, name: "Okkar Thu" },
-    { id: 3, name: "Thein Yati Nwe" },
-    { id: 4, name: "Yoon Lae Lae Khaing" },
-    { id: 5, name: "Hnin Hnin Hsan" },
-  ];
-  const Queen = [
     { id: 1, name: "Thaw Bhonte Htet" },
     { id: 2, name: "Okkar Thu" },
     { id: 3, name: "Thein Yati Nwe" },

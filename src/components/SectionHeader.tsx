@@ -1,29 +1,25 @@
-import Image from "next/image";
 import { FC } from "react";
 
 interface SectionHeaderProps {
   title: string;
-  subTitle : string;
+  subTitle: string;
   images: {
-    first : string;
-    second : string;
-    third : string;
+    first: string;
+    second: string;
+    third: string;
   };
-  
 }
 
-const SectionHeader: FC<SectionHeaderProps> = ({title,subTitle,images}) => {
-    return (
-        <div className="hidden md:flex justify-between items-center">
-        <div className="px-5">
-          <h4 className="text-[30px] text  md:text-2xl font-semibold uppercase">
-            {title}
-          </h4>
-          <p className="text-lg md:text-md opacity-80">
-            {subTitle}
-          </p>
-        </div>
-        {/* <div className="gap-2 hidden md:flex">
+const SectionHeader: FC<SectionHeaderProps> = ({ title, subTitle }) => {
+  return (
+    <div className="hidden md:flex justify-between items-center">
+      <div className="px-5">
+        <h4 className="text-[30px] text  md:text-2xl font-semibold uppercase">
+          {title}
+        </h4>
+        <p className="text-lg md:text-md opacity-80">{subTitle}</p>
+      </div>
+      {/* <div className="gap-2 hidden md:flex">
           <Image
             src={images.first}
             alt={`${name}'s photo`}
@@ -49,8 +45,8 @@ const SectionHeader: FC<SectionHeaderProps> = ({title,subTitle,images}) => {
             priority
           />
         </div> */}
-      </div>
-    )
-}
+    </div>
+  );
+};
 
 export default SectionHeader;

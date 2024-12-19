@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 
 export default function SearchBox() {
   const Register = [
@@ -18,10 +18,10 @@ export default function SearchBox() {
       vote: 12,
     },
   ];
-  const searchQuery = cookies().get("searchQuery")?.value || ""; // Read query from cookies
-  const filteredUsers = Register.filter((Register) =>
-    Register.username.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // const searchQuery = cookies().get("searchQuery")?.value || ""; // Read query from cookies
+  // const filteredUsers = Register.filter((Register) =>
+  // Register.username.toLowerCase().includes(searchQuery.toLowerCase())
+  // );
 
   return (
     <>
@@ -35,7 +35,7 @@ export default function SearchBox() {
           <input
             type="text"
             name="query"
-            defaultValue={searchQuery}
+            // defaultValue={searchQuery}
             placeholder="Search..."
             className="border p-2 rounded"
           />

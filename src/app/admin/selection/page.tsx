@@ -1,9 +1,7 @@
 "use client";
 
 import LoadingSpinner from "@/components/cell/LoadingSpinner";
-import { Alert } from "@/components/ui/alert";
 import { addSelection } from "@/service/selection.service";
-import { SplineIcon } from "lucide-react";
 import { useState } from "react";
 
 export default function Users() {

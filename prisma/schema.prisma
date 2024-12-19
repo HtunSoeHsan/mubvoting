@@ -35,7 +35,7 @@ model Selection {
   profile        String
   age            Int?
   gender         Gender
-  section        String?
+  section        String
   king           Int?      @default(0)
   queen          Int?      @default(0)
   popular        Int?      @default(0)

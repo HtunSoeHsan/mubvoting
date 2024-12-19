@@ -3,38 +3,11 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { conf } from "@/config";
-import { Calendar, Home, Inbox, Settings } from "lucide-react";
-
-// Menu items.
-const items = [
-  {
-    title: "Dashboard",
-    url: "/admin",
-    icon: Home,
-  },
-  {
-    title: "User",
-    url: "/admin/user",
-    icon: Inbox,
-  },
-  {
-    title: "Selection",
-    url: "/admin/selection",
-    icon: Calendar,
-  },
-
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
-];
 
 const iconLog = "/logo.svg";
 

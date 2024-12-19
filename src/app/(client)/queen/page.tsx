@@ -1,65 +1,15 @@
 "use client";
+import LoadingSpinner from "@/components/cell/LoadingSpinner";
 import StudentCard from "@/components/student-card";
+import { Selection } from "@/interface/selection";
 import { getSelections } from "@/service/selection.service";
 import { useEffect, useState } from "react";
 
-// const students = [
-//   {
-//     id: 1,
-//     no: 1,
-//     name: "John Doe",
-//     grade: "10th Grade",
-//     gender: "male",
-//     image:
-//       "https://images.hellomagazine.com/horizon/landscape/ec09d4add571-gettyimages-1443645015.jpg", // Replace with your images
-//     bio: "Passionate about making our school better and more inclusive.",
-//   },
-//   {
-//     id: 2,
-//     no: 2,
-//     name: "Jane Smith",
-//     grade: "11th Grade",
-//     gender: "male",
-//     image:
-//       "https://images.hellomagazine.com/horizon/landscape/ec09d4add571-gettyimages-1443645015.jpg",
-//     bio: "Committed to representing student voices and creating change.",
-//   },
-//   {
-//     id: 3,
-//     no: 3,
-//     name: "Jane Smith",
-//     grade: "11th Grade",
-//     gender: "male",
-//     image:
-//       "https://images.hellomagazine.com/horizon/landscape/ec09d4add571-gettyimages-1443645015.jpg",
-//     bio: "Committed to representing student voices and creating change.",
-//   },
-//   {
-//     id: 4,
-//     no: 4,
-//     name: "Jane Smith",
-//     grade: "11th Grade",
-//     gender: "male",
-//     image:
-//       "https://images.hellomagazine.com/horizon/landscape/ec09d4add571-gettyimages-1443645015.jpg",
-//     bio: "Committed to representing student voices and creating change.",
-//   },
-//   {
-//     id: 5,
-//     no: 5,
-//     name: "Jane Smith",
-//     grade: "11th Grade",
-//     gender: "male",
-//     image:
-//       "https://images.hellomagazine.com/horizon/landscape/ec09d4add571-gettyimages-1443645015.jpg",
-//     bio: "Committed to representing student voices and creating change.",
-//   },
-// ];
-
 export default function Page() {
-  const [selections, setSelections] = useState<any[]>([]);
+  const [selections, setSelections] = useState<Selection[]>([]);
   const [loading, setLoading] = useState(false);
   const fetch = async () => {
+    setLoading(true);
     await getSelections("FEMALE")
       .then((data) => {
         console.log(data);
@@ -72,6 +22,13 @@ export default function Page() {
     fetch();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 z-50">
+        <LoadingSpinner />
+      </div>
+    );
+  }
   return (
     <div className="bg-background text-foreground">
       <div className="relative dark:bg-background  py-8">

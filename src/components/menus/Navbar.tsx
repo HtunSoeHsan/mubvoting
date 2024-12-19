@@ -1,19 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Cross, LogIn, LogOut, Menu, Power, X } from "lucide-react";
-// import { auth, signOut, signOutAction } from "@/service/auth.service";
-import { User } from "next-auth";
+import { LogOut, Power } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import { links } from "@/config/link";
-import { ModeToggle } from "../cell/mode";
 import { conf } from "@/config";
 import { usePathname } from "next/navigation";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [loading, setLoading] = useState<boolean>(false);
   const data = useSession();
   const pathname = usePathname();
 

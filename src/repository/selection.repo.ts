@@ -41,7 +41,7 @@ export const getAllSelections = async (gender?: Gender) => {
 
   return await prisma.selection.findMany({
     select: {
-      id: true, age: true, name: true, address: true, gender: true, profile: true,selected: true, selection_no: true, 
+      id: true, age: true, name: true, address: true, gender: true, profile: true,selected: true, section: true, selection_no: true, 
       gallery: true,
     },
     where

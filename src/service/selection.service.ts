@@ -1,5 +1,4 @@
 "use server";
-import { Selection, SelectionPayload } from "@/interface/selection";
 import { addSelections, getAllSelections } from "@/repository/selection.repo";
 import { Gender } from "@prisma/client";
 
@@ -13,7 +12,7 @@ const selections =  [
     gender: Gender.MALE,
     section: "B",
     address: "Kyaiklat",
-    gallery: ["/images/Paing_Phyo_Thu/image_1.jpg", "/images/Paing_Phyo_Thu/image_2.jpg","/images/Paing_Phyo_Thu/image_3.jpg",], // Gallery images for this selection
+    gallery: ["/images/Paing_Phyo_Thu/image_1.jpg", "/images/Paing_Phyo_Thu/image_2.jpg","/images/Paing_Phyo_Thu/image_3.jpg","/images/Paing_Phyo_Thu/image_4.jpg","/images/Paing_Phyo_Thu/image_5.jpg","/images/Paing_Phyo_Thu/image_6.jpg","/images/Paing_Phyo_Thu/image_7.jpg","/images/Paing_Phyo_Thu/image_8.jpg",], // Gallery images for this selection
   },
   {
     name: "Ei Shwe Sin Htet",
@@ -23,7 +22,7 @@ const selections =  [
     gender: Gender.FEMALE,
     section: "A",
     address: "Kyaiklat",
-    gallery: ["/images/Ei_Shwe_Sin_Htet/image_1.jpg", "/images/Ei_Shwe_Sin_Htet/image_2.jpg", "/images/Ei_Shwe_Sin_Htet/image_3.jpg",], // can add more
+    gallery: ["/images/Ei_Shwe_Sin_Htet/image_1.jpg", "/images/Ei_Shwe_Sin_Htet/image_2.jpg", "/images/Ei_Shwe_Sin_Htet/image_3.jpg","/images/Ei_Shwe_Sin_Htet/image_4.jpg","/images/Ei_Shwe_Sin_Htet/image_5.jpg","/images/Ei_Shwe_Sin_Htet/image_6.jpg","/images/Ei_Shwe_Sin_Htet/image_7.jpg","/images/Ei_Shwe_Sin_Htet/image_8.jpg",], // can add more
   },
   {
     name: "Thaw Bhone Htet",
@@ -33,7 +32,7 @@ const selections =  [
     gender: Gender.MALE,
     section: "A",
     address: "Yangon",
-    gallery: ["/images/Thaw_Bhone_Htet/image_1.jpg", "/images/Thaw_Bhone_Htet/image_2.jpg","/images/Thaw_Bhone_Htet/image_3.jpg"], // Gallery images for this selection
+    gallery: ["/images/Thaw_Bhone_Htet/image_1.jpg", "/images/Thaw_Bhone_Htet/image_2.jpg","/images/Thaw_Bhone_Htet/image_3.jpg","/images/Thaw_Bhone_Htet/image_4.jpg", "/images/Thaw_Bhone_Htet/image_5.jpg","/images/Thaw_Bhone_Htet/image_6.jpg","/images/Thaw_Bhone_Htet/image_7.jpg","/images/Thaw_Bhone_Htet/image_8.jpg"], // Gallery images for this selection
   },
   {
     name: "Htet Htet Aung",
@@ -43,7 +42,7 @@ const selections =  [
     gender: Gender.FEMALE,
     section: "A",
     address: "Maubin",
-    gallery: ["/images/Htet_Htet_Aung/image_1.jpg", "/images/Htet_Htet_Aung/image_2.jpg", "/images/Htet_Htet_Aung/image_3.jpg",],
+    gallery: ["/images/Htet_Htet_Aung/image_1.jpg", "/images/Htet_Htet_Aung/image_2.jpg", "/images/Htet_Htet_Aung/image_3.jpg","/images/Htet_Htet_Aung/image_4.jpg","/images/Htet_Htet_Aung/image_5.jpg","/images/Htet_Htet_Aung/image_6.jpg","/images/Htet_Htet_Aung/image_7.jpg","/images/Htet_Htet_Aung/image_8.jpg",],
   },
   {
     name: "Okkar Thu",
@@ -53,7 +52,7 @@ const selections =  [
     gender: Gender.MALE,
     section: "B",
     address: "Yangon",
-    gallery: ["/images/Okkar_Thu/image_1.jpg", "/images/Okkar_Thu/image_2.jpg","/images/Okkar_Thu/image_2.jpg"],
+    gallery: ["/images/Okkar_Thu/image_1.jpg", "/images/Okkar_Thu/image_2.jpg","/images/Okkar_Thu/image_3.jpg","/images/Okkar_Thu/image_4.jpg","/images/Okkar_Thu/image_5.jpg","/images/Okkar_Thu/image_6.jpg","/images/Okkar_Thu/image_7.jpg","/images/Okkar_Thu/image_8.jpg"],
   },
   {
     name: "Yoon Lae Lae Khaing",
@@ -63,7 +62,7 @@ const selections =  [
     gender: Gender.FEMALE,
     section: "A",
     address: "Kyaiklat",
-    gallery: ["/images/Yoon_Lae_Lae_Khaing/image_1.jpg", "/images/Yoon_Lae_Lae_Khaing/image_2.jpg", "/images/Yoon_Lae_Lae_Khaing/image_3.jpg",], 
+    gallery: ["/images/Yoon_Lae_Lae_Khaing/image_1.jpg", "/images/Yoon_Lae_Lae_Khaing/image_2.jpg", "/images/Yoon_Lae_Lae_Khaing/image_3.jpg","/images/Yoon_Lae_Lae_Khaing/image_4.jpg","/images/Yoon_Lae_Lae_Khaing/image_5.jpg","/images/Yoon_Lae_Lae_Khaing/image_6.jpg","/images/Yoon_Lae_Lae_Khaing/image_7.jpg","/images/Yoon_Lae_Lae_Khaing/image_8.jpg",], 
   },
   {
     name: "Bhone Pyae Khant",
@@ -73,7 +72,7 @@ const selections =  [
     gender: Gender.MALE,
     section: "A",
     address: "Nyaungdon",
-    gallery: ["/images/Bhone_Pyae_Khant/image_1.jpg", "/images/Bhone_Pyae_Khant/image_2.jpg","/images/Bhone_Pyae_Khant/image_2.jpg"], // Gallery images for this selection
+    gallery: ["/images/Bhone_Pyae_Khant/image_1.jpg", "/images/Bhone_Pyae_Khant/image_2.jpg","/images/Bhone_Pyae_Khant/image_3.jpg", "/images/Bhone_Pyae_Khant/image_4.jpg","/images/Bhone_Pyae_Khant/image_5.jpg","/images/Bhone_Pyae_Khant/image_6.jpg","/images/Bhone_Pyae_Khant/image_7.jpg","/images/Bhone_Pyae_Khant/image_8.jpg"], // Gallery images for this selection
   },
   {
     name: "Thein Yati Nwe",
@@ -83,7 +82,7 @@ const selections =  [
     gender: Gender.FEMALE,
     section: "B",
     address: "Nay Pyi Taw",
-    gallery: ["/images/Thein_Yati_Nwe/image_1.jpg", "/images/Thein_Yati_Nwe/image_2.jpg", "/images/Thein_Yati_Nwe/image_3.jpg",]
+    gallery: ["/images/Thein_Yati_Nwe/image_1.jpg", "/images/Thein_Yati_Nwe/image_2.jpg", "/images/Thein_Yati_Nwe/image_3.jpg","/images/Thein_Yati_Nwe/image_4.jpg","/images/Thein_Yati_Nwe/image_5.jpg","/images/Thein_Yati_Nwe/image_6.jpg","/images/Thein_Yati_Nwe/image_7.jpg","/images/Thein_Yati_Nwe/image_8.jpg",]
   },
   {
     name: "Chit Min Thu",
@@ -93,7 +92,7 @@ const selections =  [
     gender: Gender.MALE,
     section: "B",
     address: "Pyapon",
-    gallery: ["/images/Chit_Min_Thu/image_1.jpg", "/images/Chit_Min_Thu/image_2.jpg", "/images/Chit_Min_Thu/image_2.jpg",]
+    gallery: ["/images/Chit_Min_Thu/image_1.jpg", "/images/Chit_Min_Thu/image_2.jpg", "/images/Chit_Min_Thu/image_3.jpg","/images/Chit_Min_Thu/image_4.jpg","/images/Chit_Min_Thu/image_5.jpg","/images/Chit_Min_Thu/image_6.jpg","/images/Chit_Min_Thu/image_7.jpg","/images/Chit_Min_Thu/image_8.jpg",]
   },
   {
     name: "Hnin Hnin Hsan",
@@ -103,7 +102,7 @@ const selections =  [
     gender: Gender.FEMALE,
     section: "A",
     address: "Maubin",
-    gallery: ["/images/Hnin_Hnin_Hsan/image_1.jpg", "/images/Hnin_Hnin_Hsan/image_2.jpg", "/images/Hnin_Hnin_Hsan/image_3.jpg",]
+    gallery: ["/images/Hnin_Hnin_Hsan/image_1.jpg", "/images/Hnin_Hnin_Hsan/image_2.jpg", "/images/Hnin_Hnin_Hsan/image_3.jpg","/images/Hnin_Hnin_Hsan/image_4.jpg","/images/Hnin_Hnin_Hsan/image_5.jpg","/images/Hnin_Hnin_Hsan/image_6.jpg","/images/Hnin_Hnin_Hsan/image_7.jpg","/images/Hnin_Hnin_Hsan/image_8.jpg",]
   },
 
 ]; 
