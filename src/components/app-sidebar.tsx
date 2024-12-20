@@ -20,18 +20,18 @@ items = [
     icon: Home,
   },
   {
-    title: "User",
-    url: "/admin/user",
+    title: "Selection",
+    url: "/admin/selection",
     icon: Inbox,
   },
   {
-    title: "Selection",
-    url: "/admin/selection",
+    title: "User",
+    url: "/admin/user",
     icon: Calendar,
   },
  
   {
-    title: "Settings",
+    title: "Log out",
     url: "#",
     icon: Settings,
   },
@@ -54,7 +54,7 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url} className="mt-1 p-2 text-bold bg-blue-100">
+                    <a href={item.url} className="mt-1 p-2 text-bold bg-[#edb649]">
                       <item.icon />
                       <span>{item.title}</span>
                     </a>

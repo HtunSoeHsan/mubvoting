@@ -63,7 +63,7 @@ export default function Page() {
           </CardHeader>
         </Card>
         </div>
-          <Card className="bg-[#32bbb2] flex-wrap flex items-center justify-end mx-24 max-h-[80px]">
+          <Card className=" bg-[#32bbb2] flex-wrap flex items-center justify-end mx-24 max-h-[80px]">
             <CardHeader >
               <CardDescription>
                 <button>
@@ -74,53 +74,53 @@ export default function Page() {
           </Card>
         </div>
       
-        <div className="flex flex-wrap m-4 p-1  ">
-           <div className="mx-4 rounded-md flex flex-col  bg-[#73dee7]">
-              <p className="text-center bg-[#37B7C3] text-white font-bold text-lg  px-14 py-2 mb-8">King </p>
+        <div className="flex flex-wrap m-4 p1  ">
+           <div className="pt-2 mx-2 rounded-lg flex flex-col border-2 bg-[#053025]">
+              <p className="text-left rounded-r-full rounded-br-full bg-[#FFC145]  font-bold text-lg  px-14 py-2 mb-8">King </p>
               {King.map((button) => (
             <button
             key={button.id}
-            className="text-center bg-[#ffffffcd]  font-bold text-lg rounded-l-full rounded-r-md px-8 py-2 ml-4 mt-1">
+            className="text-center bg-[#FFC145]  font-bold text-lg rounded-l-full rounded-r-md px-8 py-2 ml-4 mt-1">
               {button.name}
             </button>
       ))}
-              <button className="mt-8 text-center bg-[#37B7C3] text-white font-bold text-lg  px-14 py-2">SELECT </button>
+              <button className="mt-8 text-center bg-[#FFC145] font-bold text-lg  px-14 py-2">SELECT </button>
             
            </div>
-           <div className=" rounded-md flex flex-col border-2 bg-[#73dee7]">
-              <p className="text-center bg-[#37B7C3] text-white font-bold text-lg  px-14 py-2 mb-8">Popular </p>
+           <div className="pt-2  mx-2 rounded-lg flex flex-col border-2 bg-[#053025]">
+              <p className="text-left bg-[#FFC145]  rounded-r-full rounded-br-full  font-bold text-lg  px-14 py-2 mb-8">Popular </p>
               {King.map((button) => (
             <button
             key={button.id}
-            className="text-center bg-[#ffffffcd]  font-bold text-lg rounded-l-full rounded-r-md px-8 py-2 ml-4 mt-1">
+            className="text-center bg-[#FFC145]  font-bold text-lg rounded-l-full rounded-r-md px-8 py-2 ml-4 mt-1">
               {button.name}
             </button>
       ))}
-              <button className="mt-8 text-center bg-[#37B7C3] text-white font-bold text-lg  px-14 py-2">SELECT </button>
+              <button className="mt-8 text-center bg-[#FFC145]  font-bold text-lg  px-14 py-2">SELECT </button>
             
            </div>
-           <div className=" rounded-md flex flex-col border-2 bg-[#73dee7]">
-              <p className="text-center bg-[#37B7C3] text-white font-bold text-lg  px-14 py-2 mb-8">Queen </p>
+           <div className="pt-2  mx-2  rounded-md flex flex-col border-2 bg-[#053025]">
+              <p className="text-left rounded-r-full rounded-br-full bg-[#FFC145]  font-bold text-lg  px-14 py-2 mb-8">Queen </p>
               {King.map((button) => (
             <button
             key={button.id}
-            className="text-center bg-[#ffffffcd]  font-bold text-lg rounded-l-full rounded-r-md px-8 py-2 ml-4 mt-1">
+            className="text-center bg-[#FFC145]  font-bold text-lg rounded-l-full rounded-r-md px-8 py-2 ml-4 mt-1">
               {button.name}
             </button>
       ))}
-              <button className="mt-8 text-center bg-[#37B7C3] text-white font-bold text-lg  px-14 py-2">SELECT </button>
+              <button className="mt-8 text-center bg-[#FFC145]  font-bold text-lg  px-14 py-2">SELECT </button>
             
            </div>
-           <div className=" rounded-md flex flex-col border-2 bg-[#73dee7]">
-              <p className="text-center bg-[#37B7C3] text-white font-bold text-lg  px-14 py-2 mb-8">Innocence </p>
+           <div className="pt-2  mx-2  rounded-md flex flex-col border-2 bg-[#053025]">
+              <p className="text-left bg-[#FFC145] rounded-r-full rounded-br-full font-bold text-lg  px-14 py-2 mb-8">Innocence </p>
               {King.map((button) => (
             <button
             key={button.id}
-            className="text-center bg-[#ffffffcd]  font-bold text-lg rounded-l-full rounded-r-md px-8 py-2 ml-4 mt-1">
+            className="text-center bg-[#FFC145]  font-bold text-lg rounded-l-full rounded-r-md px-8 py-2 ml-4 mt-1">
               {button.name}
             </button>
       ))}
-              <button className="mt-8 text-center bg-[#37B7C3] text-white font-bold text-lg  px-14 py-2">SELECT </button>
+              <button className="mt-8 text-center bg-[#FFC145]  font-bold text-lg  px-14 py-2">SELECT </button>
             
            </div>
           
