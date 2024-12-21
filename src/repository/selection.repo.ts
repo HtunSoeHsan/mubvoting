@@ -92,3 +92,7 @@ export const updateSelectionVote = async (
     data: vote[vote_type],
   });
 };
+
+export const saveVotingCount = async (data: { king?: number; queen?: number; popular?: number; innocent?: number }, selection_id: number) => {
+   await prisma.selection.update({data, where:{id: selection_id}});
+}
