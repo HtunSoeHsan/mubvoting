@@ -3,6 +3,7 @@ import { TypeTextAni } from "@/components/cell";
 import { Hero } from "@/components/hero";
 import Navbar from "@/components/menus/Navbar";
 import SectionHeader from "@/components/SectionHeader";
+import SelectionCard from "@/components/SelectionCard";
 import StudentCard from "@/components/student-card";
 
 const contents = {
@@ -93,29 +94,7 @@ export default function Home() {
         </div>
 
         <div className="lg:max-w-[90%]  space-y-5 md:space-y-28 mx-auto">
-          {/* For king Selection */}
-          <div className="space-y-[100px]">
-            <SectionHeader
-              title={contents.boys.title}
-              subTitle={contents.boys.subtitle}
-              images={contents.boys.images}
-            />
-
-            <div className="mx-auto p-5 md:p-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-32 md:gap-y-24 lg:gap-y-36">
-              {students.map((student) => (
-                <StudentCard
-                  no={student.no}
-                  key={student.id}
-                  name={student.name}
-                  grade={student.grade}
-                  image={student.image}
-                  gender={student.gender}
-                  bio={student.bio}
-                  onVote={() => {}}
-                />
-              ))}
-            </div>
-          </div>
+  
 
           {/* For Queen Selection */}
           <div className="space-y-[100px]">
@@ -125,7 +104,7 @@ export default function Home() {
               images={contents.girls.images}
             />
 
-            <div className="mx-auto p-5 md:p-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-32 md:gap-y-24 lg:gap-y-36">
+            <div className="max-w-7xl m-auto p-5 md:p-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-32 md:gap-y-24 lg:gap-y-36 gap-0">
               {students.map((student) => (
                 <StudentCard
                   no={student.no}

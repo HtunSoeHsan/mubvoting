@@ -1,4 +1,3 @@
-import { ThemeProvider } from "@/components/theme-provider";
 import { ReactNode } from "react";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";

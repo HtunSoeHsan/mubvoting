@@ -19,11 +19,8 @@ interface StudentCardProps {
 const StudentCard: FC<StudentCardProps> = ({
   no,
   name,
-  grade,
   image,
-  bio,
   gender,
-  onVote,
 }) => {
   const isMale = gender === "male";
   const crownIcon = isMale ? "/king-crown.png" : "/queen-crown.png";
@@ -33,14 +30,14 @@ const StudentCard: FC<StudentCardProps> = ({
     <div className="relative bg-[#143848] w-[340px] py-[30px] rounded-xl space-y-6 mx-auto">
       <div className="h-[50px] flex justify-center">
         {/* Image at the top,It'used for show profile  */}
-        <div className="absolute top-[-80px] rounded-full w-[140px] h-[140px] border-2 border-black bg-cover overflow-hidden">
+        <div className="absolute top-[-80px] rounded-full w-[140px] h-[140px] bg-white bg-cover overflow-hidden p-1">
           <Image
             priority
             alt={`${name}'s photo`}
             src={image}
             width={100}
             height={100}
-            className="w-full h-full rounded-full object-cover"
+            className="w-full h-full rounded-full object-cover border-2 border-black"
           />
         </div>
         {/* This circle describe the no of the selection  */}
