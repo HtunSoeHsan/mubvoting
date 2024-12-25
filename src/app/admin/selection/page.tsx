@@ -1,236 +1,205 @@
 "use client";
 
-import LoadingSpinner from "@/components/cell/LoadingSpinner";
-import SelectionForm from "@/components/form/SelectionFrom";
-import { db } from "@/firebase";
-import {
-  addSelection,
-  getSelectionsByGender,
-} from "@/service/selection.service";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
-import { useEffect, useState } from "react";
-
-const selections = [
-  {
-    name: "Paing Phyo Thu",
-    profile: "/images/Paing_Phyo_Thu/profile.jpg", // please follow path format
-    age: 19,
-    selection_no: 1, // ခါးနံပါတ်
-    gender: "male",
-    section: "B",
-    address: "Kyaiklat",
-    gallery: [
-      "/images/Paing_Phyo_Thu/image_1.jpg",
-      "/images/Paing_Phyo_Thu/image_2.jpg",
-      "/images/Paing_Phyo_Thu/image_3.jpg",
-      "/images/Paing_Phyo_Thu/image_4.jpg",
-      "/images/Paing_Phyo_Thu/image_5.jpg",
-      "/images/Paing_Phyo_Thu/image_6.jpg",
-      "/images/Paing_Phyo_Thu/image_7.jpg",
-      "/images/Paing_Phyo_Thu/image_8.jpg",
-    ], // Gallery images for this selection
-  },
-  {
-    name: "Ei Shwe Sin Htet",
-    profile: "/images/Ei_Shwe_Sin_Htet/profile.jpg",
-    age: 18,
-    selection_no: 1,
-    gender: "female",
-    section: "A",
-    address: "Kyaiklat",
-    gallery: [
-      "/images/Ei_Shwe_Sin_Htet/image_1.jpg",
-      "/images/Ei_Shwe_Sin_Htet/image_2.jpg",
-      "/images/Ei_Shwe_Sin_Htet/image_3.jpg",
-      "/images/Ei_Shwe_Sin_Htet/image_4.jpg",
-      "/images/Ei_Shwe_Sin_Htet/image_5.jpg",
-      "/images/Ei_Shwe_Sin_Htet/image_6.jpg",
-      "/images/Ei_Shwe_Sin_Htet/image_7.jpg",
-      "/images/Ei_Shwe_Sin_Htet/image_8.jpg",
-    ], // can add more
-  },
-  {
-    name: "Thaw Bhone Htet",
-    profile: "/images/Thaw_Bhone_Htet/profile.jpg", // please follow path format
-    age: 18,
-    selection_no: 2, // ခါးနံပါတ်
-    gender: "male",
-    section: "A",
-    address: "Yangon",
-    gallery: [
-      "/images/Thaw_Bhone_Htet/image_1.jpg",
-      "/images/Thaw_Bhone_Htet/image_2.jpg",
-      "/images/Thaw_Bhone_Htet/image_3.jpg",
-      "/images/Thaw_Bhone_Htet/image_4.jpg",
-      "/images/Thaw_Bhone_Htet/image_5.jpg",
-      "/images/Thaw_Bhone_Htet/image_6.jpg",
-      "/images/Thaw_Bhone_Htet/image_7.jpg",
-      "/images/Thaw_Bhone_Htet/image_8.jpg",
-    ], // Gallery images for this selection
-  },
-  {
-    name: "Htet Htet Aung",
-    profile: "/images/Htet_Htet_Aung/profile.jpg",
-    age: 18,
-    selection_no: 2,
-    gender: "female",
-    section: "A",
-    address: "Maubin",
-    gallery: [
-      "/images/Htet_Htet_Aung/image_1.jpg",
-      "/images/Htet_Htet_Aung/image_2.jpg",
-      "/images/Htet_Htet_Aung/image_3.jpg",
-      "/images/Htet_Htet_Aung/image_4.jpg",
-      "/images/Htet_Htet_Aung/image_5.jpg",
-      "/images/Htet_Htet_Aung/image_6.jpg",
-      "/images/Htet_Htet_Aung/image_7.jpg",
-      "/images/Htet_Htet_Aung/image_8.jpg",
-    ],
-  },
-  {
-    name: "Okkar Thu",
-    profile: "/images/Okkar_Thu/profile.jpg", // please follow path format
-    age: 18,
-    selection_no: 3, // ခါးနံပါတ်
-    gender: "male",
-    section: "B",
-    address: "Yangon",
-    gallery: [
-      "/images/Okkar_Thu/image_1.jpg",
-      "/images/Okkar_Thu/image_2.jpg",
-      "/images/Okkar_Thu/image_3.jpg",
-      "/images/Okkar_Thu/image_4.jpg",
-      "/images/Okkar_Thu/image_5.jpg",
-      "/images/Okkar_Thu/image_6.jpg",
-      "/images/Okkar_Thu/image_7.jpg",
-      "/images/Okkar_Thu/image_8.jpg",
-    ],
-  },
-  {
-    name: "Yoon Lae Lae Khaing",
-    profile: "/images/Yoon_Lae_Lae_Khaing/profile.jpg",
-    age: 18,
-    selection_no: 3,
-    gender: "female",
-    section: "A",
-    address: "Kyaiklat",
-    gallery: [
-      "/images/Yoon_Lae_Lae_Khaing/image_1.jpg",
-      "/images/Yoon_Lae_Lae_Khaing/image_2.jpg",
-      "/images/Yoon_Lae_Lae_Khaing/image_3.jpg",
-      "/images/Yoon_Lae_Lae_Khaing/image_4.jpg",
-      "/images/Yoon_Lae_Lae_Khaing/image_5.jpg",
-      "/images/Yoon_Lae_Lae_Khaing/image_6.jpg",
-      "/images/Yoon_Lae_Lae_Khaing/image_7.jpg",
-      "/images/Yoon_Lae_Lae_Khaing/image_8.jpg",
-    ],
-  },
-  {
-    name: "Bhone Pyae Khant",
-    profile: "/images/Bhone_Pyae_Khant/profile.jpg", // please follow path format
-    age: 18,
-    selection_no: 4, // ခါးနံပါတ်
-    gender: "male",
-    section: "A",
-    address: "Nyaungdon",
-    gallery: [
-      "/images/Bhone_Pyae_Khant/image_1.jpg",
-      "/images/Bhone_Pyae_Khant/image_2.jpg",
-      "/images/Bhone_Pyae_Khant/image_3.jpg",
-      "/images/Bhone_Pyae_Khant/image_4.jpg",
-      "/images/Bhone_Pyae_Khant/image_5.jpg",
-      "/images/Bhone_Pyae_Khant/image_6.jpg",
-      "/images/Bhone_Pyae_Khant/image_7.jpg",
-      "/images/Bhone_Pyae_Khant/image_8.jpg",
-    ], // Gallery images for this selection
-  },
-  {
-    name: "Thein Yati Nwe",
-    profile: "/images/Thein_Yati_Nwe/profile.jpg",
-    age: 18,
-    selection_no: 4,
-    gender: "female",
-    section: "B",
-    address: "Nay Pyi Taw",
-    gallery: [
-      "/images/Thein_Yati_Nwe/image_1.jpg",
-      "/images/Thein_Yati_Nwe/image_2.jpg",
-      "/images/Thein_Yati_Nwe/image_3.jpg",
-      "/images/Thein_Yati_Nwe/image_4.jpg",
-      "/images/Thein_Yati_Nwe/image_5.jpg",
-      "/images/Thein_Yati_Nwe/image_6.jpg",
-      "/images/Thein_Yati_Nwe/image_7.jpg",
-      "/images/Thein_Yati_Nwe/image_8.jpg",
-    ],
-  },
-  {
-    name: "Chit Min Thu",
-    profile: "/images/Chit_Min_Thu/profile.jpg", // please follow path format
-    age: 18,
-    selection_no: 5, // ခါးနံပါတ်
-    gender: "male",
-    section: "B",
-    address: "Pyapon",
-    gallery: [
-      "/images/Chit_Min_Thu/image_1.jpg",
-      "/images/Chit_Min_Thu/image_2.jpg",
-      "/images/Chit_Min_Thu/image_3.jpg",
-      "/images/Chit_Min_Thu/image_4.jpg",
-      "/images/Chit_Min_Thu/image_5.jpg",
-      "/images/Chit_Min_Thu/image_6.jpg",
-      "/images/Chit_Min_Thu/image_7.jpg",
-      "/images/Chit_Min_Thu/image_8.jpg",
-    ],
-  },
-  {
-    name: "Hnin Hnin Hsan",
-    profile: "/images/Hnin_Hnin_Hsan/profile.jpg",
-    age: 18,
-    selection_no: 5,
-    gender: "female",
-    section: "A",
-    address: "Maubin",
-    gallery: [
-      "/images/Hnin_Hnin_Hsan/image_1.jpg",
-      "/images/Hnin_Hnin_Hsan/image_2.jpg",
-      "/images/Hnin_Hnin_Hsan/image_3.jpg",
-      "/images/Hnin_Hnin_Hsan/image_4.jpg",
-      "/images/Hnin_Hnin_Hsan/image_5.jpg",
-      "/images/Hnin_Hnin_Hsan/image_6.jpg",
-      "/images/Hnin_Hnin_Hsan/image_7.jpg",
-      "/images/Hnin_Hnin_Hsan/image_8.jpg",
-    ],
-  },
-];
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { useState } from "react";
 
 export default function Users() {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [success, setSuccess] = useState("Add Selection");
+  const items = [
+    {
+      id: 1,
+      title: "Back End Developer",
+      department: "Engineering",
+      type: "Full-time",
+      location: "Remote",
+    },
+    {
+      id: 2,
+      title: "Front End Developer",
+      department: "Engineering",
+      type: "Full-time",
+      location: "Remote",
+    },
+    {
+      id: 4,
+      title: "User Interface Designer",
+      department: "Design",
+      type: "Full-time",
+      location: "Remote",
+    },
+    {
+      id: 5,
+      title: "User Interface Designer",
+      department: "Design",
+      type: "Full-time",
+      location: "Remote",
+    },
+    {
+      id: 6,
+      title: "User Interface Designer",
+      department: "Design",
+      type: "Full-time",
+      location: "Remote",
+    },
+    {
+      id: 7,
+      title: "User Interface Designer",
+      department: "Design",
+      type: "Full-time",
+      location: "Remote",
+    },
+    {
+      id: 8,
+      title: "User Interface Designer",
+      department: "Design",
+      type: "Full-time",
+      location: "Remote",
+    },
+    {
+      id: 9,
+      title: "User Interface Designer",
+      department: "Design",
+      type: "Full-time",
+      location: "Remote",
+    },
+    {
+      id: 10,
+      title: "User Interface Designer",
+      department: "Design",
+      type: "Full-time",
+      location: "Remote",
+    },
+    {
+      id: 11,
+      title: "User Interface Designer",
+      department: "Design",
+      type: "Full-time",
+      location: "Remote",
+    },
+    {
+      id: 12,
+      title: "User Interface Designer",
+      department: "Design",
+      type: "Full-time",
+      location: "Remote",
+    },
+    {
+      id: 13,
+      title: "User Interface Designer",
+      department: "Design",
+      type: "Full-time",
+      location: "Remote",
+    },
+    {
+      id: 14,
+      title: "User Interface Designer",
+      department: "Design",
+      type: "Full-time",
+      location: "Remote",
+    },
+  ];
 
-  const addSelectionsToFirestore = async () => {
-    setLoading(true);
-    const selectionCollectionRef = collection(db, "selections");
-    for (const selection of selections) {
-      try {
-        await addDoc(selectionCollectionRef, selection);
-        console.log(`Document added for ${selection.name}`);
-      } catch (e) {
-        console.error("Error adding document: ", e);
-      }
-    }
-    setLoading(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+
+  const totalPages = Math.ceil(items.length / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = items.slice(startIndex, startIndex + itemsPerPage);
+
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
+
+  const handlePrevious = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
   return (
-    <div>
-      {/* <SelectionForm /> */}
-      <button
-        className="bg-yellow-400 text-white p-4 rounded-lg flex"
-        disabled={loading}
-        onClick={addSelectionsToFirestore}
-      >
-        {success}
-        <span className="mx-3">{loading && <LoadingSpinner />}</span>
-      </button>
+    <div className="flex  overflow-y-hidden flex-col  m-8 min-w-[300px]  md:min-w-[600px] lg:min-w-[1000px] w-full">
+      <div className="flex-grow mt-4 relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-blue-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                User
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Email
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Vote
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentItems.map((user, index) => (
+              <tr
+                key={index}
+                className={`${
+                  index % 2 === 0
+                    ? "bg-white dark:bg-gray-800"
+                    : "bg-gray-50 dark:bg-gray-700"
+                }`}
+              >
+                <td className="px-6 py-4 text-gray-900 dark:text-white">
+                  {user.title}
+                </td>
+                <td className="px-6 py-4">{user.department}</td>
+                <td className="px-6 py-4">{user.type}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Pagination */}
+      <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+        <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+          <p className="text-sm text-gray-700">
+            Showing <span className="font-medium">{startIndex + 1}</span> to{" "}
+            <span className="font-medium">
+              {Math.min(startIndex + itemsPerPage, items.length)}
+            </span>{" "}
+            of <span className="font-medium">{items.length}</span> results
+          </p>
+          <div>
+            <nav
+              className="isolate inline-flex -space-x-px rounded-md shadow-sm"
+              aria-label="Pagination"
+            >
+              <button
+                onClick={handlePrevious}
+                disabled={currentPage === 1}
+                className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 disabled:opacity-50"
+              >
+                <span className="sr-only">Previous</span>
+                <ChevronLeftIcon aria-hidden="true" className="h-5 w-5" />
+              </button>
+              {[...Array(totalPages)].map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentPage(index + 1)}
+                  className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold ${
+                    currentPage === index + 1
+                      ? "bg-indigo-600 text-white"
+                      : "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                  } focus:z-20 focus:outline-offset-0`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+              <button
+                onClick={handleNext}
+                disabled={currentPage === totalPages}
+                className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 disabled:opacity-50"
+              >
+                <span className="sr-only">Next</span>
+                <ChevronRightIcon aria-hidden="true" className="h-5 w-5" />
+              </button>
+            </nav>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

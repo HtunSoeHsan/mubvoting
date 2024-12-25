@@ -8,6 +8,32 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { conf } from "@/config";
+import { Calendar, Home, Inbox, Settings } from "lucide-react";
+
+// Menu items.
+const items = [
+  {
+    title: "Dashboard",
+    url: "/admin",
+    icon: Home,
+  },
+  {
+    title: "Selection",
+    url: "/admin/selection",
+    icon: Inbox,
+  },
+  {
+    title: "User",
+    url: "/admin/user",
+    icon: Calendar,
+  },
+
+  {
+    title: "Log out",
+    url: "#",
+    icon: Settings,
+  },
+];
 
 const iconLog = "/logo.svg";
 
