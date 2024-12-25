@@ -14,7 +14,7 @@ interface StudentCardProps {
   grade: string;
   image: string; // Path or URL to the student's photo
   bio: string; // Short description of the student
-  gallery: Gallery[];
+  gallery: string[];
   onVote: () => void; // Callback when the vote button is clicked
 }
 
@@ -83,14 +83,14 @@ const StudentCard: FC<StudentCardProps> = ({
           modules={[EffectCards]}
           className="mySwiper"
         >
-          {gallery.map((g) => (
-            <SwiperSlide key={g.id} onClick={() => openModal(g.image)}>
+          {gallery.map((g, i) => (
+            <SwiperSlide key={i} onClick={() => openModal(g)}>
               <Image
                 alt={`${name} photo`}
                 priority
-                src={g.image}
-                width={1920}
-                height={1080}
+                src={g}
+                width={500}
+                height={500}
                 className="w-full h-full object-cover"
               />
             </SwiperSlide>

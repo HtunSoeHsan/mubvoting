@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import "./globals.css";
-import { SessionProvider } from "next-auth/react";
+import { AuthProvider } from "@/context/auth";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -9,7 +9,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <head />
         <body className="">
           <div className="scroll-watcher"></div>
-          <SessionProvider>{children}</SessionProvider>
+          <AuthProvider>{children}</AuthProvider>
         </body>
       </html>
     </>

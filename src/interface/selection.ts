@@ -36,9 +36,5 @@ export interface Selection {
     section: string;
     address?: string | null;
     selected: boolean;
-    gallery: {
-        id: number;
-        selection_id: number;
-        image: string;
-    }[];
+    gallery: string[];
 };

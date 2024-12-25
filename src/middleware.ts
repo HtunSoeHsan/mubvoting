@@ -1,16 +1,33 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
-import { links } from "./config/link";
 
 export async function middleware(req: NextRequest) {
-  const token = await getToken({ req, secret: process.env.AUTH_SECRET });
   const { pathname } = req.nextUrl;
+  const isProtectedRoute = pathname.startsWith("/admin");
 
-  if (pathname.startsWith("/admin")) {
-    if(!token) return NextResponse.redirect(new URL(links.login, req.url));
-    if (token?.role !== "ADMIN") return NextResponse.redirect(new URL(links.homme, req.url))
+  if (isProtectedRoute) {
+    const token = req.cookies.get("token")?.value;
+    if (!token) {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
+
+    // Validate token using the API route
+    const response = await fetch(
+      new URL("/api/auth/me", req.url),
+      {
+        method: "POST",
+        headers: { authorization: `Bearer ${token}` },
+      }
+    );
+
+    const user = await response.json();
+    console.log("user", user.user.role)
+    if (!response.ok) {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
+    if(user.user.role !== "admin") {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
   }
-
   return NextResponse.next();
 }
 

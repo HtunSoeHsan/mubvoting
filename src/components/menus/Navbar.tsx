@@ -6,20 +6,20 @@ import { signOut, useSession } from "next-auth/react";
 import { links } from "@/config/link";
 import { conf } from "@/config";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/context/auth";
 
 const Navbar = () => {
-  const data = useSession();
   const pathname = usePathname();
-
+  const { user, logout } = useAuth();
   const isActive = (path: string) => pathname === path;
 
   return (
     <nav className="sticky top-0 z-50 bg-[#0D2E6E] text-white shadow-lg">
       <div className="container mx-auto flex items-center justify-between py-2 px-4 lg:px-8">
         {/* Mobile Profile Image */}
-        {data.data?.user ? (
+        {user ? (
           <Image
-            src={data.data?.user?.image || "/images/young-man.png"}
+            src={user.photoURL || "/images/young-man.png"}
             alt="Profile"
             width={40}
             height={40}
@@ -73,22 +73,20 @@ const Navbar = () => {
 
         {/* Desktop Profile Section */}
         <div className="hidden lg:flex items-center space-x-4">
-          {data.data?.user ? (
+          {user ? (
             <>
               <Image
-                src={data.data?.user?.image || "/young-man.png"}
+                src={user.photoURL || "/young-man.png"}
                 alt="Profile"
                 width={40}
                 height={40}
                 className="rounded-full"
               />
               <div className="flex flex-col">
-                <span className="text-sm font-medium">
-                  {data.data?.user?.name}
-                </span>
-                <span className="text-gray-400">{data.data?.user.role}</span>
+                <span className="text-sm font-medium">{user.displayName}</span>
+                <span className="text-gray-400">{user.phoneNumber}</span>
               </div>
-              <LogOut onClick={() => signOut()} />
+              <LogOut onClick={() => logout()} />
             </>
           ) : (
             <Link href={links.login}>
@@ -96,10 +94,10 @@ const Navbar = () => {
             </Link>
           )}
         </div>
-        {data.data?.user ? (
+        {user ? (
           <LogOut
             className="cursor-pointer hover:text-red-500 transition duration-200 lg:hidden"
-            onClick={() => signOut()}
+            onClick={logout}
           />
         ) : (
           <Link href={links.login} className="lg:hidden">

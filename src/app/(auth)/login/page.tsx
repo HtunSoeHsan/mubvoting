@@ -1,9 +1,11 @@
+"use client";
 import RoundedCircle from "@/components/ui/rounded-circle";
 import { Button } from "@/components/ui/button";
 import LoginCard from "@/components/LoginCard";
 import Image from "next/image";
-import { auth, signInAction } from "@/service/auth.service";
 import { redirect } from "next/navigation";
+import { useAuth } from "@/context/auth";
+import { useState } from "react";
 
 const config = {
   imgUrl: "/images/otp.svg",
@@ -15,20 +17,22 @@ const config = {
   btnIcon: "/images/google.svg",
 };
 
-export default async function Page() {
-  "use server";
-  const user = await auth();
+export default function Page() {
+  const { signInWithGoogle, user } = useAuth();
+  const [error, setError] = useState<string | null>(null);
 
-  if (user) {
-    return redirect("/");
-  }
+  // if (user) return redirect("/");
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+      setError("Google sign-in failed");
+    }
+  };
+
   return (
-    <form
-      action={async () => {
-        "use server";
-        await signInAction();
-      }}
-    >
+    <div>
       <div className="relative h-screen w-screen overflow-hidden flex justify-center items-center bg-background flex-col">
         <RoundedCircle
           top={-30}
@@ -49,8 +53,8 @@ export default async function Page() {
         <LoginCard imgUrl={config.imgUrl} content={config.content}>
           <div className="">
             <Button
-              type="submit"
               className="bg-gradient-to-tr  from-gold to-yellow-700 hover:from-black hover:opacity-90 transition ease-in duration-500 w-full flex-1 py-6 text-[18px] lg:text-[16px]"
+              onClick={handleGoogleSignIn}
             >
               <Image
                 src={config.btnIcon}
@@ -65,6 +69,6 @@ export default async function Page() {
           </div>
         </LoginCard>
       </div>
-    </form>
+    </div>
   );
 }
