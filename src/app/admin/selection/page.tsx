@@ -1,9 +1,12 @@
 "use client";
 
+import AddSelectionData from "@/components/addSelectionData";
+import { Button } from "@/components/ui/button";
+import { db } from "@/firebase";
+import { addDoc, collection } from "firebase/firestore";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useState } from "react";
-
-export default function Users() {
+export default function Page() {
   const items = [
     {
       id: 1,
@@ -116,6 +119,7 @@ export default function Users() {
 
   return (
     <div className="flex  overflow-y-hidden flex-col  m-8 min-w-[300px]  md:min-w-[600px] lg:min-w-[1000px] w-full">
+      {/* <AddSelectionData /> */}
       <div className="flex-grow mt-4 relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-blue-50 dark:bg-gray-700 dark:text-gray-400">

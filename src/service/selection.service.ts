@@ -125,3 +125,17 @@ const q = query(collection(db, 'selections'), where('gender', '==', "male"));
 const snapshot = await getDocs(q);
 return snapshot.forEach((doc) => doc.data());
 }
+
+// const addSelectionsToFirestore = async () => {
+//   setLoading(true);
+//   const selectionCollectionRef = collection(db, "selections");
+//   for (const selection of selections) {
+//     try {
+//       await addDoc(selectionCollectionRef, selection);
+//       console.log(`Document added for ${selection.name}`);
+//     } catch (e) {
+//       console.error("Error adding document: ", e);
+//     }
+//   }
+//   setLoading(false);
+// };

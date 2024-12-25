@@ -3,7 +3,6 @@ import LoadingSpinner from "@/components/cell/LoadingSpinner";
 import StudentCard from "@/components/student-card";
 import { db } from "@/firebase";
 import { Selection } from "@/interface/selection";
-import { getSelections } from "@/service/selection.service";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -20,7 +19,18 @@ export default function Page() {
       const snapshot = await getDocs(q);
       const selectionsArray: Selection[] = [];
 
-      snapshot.forEach((doc) => selectionsArray.push(doc.data() as Selection));
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        selectionsArray.push({
+          name: data.name,
+          profile: data.profile,
+          gallery: data.gallery,
+          gender: data.gender,
+          selection_no: data.selection_no,
+          section: data.section,
+          address: data.address,
+        } as Selection);
+      });
       setSelections(selectionsArray);
     } catch (error) {
       console.log(error);
