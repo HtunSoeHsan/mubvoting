@@ -41,7 +41,7 @@ export default function Page() {
     );
   }
   return (
-    <div className="bg-background text-foreground">
+    <div className="bg-background text-foreground overflow-x-hidden">
       <div className="relative dark:bg-background  py-8">
         <div className="text-wrapper mb-24 md:mb-32 text-center">
           <div className="text-container text-background">Vote for Queen</div>
