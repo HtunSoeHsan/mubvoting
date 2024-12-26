@@ -1,6 +1,7 @@
 "use client";
 import LoadingSpinner from "@/components/cell/LoadingSpinner";
 import StudentCard from "@/components/student-card";
+import { useAuth } from "@/context/auth";
 import { db } from "@/firebase";
 import { Selection } from "@/interface/selection";
 import { collection, getDocs, query, where } from "firebase/firestore";
@@ -9,6 +10,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 export default function Page() {
   const [selections, setSelections] = useState<Selection[]>([]);
   const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
+  console.log({ user });
   const getIt = useCallback(async () => {
     try {
       setLoading(true);
