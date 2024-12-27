@@ -27,7 +27,7 @@ export interface Gallery {
 };
 
 export interface Selection {
-  id: number;
+  id?: number;
     name: string;
     profile: string;
     age?: number | null;
@@ -37,4 +37,8 @@ export interface Selection {
     address?: string | null;
     selected: boolean;
     gallery: string[];
+    kingVotesCount: number;
+    queenVotesCount: number;
+    popularVotesCount: number;
+    innocentVotesCount: number;
 };

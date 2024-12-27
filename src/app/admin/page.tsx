@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import VoteBoardCard from "@/components/VoteBoardCard";
 import { db } from "@/firebase";
 import { Selection } from "@/interface/selection";
 import {
@@ -33,10 +34,22 @@ export default function Page() {
     female: Selection[];
   }>({ male: [], female: [] });
   const [loading, setLoading] = useState(false);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [votedUsers, setVotedUsers] = useState(0);
   const getRealTimeData = useCallback(() => {
     setLoading(true);
 
-    // Real-time listener for male selections
+    const userCollection = collection(db, "users");
+
+    const unsubscribeTotal = onSnapshot(userCollection, (snapshot) => {
+      setTotalUsers(snapshot.size);
+    });
+
+    const votedQuery = query(userCollection, where("voted", "==", true));
+
+    const unsubscribeVoted = onSnapshot(votedQuery, (snapshot) => {
+      setVotedUsers(snapshot.size);
+    });
     const maleQuery = query(
       collection(db, "selections"),
       where("gender", "==", "male")
@@ -55,7 +68,6 @@ export default function Page() {
       (error) => console.error("Error fetching male data: ", error)
     );
 
-    // Real-time listener for female selections
     const femaleQuery = query(
       collection(db, "selections"),
       where("gender", "==", "female")
@@ -76,10 +88,11 @@ export default function Page() {
 
     setLoading(false);
 
-    // Cleanup listeners when component unmounts
     return () => {
       unsubscribeMale();
       unsubscribeFemale();
+      unsubscribeTotal();
+      unsubscribeVoted();
     };
   }, []);
 
@@ -103,36 +116,21 @@ export default function Page() {
           <div className="px-2 flex flex-wrap gap-12 justify-center items-center w-full ">
             <Card className="border-[#176B87] border-4">
               <CardHeader className="px-14">
-                <CardTitle> 100</CardTitle>
-                <CardDescription>Login</CardDescription>
+                <CardTitle>{totalUsers}</CardTitle>
+                <CardDescription>Login Users</CardDescription>
               </CardHeader>
             </Card>
             <Card className="border-[#176B87] border-4">
               <CardHeader className="px-14">
-                <CardTitle>120</CardTitle>
-                <CardDescription>Vote Count</CardDescription>
-              </CardHeader>
-            </Card>
-            <Card className="border-[#176B87] border-4">
-              <CardHeader className="px-14">
-                <CardTitle>12</CardTitle>
-                <CardDescription>Participant</CardDescription>
+                <CardTitle>{votedUsers}</CardTitle>
+                <CardDescription>Voted users</CardDescription>
               </CardHeader>
             </Card>
           </div>
-          <Card className=" bg-[#32bbb2] flex-wrap flex items-center justify-end mx-24 max-h-[80px]">
-            <CardHeader>
-              <CardDescription>
-                <button>
-                  <img src={irefresh} className="max-h-[80px]" />
-                </button>
-              </CardDescription>
-            </CardHeader>
-          </Card>
         </div>
 
         <div className="flex flex-wrap m-4 p1  ">
-          <div className="pt-2 mx-2 rounded-lg flex flex-col border-2 bg-[#053025]">
+          {/* <div className="pt-2 mx-2 rounded-lg flex flex-col border-2 bg-[#053025]">
             <p className="text-left rounded-r-full rounded-br-full bg-[#FFC145]  font-bold text-lg  px-14 py-2 mb-8">
               King{" "}
             </p>
@@ -184,18 +182,29 @@ export default function Page() {
             <p className="text-left bg-[#FFC145] rounded-r-full rounded-br-full font-bold text-lg  px-14 py-2 mb-8">
               Innocence{" "}
             </p>
-            {selections.female.map((s, i) => (
-              <button
-                key={i}
-                className="text-center bg-[#FFC145]  font-bold text-lg rounded-l-full rounded-r-md px-8 py-2 ml-4 mt-1"
-              >
-                {s.name}
-              </button>
-            ))}
+            {selections.female
+              .sort((a, b) => b.innocentVotesCount - a.innocentVotesCount)
+              .map((s, i) => (
+                <div key={i} className="flex items-center justify-center ">
+                  <div className="text-start flex-1 bg-[#FFC145] text-black font-bold text-lg rounded-l-full rounded-r-md rounded-md shadow-md p-2 mt-2 ms-4 mr-1">
+                    <span className="text-white mr-5 text-lg">
+                      {s.selection_no}
+                    </span>
+                    {s.name}
+                  </div>
+                  <div className="text-end flex-none bg-[#FFC145] text-black font-bold text-lg  rounded-r-full rounded-r-md shadow-md p-2 mt-2 mr-2">
+                    {s.innocentVotesCount}
+                  </div>
+                </div>
+              ))}
             <button className="mt-8 text-center bg-[#FFC145]  font-bold text-lg  px-14 py-2">
               SELECT{" "}
             </button>
-          </div>
+          </div> */}
+          <VoteBoardCard items={selections.male} title="King" />
+          <VoteBoardCard items={selections.female} title="Queen" />
+          <VoteBoardCard items={selections.male} title="Popular" />
+          <VoteBoardCard items={selections.female} title="Innocent" />
         </div>
       </div>
     </>
