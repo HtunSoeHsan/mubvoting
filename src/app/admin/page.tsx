@@ -19,16 +19,6 @@ import {
 import { useCallback, useEffect, useState } from "react";
 
 export default function Page() {
-  // const King = [
-  //   { id: 1, name: "Thaw Bhonte Htet" },
-  //   { id: 2, name: "Okkar Thu" },
-  //   { id: 3, name: "Thein Yati Nwe" },
-  //   { id: 4, name: "Yoon Lae Lae Khaing" },
-  //   { id: 5, name: "Hnin Hnin Hsan" },
-  // ];
-
-  const irefresh = "/refresh.png";
-
   const [selections, setSelections] = useState<{
     male: Selection[];
     female: Selection[];
@@ -130,77 +120,6 @@ export default function Page() {
         </div>
 
         <div className="flex flex-wrap m-4 p1  ">
-          {/* <div className="pt-2 mx-2 rounded-lg flex flex-col border-2 bg-[#053025]">
-            <p className="text-left rounded-r-full rounded-br-full bg-[#FFC145]  font-bold text-lg  px-14 py-2 mb-8">
-              King{" "}
-            </p>
-            {selections.male.map((s, i) => (
-              <div
-                key={i}
-                className="text-center bg-[#FFC145]  font-bold text-lg rounded-l-full rounded-r-md px-8 py-2 ml-4 mt-1"
-              >
-                {s.name}
-              </div>
-            ))}
-            <button className="mt-8 text-center bg-[#FFC145] font-bold text-lg  px-14 py-2">
-              SELECT{" "}
-            </button>
-          </div>
-          <div className="pt-2  mx-2 rounded-lg flex flex-col border-2 bg-[#053025]">
-            <p className="text-left bg-[#FFC145]  rounded-r-full rounded-br-full  font-bold text-lg  px-14 py-2 mb-8">
-              Popular{" "}
-            </p>
-            {selections.male.map((s, i) => (
-              <button
-                key={i}
-                className="text-center bg-[#FFC145]  font-bold text-lg rounded-l-full rounded-r-md px-8 py-2 ml-4 mt-1"
-              >
-                {s.name}
-              </button>
-            ))}
-            <button className="mt-8 text-center bg-[#FFC145]  font-bold text-lg  px-14 py-2">
-              SELECT{" "}
-            </button>
-          </div>
-          <div className="pt-2  mx-2  rounded-md flex flex-col border-2 bg-[#053025]">
-            <p className="text-left rounded-r-full rounded-br-full bg-[#FFC145]  font-bold text-lg  px-14 py-2 mb-8">
-              Queen{" "}
-            </p>
-            {selections.female.map((s, i) => (
-              <button
-                key={i}
-                className="text-center bg-[#FFC145]  font-bold text-lg rounded-l-full rounded-r-md px-8 py-2 ml-4 mt-1"
-              >
-                {s.name}
-              </button>
-            ))}
-            <button className="mt-8 text-center bg-[#FFC145]  font-bold text-lg  px-14 py-2">
-              SELECT{" "}
-            </button>
-          </div>
-          <div className="pt-2  mx-2  rounded-md flex flex-col border-2 bg-[#053025]">
-            <p className="text-left bg-[#FFC145] rounded-r-full rounded-br-full font-bold text-lg  px-14 py-2 mb-8">
-              Innocence{" "}
-            </p>
-            {selections.female
-              .sort((a, b) => b.innocentVotesCount - a.innocentVotesCount)
-              .map((s, i) => (
-                <div key={i} className="flex items-center justify-center ">
-                  <div className="text-start flex-1 bg-[#FFC145] text-black font-bold text-lg rounded-l-full rounded-r-md rounded-md shadow-md p-2 mt-2 ms-4 mr-1">
-                    <span className="text-white mr-5 text-lg">
-                      {s.selection_no}
-                    </span>
-                    {s.name}
-                  </div>
-                  <div className="text-end flex-none bg-[#FFC145] text-black font-bold text-lg  rounded-r-full rounded-r-md shadow-md p-2 mt-2 mr-2">
-                    {s.innocentVotesCount}
-                  </div>
-                </div>
-              ))}
-            <button className="mt-8 text-center bg-[#FFC145]  font-bold text-lg  px-14 py-2">
-              SELECT{" "}
-            </button>
-          </div> */}
           <VoteBoardCard items={selections.male} title="King" />
           <VoteBoardCard items={selections.female} title="Queen" />
           <VoteBoardCard items={selections.male} title="Popular" />
