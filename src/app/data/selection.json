@@ -17,7 +17,11 @@
           "kingVotesCount": 0,
           "queenVotesCount": 0,
           "popularVotesCount": 0,
-          "innocentVotesCount": 0
+          "innocentVotesCount": 0,
+          "isKing": false,
+          "isQueen": false,
+          "isPopular": false,
+          "isInnocent": false
         },
         {
           "name": "Ei Shwe Sin Htet",
@@ -35,7 +39,11 @@
           "kingVotesCount": 0,
           "queenVotesCount": 0,
           "popularVotesCount": 0,
-          "innocentVotesCount": 0
+          "innocentVotesCount": 0,
+          "isKing": false,
+          "isQueen": false,
+          "isPopular": false,
+          "isInnocent": false
         },
         {
           "name": "Thaw Bhone Htet",
@@ -53,7 +61,11 @@
           "kingVotesCount": 0,
           "queenVotesCount": 0,
           "popularVotesCount": 0,
-          "innocentVotesCount": 0
+          "innocentVotesCount": 0,
+          "isKing": false,
+          "isQueen": false,
+          "isPopular": false,
+          "isInnocent": false
         },
         {
           "name": "Htet Htet Aung",
@@ -71,7 +83,11 @@
           "kingVotesCount": 0,
           "queenVotesCount": 0,
           "popularVotesCount": 0,
-          "innocentVotesCount": 0
+          "innocentVotesCount": 0,
+          "isKing": false,
+          "isQueen": false,
+          "isPopular": false,
+          "isInnocent": false
         },
         {
           "name": "Okkar Thu",
@@ -89,7 +105,11 @@
           "kingVotesCount": 0,
           "queenVotesCount": 0,
           "popularVotesCount": 0,
-          "innocentVotesCount": 0
+          "innocentVotesCount": 0,
+          "isKing": false,
+          "isQueen": false,
+          "isPopular": false,
+          "isInnocent": false
         },
         {
           "name": "Yoon Lae Lae Khaing",
@@ -107,7 +127,11 @@
           "kingVotesCount": 0,
           "queenVotesCount": 0,
           "popularVotesCount": 0,
-          "innocentVotesCount": 0
+          "innocentVotesCount": 0,
+          "isKing": false,
+          "isQueen": false,
+          "isPopular": false,
+          "isInnocent": false
         },
         {
           "name": "Bhone Pyae Khant",
@@ -125,7 +149,11 @@
           "kingVotesCount": 0,
           "queenVotesCount": 0,
           "popularVotesCount": 0,
-          "innocentVotesCount": 0
+          "innocentVotesCount": 0,
+          "isKing": false,
+          "isQueen": false,
+          "isPopular": false,
+          "isInnocent": false
         },
         {
           "name": "Thein Yati Nwe",
@@ -143,7 +171,11 @@
           "kingVotesCount": 0,
           "queenVotesCount": 0,
           "popularVotesCount": 0,
-          "innocentVotesCount": 0
+          "innocentVotesCount": 0,
+          "isKing": false,
+          "isQueen": false,
+          "isPopular": false,
+          "isInnocent": false
         },
         {
           "name": "Chit Min Thu",
@@ -161,7 +193,11 @@
           "kingVotesCount": 0,
           "queenVotesCount": 0,
           "popularVotesCount": 0,
-          "innocentVotesCount": 0
+          "innocentVotesCount": 0,
+          "isKing": false,
+          "isQueen": false,
+          "isPopular": false,
+          "isInnocent": false
         },
         {
           "name": "Hnin Hnin Hsan",
@@ -179,7 +215,11 @@
           "kingVotesCount": 0,
           "queenVotesCount": 0,
           "popularVotesCount": 0,
-          "innocentVotesCount": 0
+          "innocentVotesCount": 0,
+          "isKing": false,
+          "isQueen": false,
+          "isPopular": false,
+          "isInnocent": false
         }
       
       ]
