@@ -1,3 +1,4 @@
+"use client";
 import {
   getFirestore,
   collection,
@@ -6,9 +7,12 @@ import {
   query,
   where,
   getDocs,
+  getDoc,
 } from "firebase/firestore";
 import { Selection } from "@/interface/selection";
 import { db } from "@/firebase";
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 export default function VoteBoardCard({
   title,
@@ -19,7 +23,13 @@ export default function VoteBoardCard({
   items: Selection[];
   showVotes?: boolean;
 }) {
-  // Determine the appropriate vote count property based on the title
+  const [isSelectionMade, setIsSelectionMade] = useState(false);
+  const [cookies, setCookie] = useCookies([
+    "King",
+    "Queen",
+    "Popular",
+    "Innocent",
+  ]);
   const getVoteCountProperty = () => {
     switch (title) {
       case "King":
@@ -41,19 +51,17 @@ export default function VoteBoardCard({
     return b[voteCountProperty] - a[voteCountProperty];
   });
 
-  const handleSelect = async () => {
+  const handleSelect = async (selection_no: number, gender: string) => {
     try {
-      const maxVotes = sortedItems[0][voteCountProperty];
-      const winner = sortedItems.filter(
-        (item) => item[voteCountProperty] === maxVotes
-      );
-      // Step 1: Query Firestore to find the document with the given selection_no
+      // const maxVotes = sortedItems[0][voteCountProperty];
+      // const winner = sortedItems.filter(
+      //   (item) => item[voteCountProperty] === maxVotes
+      // );
       const selectionsCollection = collection(db, "selections");
-      console.log("id", selectionsCollection.id);
       const q = query(
         selectionsCollection,
-        where("selection_no", "==", winner[0].selection_no),
-        where("gender", "==", winner[0].gender)
+        where("selection_no", "==", selection_no),
+        where("gender", "==", gender)
       );
       const querySnapshot = await getDocs(q);
 
@@ -61,36 +69,41 @@ export default function VoteBoardCard({
         console.error("No matching document found!");
         return;
       }
-
-      // Step 2: Get the document reference (assuming selection_no is unique)
       const docRef = querySnapshot.docs[0].ref;
-
-      // Step 3: Update the document
       await updateDoc(docRef, {
         isQueen: title === "Queen",
         isKing: title === "King",
         isPopular: title === "Popular",
         isInnocent: title === "Innocent",
       });
-
+      setCookie(title, "true", { path: "/" });
       console.log("Document updated successfully!");
     } catch (error) {
       console.error("Error updating document: ", error);
     }
   };
+
   return (
-    <div className="pt-2 mx-2 rounded-lg flex flex-col border-2 bg-[#053025]">
+    <div className="pt-2 mx-2 rounded-lg flex flex-col border-2 bg-[#053025] pb-4">
       <p className="text-left rounded-r-full bg-[#FFC145] font-bold text-lg px-14 py-2 mb-8">
         {title}
       </p>
       {sortedItems.map((item, i) => (
-        <div key={i} className="flex items-center justify-center ">
-          <div className="text-start flex-1 bg-[#13AEF0] text-black font-bold text-lg rounded-l-full rounded-r-md rounded-md shadow-md p-2 mt-2 ms-4 mr-1">
+        <div key={i} className="flex items-center justify-center">
+          <button
+            disabled={cookies[title]}
+            className={`text-start flex-1 text-black font-bold text-lg rounded-l-full rounded-r-md rounded-md shadow-md p-2 mt-2 ms-4 mr-1 hover:bg-[#0E2C70] hover:text-white ${
+              item.isKing || item.isQueen || item.isPopular || item.isInnocent
+                ? "bg-[#0E2C70] text-white"
+                : "bg-[#13AEF0]"
+            }`}
+            onClick={() => handleSelect(item.selection_no, item.gender)}
+          >
             <span className="text-white mr-5 text-lg">{item.selection_no}</span>
             {item.name} {item.isKing && "👑"} {item.isQueen && "👸"}
             {item.isPopular && "🌟"}
             {item.isInnocent && "😇"}
-          </div>
+          </button>
           <div className="text-end flex-none bg-[#FFC145] text-black font-bold text-lg  rounded-r-full rounded-r-md shadow-md p-2 mt-2 mr-2">
             {title === "King" && item.kingVotesCount}
             {title === "Queen" && item.queenVotesCount}
@@ -99,12 +112,12 @@ export default function VoteBoardCard({
           </div>
         </div>
       ))}
-      <button
+      {/* <button
         className="mt-8 text-center bg-[#FFC145] font-bold text-lg px-14 py-2"
         onClick={handleSelect}
       >
         SELECT
-      </button>
+      </button> */}
     </div>
   );
 }
