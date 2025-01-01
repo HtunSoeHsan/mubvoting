@@ -5,6 +5,7 @@ import { Calendar, Home, Inbox, Settings } from "lucide-react";
 export const conf = {
     site: {link: links.homme, label: "www.mubvoting.com"},
     site_title: "Voting System",
+    resolution: {h:1920, w:1080 },
     icon: "",
     menus: [
 
