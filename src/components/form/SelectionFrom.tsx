@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { db, storage } from "@/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { addDoc, collection } from "firebase/firestore";
-
+import Image from "next/image";
 const SelectionForm: React.FC = () => {
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
@@ -149,7 +149,9 @@ const SelectionForm: React.FC = () => {
             </label>
           </div>
           {profilePreview && (
-            <img
+            <Image
+              width={500}
+              height={500}
               src={profilePreview}
               alt="Profile Preview"
               className="w-32 h-32 object-cover rounded-md border"

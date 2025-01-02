@@ -38,6 +38,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setCookie("token", currentUser?.uid);
       }
       setLoading(false);
+      console.log("cookie", cookie);
     });
     return () => unsubscribe();
   }, []);

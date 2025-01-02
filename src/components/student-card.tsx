@@ -5,7 +5,6 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 import { EffectCards } from "swiper/modules";
 import { Loader2, Vote } from "lucide-react";
-import { Gallery } from "@/interface/selection";
 
 interface StudentCardProps {
   name: string;

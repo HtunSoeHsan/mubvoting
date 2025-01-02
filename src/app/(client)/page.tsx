@@ -1,6 +1,5 @@
 "use client";
 import { Hero } from "@/components/hero";
-import SelectionCard from "@/components/SelectionCard";
 import WhoWinCard from "@/components/WhoWinCard";
 import { db } from "@/firebase";
 import { Selection } from "@/interface/selection";
@@ -78,9 +77,7 @@ export default function Home() {
     <div className="bg-background text-foreground">
       <Hero />
       <div>
-        {/* <SelectionCard /> */}
-        {/* <WhowiinCard /> */}
-        <div className="flex grid gap-5 sm:grid-cols-1 sm:gap-5 p-10">
+        <div className="flex gap-32 lg:gap-10 m-10 flex-wrap mt-[300px] lg:mt-20">
           <WhoWinCard
             title="KING"
             crownSrc="/crown-normal-queen.png"

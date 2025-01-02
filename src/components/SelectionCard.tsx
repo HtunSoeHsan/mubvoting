@@ -1,5 +1,4 @@
 import React from "react";
-import { Card } from "./ui/card";
 import Image from "next/image";
 
 function SelectionCard() {
@@ -20,7 +19,9 @@ function SelectionCard() {
           <Image
             priority
             alt={`${name}'s photo`}
-            src={"https://images.hellomagazine.com/horizon/landscape/ec09d4add571-gettyimages-1443645015.jpg"}
+            src={
+              "https://images.hellomagazine.com/horizon/landscape/ec09d4add571-gettyimages-1443645015.jpg"
+            }
             width={100}
             height={100}
             className="w-full h-full rounded-full object-cover border-2 border-black"

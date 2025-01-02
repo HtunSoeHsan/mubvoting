@@ -9,13 +9,7 @@ import {
 import VoteBoardCard from "@/components/VoteBoardCard";
 import { db } from "@/firebase";
 import { Selection } from "@/interface/selection";
-import {
-  collection,
-  getDocs,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
 
 export default function Page() {

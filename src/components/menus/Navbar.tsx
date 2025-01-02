@@ -2,7 +2,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { LogOut, Power } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
 import { links } from "@/config/link";
 import { conf } from "@/config";
 import { usePathname } from "next/navigation";

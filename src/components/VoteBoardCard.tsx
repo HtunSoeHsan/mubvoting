@@ -1,29 +1,23 @@
 "use client";
 import {
-  getFirestore,
   collection,
-  doc,
   updateDoc,
   query,
   where,
   getDocs,
-  getDoc,
 } from "firebase/firestore";
 import { Selection } from "@/interface/selection";
 import { db } from "@/firebase";
-import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
 export default function VoteBoardCard({
   title,
   items,
-  showVotes = true,
 }: {
   title: "King" | "Queen" | "Popular" | "Innocent";
   items: Selection[];
   showVotes?: boolean;
 }) {
-  const [isSelectionMade, setIsSelectionMade] = useState(false);
   const [cookies, setCookie] = useCookies([
     "King",
     "Queen",

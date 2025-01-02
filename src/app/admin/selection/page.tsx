@@ -1,9 +1,6 @@
 "use client";
 
 import AddSelectionData from "@/components/addSelectionData";
-import { Button } from "@/components/ui/button";
-import { db } from "@/firebase";
-import { addDoc, collection } from "firebase/firestore";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useState } from "react";
 export default function Page() {

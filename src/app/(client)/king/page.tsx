@@ -5,7 +5,7 @@ import { useAuth } from "@/context/auth";
 import { db } from "@/firebase";
 import { Selection } from "@/interface/selection";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function Page() {
   const [selections, setSelections] = useState<Selection[]>([]);

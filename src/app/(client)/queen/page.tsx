@@ -3,7 +3,6 @@ import LoadingSpinner from "@/components/cell/LoadingSpinner";
 import StudentCard from "@/components/student-card";
 import { db } from "@/firebase";
 import { Selection } from "@/interface/selection";
-import { getSelections } from "@/service/selection.service";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
 
