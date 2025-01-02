@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { LogOut, Power } from "lucide-react";
 import { links } from "@/config/link";
 import { conf } from "@/config";
 import { usePathname } from "next/navigation";
@@ -61,7 +60,7 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {/* Desktop Profile Section */}
+        {/*  Profile Section */}
         <div className=" items-center space-x-4">
           {user ? (
             <>
@@ -76,22 +75,11 @@ const Navbar = () => {
                 <span className="text-sm font-medium">{user.displayName}</span>
                 <span className="text-gray-400">{user.phoneNumber}</span>
               </div>
-              {/* <LogOut onClick={() => logout()} /> */}
             </>
           ) : (
             <Link href={links.login}>Login</Link>
           )}
         </div>
-        {/* {user ? (
-          <LogOut
-            className="cursor-pointer hover:text-red-500 transition duration-200 lg:hidden"
-            onClick={logout}
-          />
-        ) : (
-          <Link href={links.login} className="lg:hidden">
-            Login
-          </Link>
-        )} */}
       </div>
       {/* Menu */}
       <div

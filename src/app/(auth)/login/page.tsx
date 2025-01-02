@@ -4,14 +4,12 @@ import { Button } from "@/components/ui/button";
 import LoginCard from "@/components/LoginCard";
 import Image from "next/image";
 import { useAuth } from "@/context/auth";
-import { useState } from "react";
 import { redirect } from "next/navigation";
-import { Alert } from "@/components/cell/Alert";
 
 const config = {
   imgUrl: "/images/otp.svg",
   content: {
-    title: "Enter Your Email",
+    title: "Login",
     description: "You can esily login with your gmail account",
   },
   btnText: "Continue with Google",
@@ -20,24 +18,18 @@ const config = {
 
 export default function Page() {
   const { signInWithGoogle, user } = useAuth();
-  const [error, setError] = useState<string | null>(null);
   if (user) return redirect("/");
 
   const handleGoogleSignIn = async () => {
     try {
       await signInWithGoogle();
     } catch (error) {
-      setError("Google sign-in failed");
+      console.log("Google sign-in failed");
     }
-  };
-  const handleCloseAlert = () => {
-    console.log(error);
-    setError(null);
   };
 
   return (
     <>
-      {error && <Alert message={error} onClose={handleCloseAlert} />}
       <div className="relative h-screen w-screen overflow-hidden flex justify-center items-center bg-background flex-col">
         <RoundedCircle
           top={-30}
