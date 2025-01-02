@@ -81,7 +81,7 @@ const Navbar = () => {
           )}
           {/* Profile Dropdown */}
           {isProfileMenuOpen && user && (
-            <div className="absolute right-0 top-14 bg-white text-black shadow-lg rounded-md w-48 p-3">
+            <div className="absolute right-0 top-14 bg-white text-black shadow-lg rounded-md w-48 p-3 z-[1000]">
               <div className="px-3 py-2 border-b">
                 <p className="text-sm font-bold">{user.displayName}</p>
                 <p className="text-xs text-gray-500">{user.email}</p>
