@@ -68,44 +68,4 @@ export default function Page() {
       </div>
     </>
   );
-  return (
-    <div>
-      <div className="relative h-screen w-screen overflow-hidden flex justify-center items-center bg-background flex-col">
-        <RoundedCircle
-          top={-30}
-          left={-10}
-          width={600}
-          height={600}
-          bgColor="bg-gold"
-          opacity={100}
-        />
-        <RoundedCircle
-          top={-40}
-          left={-1}
-          width={600}
-          height={600}
-          bgColor="bg-gold"
-          opacity={60}
-        />
-        <LoginCard imgUrl={config.imgUrl} content={config.content}>
-          <div className="">
-            <Button
-              className="bg-gradient-to-tr  from-gold to-yellow-700 hover:from-black hover:opacity-90 transition ease-in duration-500 w-full flex-1 py-6 text-[18px] lg:text-[16px]"
-              onClick={handleGoogleSignIn}
-            >
-              <Image
-                src={config.btnIcon}
-                alt={`svg photo`}
-                width={30}
-                height={30}
-                className=""
-                priority
-              />
-              {config.btnText}
-            </Button>
-          </div>
-        </LoginCard>
-      </div>
-    </div>
-  );
 }
