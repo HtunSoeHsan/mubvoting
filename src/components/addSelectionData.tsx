@@ -8,7 +8,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { db } from "@/firebase";
-import { selections } from "@/app/data/selection.json";
+import selections from "@/app/data/selection.json";
 import { SplineIcon } from "lucide-react";
 
 export default function AddSelectionData() {
@@ -29,7 +29,7 @@ export default function AddSelectionData() {
       console.log("All documents deleted.");
 
       // Step 2: Add new documents
-      const addPromises = selections.map((selection) =>
+      const addPromises = selections.selections.map((selection) =>
         addDoc(selectionCollectionRef, selection)
       );
       await Promise.all(addPromises);
