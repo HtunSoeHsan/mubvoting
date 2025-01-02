@@ -1,11 +1,10 @@
-import { $Enums, Gender } from "@prisma/client";
 
 export interface SelectionPayload {
   id?: number;
   name: string;
   profile: string;
   age?: number;
-  gender: Gender;
+  gender: string;
   section: string;
   selection_no: number;
   king?: number;
@@ -32,7 +31,7 @@ export interface Selection {
     name: string;
     profile: string;
     age?: number | null;
-    gender: $Enums.Gender;
+    gender: string;
     selection_no: number;
     section: string;
     address?: string | null;

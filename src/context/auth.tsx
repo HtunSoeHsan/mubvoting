@@ -69,7 +69,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             email: result.user.email,
             name: result.user.displayName,
             profile: result.user.photoURL,
-            role: "user",
+            role: "User",
             voted: false,
             createdAt: new Date(),
           });
