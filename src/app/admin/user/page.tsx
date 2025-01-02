@@ -15,12 +15,14 @@ import {
 } from "firebase/firestore";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface User {
   id: string;
   email: string;
-  username: string;
-  role?: string;
+  name: string;
+  role: string;
+  profile: string;
 }
 
 export default function SearchBox() {
@@ -38,14 +40,13 @@ export default function SearchBox() {
     setLoading(true);
     try {
       const usersRef = collection(db, "users");
-      let q = query(usersRef, orderBy("username"), limit(itemsPerPage));
+      let q = query(usersRef, limit(itemsPerPage));
 
       if (search) {
         q = query(
           usersRef,
-          where("username", ">=", search),
-          where("username", "<", search + "\uf8ff"),
-          orderBy("username"),
+          where("name", ">=", search),
+          where("name", "<", search + "\uf8ff"),
           limit(itemsPerPage)
         );
       }
@@ -66,6 +67,7 @@ export default function SearchBox() {
       })) as User[];
 
       setUsers(userList);
+      console.log({ userList });
       setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1] || null);
 
       // Dynamically calculate total pages if available from Firestore
@@ -104,6 +106,7 @@ export default function SearchBox() {
 
   return (
     <>
+      hsh
       <div className="m-8 min-w-[300px] md:min-w-[600px] lg:min-w-[1000px] w-full ">
         <form
           onSubmit={handleSearch}
@@ -139,6 +142,9 @@ export default function SearchBox() {
             <thead className="text-xs text-gray-700 uppercase bg-blue-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" className="px-6 py-3">
+                  Profile
+                </th>
+                <th scope="col" className="px-6 py-3">
                   Email
                 </th>
                 <th scope="col" className="px-6 py-3">
@@ -166,9 +172,20 @@ export default function SearchBox() {
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                   >
                     <td className="px-6 py-4 text-gray-900 dark:text-white">
+                      <Avatar>
+                        <AvatarImage src={user.profile} alt="profile" />
+                        <AvatarFallback>
+                          {user.name
+                            .split(" ")
+                            .map((namePart) => namePart[0])
+                            .join("")}
+                        </AvatarFallback>
+                      </Avatar>
+                    </td>
+                    <td className="px-6 py-4 text-gray-900 dark:text-white">
                       {user.email}
                     </td>
-                    <td className="px-6 py-4">{user.username}</td>
+                    <td className="px-6 py-4">{user.name}</td>
                     <td className="px-6 py-4">{user.role || "User"}</td>
                     <td className="px-6 py-4">
                       <select

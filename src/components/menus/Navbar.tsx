@@ -16,23 +16,14 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 bg-[#0D2E6E] text-white shadow-lg">
       <div className="container mx-auto flex items-center justify-between py-2 px-4 lg:px-8">
         {/* Mobile Profile Image */}
-        {user ? (
-          <Image
-            src={user.photoURL || "/images/young-man.png"}
-            alt="Profile"
-            width={40}
-            height={40}
-            className="rounded-full lg:hidden"
-          />
-        ) : (
-          <Image
-            src={"/images/logo.png"}
-            alt="LOGO"
-            width={40}
-            height={40}
-            className="rounded-full lg:hidden"
-          />
-        )}
+
+        <Image
+          src={"/images/logo.png"}
+          alt="LOGO"
+          width={40}
+          height={40}
+          className="rounded-full lg:hidden"
+        />
 
         {/* Brand */}
         <div className="flex items-center">
@@ -71,7 +62,7 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Profile Section */}
-        <div className="hidden lg:flex items-center space-x-4">
+        <div className=" items-center space-x-4">
           {user ? (
             <>
               <Image
@@ -81,28 +72,26 @@ const Navbar = () => {
                 height={40}
                 className="rounded-full"
               />
-              <div className="flex flex-col">
+              <div className="hidden lg:flex flex-col">
                 <span className="text-sm font-medium">{user.displayName}</span>
                 <span className="text-gray-400">{user.phoneNumber}</span>
               </div>
-              <LogOut onClick={() => logout()} />
+              {/* <LogOut onClick={() => logout()} /> */}
             </>
           ) : (
-            <Link href={links.login}>
-              <Power>Login</Power>
-            </Link>
+            <Link href={links.login}>Login</Link>
           )}
         </div>
-        {user ? (
+        {/* {user ? (
           <LogOut
             className="cursor-pointer hover:text-red-500 transition duration-200 lg:hidden"
             onClick={logout}
           />
         ) : (
           <Link href={links.login} className="lg:hidden">
-            <Power />
+            Login
           </Link>
-        )}
+        )} */}
       </div>
       {/* Menu */}
       <div

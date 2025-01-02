@@ -29,7 +29,7 @@ export const conf = {
       },
       {
         title: "Users",
-        url: "/admin/users",
+        url: "/admin/user",
         icon: Inbox,
       },
       {
