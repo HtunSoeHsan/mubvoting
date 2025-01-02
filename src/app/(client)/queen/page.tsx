@@ -1,15 +1,18 @@
 "use client";
 import LoadingSpinner from "@/components/cell/LoadingSpinner";
 import StudentCard from "@/components/student-card";
+import { useAuth } from "@/context/auth";
 import { db } from "@/firebase";
 import { Selection } from "@/interface/selection";
-import { getSelections } from "@/service/selection.service";
+
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
 
 export default function Page() {
   const [selections, setSelections] = useState<Selection[]>([]);
   const [loading, setLoading] = useState(false);
+  const [isUserAlreadyVoted, setIsUserAlreadyVoted] = useState(false);
+  const { user } = useAuth();
   const getIt = useCallback(async () => {
     try {
       setLoading(true);
@@ -20,7 +23,20 @@ export default function Page() {
       const snapshot = await getDocs(q);
       const selectionsArray: Selection[] = [];
 
-      snapshot.forEach((doc) => selectionsArray.push(doc.data() as Selection));
+      snapshot.forEach((doc) => {
+        console.log(doc.data());
+        
+        if (
+          doc
+            .data()
+            .queenVotes.some(
+              (vote: { email: string }) => vote.email === user?.email
+            )
+        ) {
+          setIsUserAlreadyVoted(true);
+        }
+        selectionsArray.push(doc.data() as Selection);
+      });
       setSelections(selectionsArray);
     } catch (error) {
       console.log(error);
@@ -63,7 +79,9 @@ export default function Page() {
                     gender={student.gender}
                     bio={""}
                     gallery={student.gallery}
-                    onVote={() => {}}
+                    votetype="queenVotes"
+                    alreadyVoted={isUserAlreadyVoted}
+                    setUserVoted={() => setIsUserAlreadyVoted(true)}
                   />
                 ))}
             </div>

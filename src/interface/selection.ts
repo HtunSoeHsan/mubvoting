@@ -1,7 +1,7 @@
 import { $Enums, Gender } from "@prisma/client";
 
 export interface SelectionPayload {
-  id?: number;
+  id: number;
   name: string;
   profile: string;
   age?: number;
@@ -19,31 +19,30 @@ export interface SelectionPayload {
   gallery: string[]; // Array of image URLs for the Gallery
 }
 
-
 export interface Gallery {
   id: number;
   image: string;
   selection_id: number;
-};
+}
 
 export interface Selection {
-  id?: number;
+  id: number;
   uuid: string;
-    name: string;
-    profile: string;
-    age?: number | null;
-    gender: $Enums.Gender;
-    selection_no: number;
-    section: string;
-    address?: string | null;
-    selected: boolean;
-    gallery: string[];
-    kingVotesCount: number;
-    queenVotesCount: number;
-    popularVotesCount: number;
-    innocentVotesCount: number;
-    isKing: boolean;
-    isQueen: boolean;
-    isPopular: boolean;
-    isInnocent: boolean;
-};
+  name: string;
+  profile: string;
+  age?: number | null;
+  gender: $Enums.Gender;
+  selection_no: number;
+  section: string;
+  address?: string | null;
+  selected: boolean;
+  gallery: string[];
+  kingVotesCount: number;
+  queenVotesCount: number;
+  popularVotesCount: number;
+  innocentVotesCount: number;
+  isKing: boolean;
+  isQueen: boolean;
+  isPopular: boolean;
+  isInnocent: boolean;
+}
