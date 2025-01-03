@@ -1,24 +1,97 @@
 "use client";
+import LoadingSpinner from "@/components/cell/LoadingSpinner";
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getVotes } from "@/repository/vote.repo";
-import { getVotingCount } from "@/service/vote.service";
-import { useEffect, useState } from "react";
+import VoteBoardCard from "@/components/VoteBoardCard";
+import { db } from "@/firebase";
+import { Selection } from "@/interface/selection";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { useCallback, useEffect, useState } from "react";
 
 export default function Page() {
-  const King = [
-    { id: 1, name: "Thaw Bhonte Htet" },
-    { id: 2, name: "Okkar Thu" },
-    { id: 3, name: "Thein Yati Nwe" },
-    { id: 4, name: "Yoon Lae Lae Khaing" },
-    { id: 5, name: "Hnin Hnin Hsan" },
-  ];
+  const [selections, setSelections] = useState<{
+    male: Selection[];
+    female: Selection[];
+  }>({ male: [], female: [] });
+  const [loading, setLoading] = useState(false);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [votedUsers, setVotedUsers] = useState(0);
+  const getRealTimeData = useCallback(() => {
+    setLoading(true);
 
-  const irefresh = "/refresh.png";
+    const userCollection = collection(db, "users");
+
+    const unsubscribeTotal = onSnapshot(userCollection, (snapshot) => {
+      setTotalUsers(snapshot.size);
+    });
+
+    const votedQuery = query(userCollection, where("voted", "==", true));
+
+    const unsubscribeVoted = onSnapshot(votedQuery, (snapshot) => {
+      setVotedUsers(snapshot.size);
+    });
+    const maleQuery = query(
+      collection(db, "selections"),
+      where("gender", "==", "male")
+    );
+    const unsubscribeMale = onSnapshot(
+      maleQuery,
+      (snapshot) => {
+        const male: Selection[] = snapshot.docs.map(
+          (doc) =>
+            ({
+              ...doc.data(),
+            } as Selection)
+        );
+        setSelections((prev) => ({ ...prev, male }));
+      },
+      (error) => console.error("Error fetching male data: ", error)
+    );
+
+    const femaleQuery = query(
+      collection(db, "selections"),
+      where("gender", "==", "female")
+    );
+    const unsubscribeFemale = onSnapshot(
+      femaleQuery,
+      (snapshot) => {
+        const female: Selection[] = snapshot.docs.map(
+          (doc) =>
+            ({
+              ...doc.data(),
+            } as Selection)
+        );
+        setSelections((prev) => ({ ...prev, female }));
+      },
+      (error) => console.error("Error fetching female data: ", error)
+    );
+
+    setLoading(false);
+
+    return () => {
+      unsubscribeMale();
+      unsubscribeFemale();
+      unsubscribeTotal();
+      unsubscribeVoted();
+    };
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = getRealTimeData();
+    return () => unsubscribe(); // Cleanup on unmount
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 z-50">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   const [votings, setVoting] = useState<{
     kingVotes: {
@@ -52,128 +125,29 @@ export default function Page() {
   }, []);
   return (
     <>
-      <div className=" m-5">
-        <div className="flex  gap-3 items-center justify-around m-5">
+      <div className="m-4 ">
+        <div className="flex  gap-3 items-center justify-around ">
           <div className="px-2 flex flex-wrap gap-12 justify-center items-center w-full ">
             <Card className="border-[#176B87] border-4">
               <CardHeader className="px-14">
-                <CardTitle> 100</CardTitle>
-                <CardDescription>Login</CardDescription>
+                <CardTitle>{totalUsers}</CardTitle>
+                <CardDescription>Login Users</CardDescription>
               </CardHeader>
             </Card>
             <Card className="border-[#176B87] border-4">
               <CardHeader className="px-14">
-                <CardTitle>120</CardTitle>
-                <CardDescription>Vote Count</CardDescription>
-              </CardHeader>
-            </Card>
-            <Card className="border-[#176B87] border-4">
-              <CardHeader className="px-14">
-                <CardTitle>12</CardTitle>
-                <CardDescription>Participant</CardDescription>
+                <CardTitle>{votedUsers}</CardTitle>
+                <CardDescription>Voted users</CardDescription>
               </CardHeader>
             </Card>
           </div>
-          <Card className=" bg-[#32bbb2] flex-wrap flex items-center justify-end mx-24 max-h-[80px]">
-            <CardHeader>
-              <CardDescription>
-                <button>
-                  <img src={irefresh} className="max-h-[80px]" />
-                </button>
-              </CardDescription>
-            </CardHeader>
-          </Card>
         </div>
 
-        <div className="flex flex-wrap gap-8 justify-start items-center">
-          <div className="rounded-lg flex flex-col border-2 bg-[#053025]">
-            <p className="w-[250px] text-left rounded-r-full rounded-br-full bg-[#FFC145]  font-bold text-lg  px-14 py-2 mb-8">
-              King{" "}
-            </p>
-            {votings?.kingVotes.map((v, i) => (
-              <div
-                key={i}
-                className=" text-start bg-[#FFC145] flex justify-between items-center  font-bold text-lg rounded-l-full rounded-r-md px-4 gap-5 py-2 ml-4 mt-1"
-              >
-                <div className="text-start">
-                  <span className="border border-white border-2 rounded-full p-2">
-                    {v.no}
-                  </span>
-                  <span className="text-start ms-5">{v.name}</span>
-                </div>
-                <span className="text-white">{v.count}</span>
-              </div>
-            ))}
-            <button className="mt-8 text-center bg-[#FFC145] font-bold text-lg  px-14 py-2">
-              SELECT{" "}
-            </button>
-          </div>
-          <div className="rounded-lg flex flex-col border-2 bg-[#053025]">
-            <p className="w-[250px] text-left bg-[#FFC145]  rounded-r-full rounded-br-full  font-bold text-lg  px-14 py-2 mb-8">
-              Popular{" "}
-            </p>
-            {votings?.popularVotes.map((v, i) => (
-              <div
-                key={i}
-                className="text-start bg-[#FFC145] flex justify-between items-center  font-bold text-lg rounded-l-full rounded-r-md px-4 gap-5 py-2 ml-4 mt-1"
-              >
-                <div className="text-start">
-                  <span className="border border-white border-2 rounded-full p-2">
-                    {v.no}
-                  </span>
-                  <span className="text-start ms-5">{v.name}</span>
-                </div>
-                <span className="text-white">{v.count}</span>
-              </div>
-            ))}
-            <button className="mt-8 text-center bg-[#FFC145]  font-bold text-lg  px-14 py-2">
-              SELECT{" "}
-            </button>
-          </div>
-          <div className=" rounded-md flex flex-col border-2 bg-[#053025]">
-            <p className="w-[250px] text-left rounded-r-full rounded-br-full bg-[#FFC145]  font-bold text-lg  px-14 py-2 mb-8">
-              Queen{" "}
-            </p>
-            {votings?.queenVotes.map((v, i) => (
-              <div
-                key={i}
-                className=" text-start bg-[#FFC145] flex justify-between items-center  font-bold text-lg rounded-l-full rounded-r-md px-4 gap-5 py-2 ml-4 mt-1"
-              >
-                <div className="text-start">
-                  <span className="border border-white border-2 rounded-full p-2">
-                    {v.no}
-                  </span>
-                  <span className="text-start ms-5">{v.name}</span>
-                </div>
-                <span className="text-white">{v.count}</span>
-              </div>
-            ))}
-            <button className="mt-8 text-center bg-[#FFC145]  font-bold text-lg  px-14 py-2">
-              SELECT{" "}
-            </button>
-          </div>
-          <div className=" rounded-md flex flex-col border-2 bg-[#053025]">
-            <p className="w-[250px] text-left bg-[#FFC145] rounded-r-full rounded-br-full font-bold text-lg  px-14 py-2 mb-8">
-              Innocence{" "}
-            </p>
-            {votings?.innocentVotes.map((v, i) => (
-              <div
-                key={i}
-                className=" text-start bg-[#FFC145] flex justify-between items-center  font-bold text-lg rounded-l-full rounded-r-md px-4 gap-5 py-2 ml-4 mt-1"
-              >
-                <div className="text-start">
-                  <span className="border border-white border-2 rounded-full p-2">
-                    {v.no}
-                  </span>
-                  <span className="text-start ms-5">{v.name}</span>
-                </div>
-                <span className="text-white">{v.count}</span>
-              </div>
-            ))}
-            <button className="mt-8 text-center bg-[#FFC145]  font-bold text-lg  px-14 py-2">
-              SELECT{" "}
-            </button>
-          </div>
+        <div className="flex flex-wrap m-4 p1  ">
+          <VoteBoardCard items={selections.male} title="King" />
+          <VoteBoardCard items={selections.female} title="Queen" />
+          <VoteBoardCard items={selections.male} title="Popular" />
+          <VoteBoardCard items={selections.female} title="Innocent" />
         </div>
       </div>
     </>

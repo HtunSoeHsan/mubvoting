@@ -1,24 +1,50 @@
 "use client";
 import LoadingSpinner from "@/components/cell/LoadingSpinner";
 import StudentCard from "@/components/student-card";
+import { useAuth } from "@/context/auth";
+import { db } from "@/firebase";
 import { Selection } from "@/interface/selection";
-import { getSelections } from "@/service/selection.service";
-import { useEffect, useState } from "react";
+
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useCallback, useEffect, useState } from "react";
 
 export default function Page() {
   const [selections, setSelections] = useState<Selection[]>([]);
   const [loading, setLoading] = useState(false);
-  const fetch = async () => {
-    setLoading(true);
-    await getSelections("MALE")
-      .then((data) => {
-        setSelections(data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  };
+  const [isUserAlreadyVoted, setIsUserAlreadyVoted] = useState(false);
+  const { user } = useAuth();
+  const getIt = useCallback(async () => {
+    try {
+      setLoading(true);
+      const q = query(
+        collection(db, "selections"),
+        where("gender", "==", "male")
+      );
+      const snapshot = await getDocs(q);
+      const selectionsArray: Selection[] = [];
+
+      snapshot.forEach((doc) => {
+        if (
+          doc
+            .data()
+            .popularVotes.some(
+              (vote: { email: string }) => vote.email === user?.email
+            )
+        ) {
+          setIsUserAlreadyVoted(true);
+        }
+        selectionsArray.push(doc.data() as Selection);
+      });
+      setSelections(selectionsArray);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
-    fetch();
+    getIt();
   }, []);
 
   if (loading) {
@@ -40,19 +66,23 @@ export default function Page() {
         <div className="lg:max-w-[90%]  space-y-5 md:space-y-28 mx-auto">
           <div className="space-y-[100px]">
             <div className="mx-auto p-5 md:p-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-32 md:gap-y-24 lg:gap-y-36">
-              {selections.map((student) => (
-                <StudentCard
-                  key={student.id}
-                  no={student.selection_no}
-                  name={student.name}
-                  grade={student.section}
-                  image={student.profile}
-                  gender={student.gender}
-                  bio={""}
-                  gallery={student.gallery}
-                  onVote={() => {}}
-                />
-              ))}
+              {selections
+                .sort((a, b) => a.selection_no - b.selection_no)
+                .map((student, i) => (
+                  <StudentCard
+                    key={i}
+                    no={student.selection_no}
+                    name={student.name}
+                    grade={student.section}
+                    image={student.profile}
+                    gender={student.gender}
+                    bio={""}
+                    gallery={student.gallery}
+                    votetype="popularVotes"
+                    alreadyVoted={isUserAlreadyVoted}
+                    setUserVoted={() => setIsUserAlreadyVoted(true)}
+                  />
+                ))}
             </div>
           </div>
         </div>

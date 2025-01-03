@@ -14,10 +14,9 @@ export const Hero = () => {
       ></div>
 
       <Particle />
-      {/* {nav && nav} */}
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <Image
-          src={"/poly-logo.png"}
+          src={"/images/logo.png"}
           alt="poly-logo"
           width={400}
           height={400}

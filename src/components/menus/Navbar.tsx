@@ -1,39 +1,32 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { LogOut, Power } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import { LogOut } from "lucide-react";
 import { links } from "@/config/link";
 import { conf } from "@/config";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/context/auth";
+import { useState } from "react";
 
 const Navbar = () => {
-  const data = useSession();
   const pathname = usePathname();
-
+  const { user, logout } = useAuth();
   const isActive = (path: string) => pathname === path;
 
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const toggleProfileMenu = () => {
+    setIsProfileMenuOpen(!isProfileMenuOpen);
+  };
   return (
     <nav className="sticky top-0 z-50 bg-[#0D2E6E] text-white shadow-lg">
       <div className="container mx-auto flex items-center justify-between py-2 px-4 lg:px-8">
-        {/* Mobile Profile Image */}
-        {data.data?.user ? (
-          <Image
-            src={data.data?.user?.image || "/images/young-man.png"}
-            alt="Profile"
-            width={40}
-            height={40}
-            className="rounded-full lg:hidden"
-          />
-        ) : (
-          <Image
-            src={"/images/logo.png"}
-            alt="LOGO"
-            width={40}
-            height={40}
-            className="rounded-full lg:hidden"
-          />
-        )}
+        <Image
+          src={"/images/logo.png"}
+          alt="LOGO"
+          width={40}
+          height={40}
+          className="rounded-full lg:hidden"
+        />
 
         {/* Brand */}
         <div className="flex items-center">
@@ -71,41 +64,42 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {/* Desktop Profile Section */}
-        <div className="hidden lg:flex items-center space-x-4">
-          {data.data?.user ? (
+        {/*  Profile Section */}
+        <div className=" items-center space-x-4" onClick={toggleProfileMenu}>
+          {user ? (
             <>
               <Image
-                src={data.data?.user?.image || "/young-man.png"}
+                src={user.photoURL || "/young-man.png"}
                 alt="Profile"
                 width={40}
                 height={40}
                 className="rounded-full"
               />
-              <div className="flex flex-col">
-                <span className="text-sm font-medium">
-                  {data.data?.user?.name}
-                </span>
-                <span className="text-gray-400">{data.data?.user.role}</span>
-              </div>
-              <LogOut onClick={() => signOut()} />
             </>
           ) : (
-            <Link href={links.login}>
-              <Power>Login</Power>
-            </Link>
+            <Link href={links.login}>Login</Link>
+          )}
+          {/* Profile Dropdown */}
+          {isProfileMenuOpen && user && (
+            <div className="absolute right-0 top-14 bg-white text-black shadow-lg rounded-md w-48 p-3 z-[1000]">
+              <div className="px-3 py-2 border-b">
+                <p className="text-sm font-bold">{user.displayName}</p>
+                <p className="text-xs text-gray-500">{user.email}</p>
+              </div>
+              <ul className="mt-2 space-y-2">
+                <li>
+                  <button
+                    onClick={logout}
+                    className="w-full text-left text-sm text-red-500 hover:bg-gray-100 p-2 rounded"
+                  >
+                    <LogOut className="inline-block mr-2" />
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
           )}
         </div>
-        {data.data?.user ? (
-          <LogOut
-            className="cursor-pointer hover:text-red-500 transition duration-200 lg:hidden"
-            onClick={() => signOut()}
-          />
-        ) : (
-          <Link href={links.login} className="lg:hidden">
-            <Power />
-          </Link>
-        )}
       </div>
       {/* Menu */}
       <div
