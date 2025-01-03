@@ -65,8 +65,6 @@ const StudentCard: FC<StudentCardProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isUserVotedSelection, setIsUserVotedSelection] = useState(false);
 
-  console.log(user);
-
   const openModal = (image: string) => {
     setSelectedImage(image);
     setIsModalOpen(true);
@@ -288,8 +286,14 @@ const StudentCard: FC<StudentCardProps> = ({
                   disabled
                   className="w-[50%] p-3 bg-gold rounded-l-full  justify-center items-center gap-2  opacity-50 inline-flex"
                 >
-                  <Loader2 className="animate-spin" />
-                  Can&apos;t vote now
+                  {alreadyVoted ? (
+                    "Already Voted"
+                  ) : (
+                    <span className="flex items-center gap-2">
+                      {" "}
+                      Can&apos;t vote now <Loader2 className="animate-spin" />
+                    </span>
+                  )}
                 </button>
               )}
             </>

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/sidebar";
 import { conf } from "@/config";
 
-const iconLog = "/logo.svg";
+const iconLog = "/images/logo.png";
 
 export function AppSidebar() {
   return (
