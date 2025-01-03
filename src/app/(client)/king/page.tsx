@@ -10,8 +10,9 @@ import { useCallback, useEffect, useState } from "react";
 export default function Page() {
   const [selections, setSelections] = useState<Selection[]>([]);
   const [loading, setLoading] = useState(false);
+  const [isUserAlreadyVoted, setIsUserAlreadyVoted] = useState(false);
   const { user } = useAuth();
-  console.log({ user });
+
   const getIt = useCallback(async () => {
     try {
       setLoading(true);
@@ -24,6 +25,16 @@ export default function Page() {
 
       snapshot.forEach((doc) => {
         const data = doc.data();
+
+        if (
+          data.kingVotes.some(
+            (vote: { email: string }) => vote.email === user?.email
+          )
+        ) {
+          setIsUserAlreadyVoted(true);
+        }
+
+        console.log(data);
         selectionsArray.push({
           name: data.name,
           profile: data.profile,
@@ -77,7 +88,9 @@ export default function Page() {
                     gender={student.gender}
                     bio={""}
                     gallery={student.gallery}
-                    onVote={() => {}}
+                    votetype="kingVotes"
+                    alreadyVoted={isUserAlreadyVoted}
+                    setUserVoted={() => setIsUserAlreadyVoted(true)}
                   />
                 ))}
             </div>

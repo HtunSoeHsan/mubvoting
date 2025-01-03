@@ -6,9 +6,20 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-cards";
 import { EffectCards } from "swiper/modules";
-import { Loader2, Vote } from "lucide-react";
-import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase";
+import { Check, Clock, Loader2, Vote } from "lucide-react";
+
+import {
+  arrayUnion,
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  onSnapshot,
+  where,
+} from "firebase/firestore";
+import { useAuth } from "@/context/auth";
 
 interface StudentCardProps {
   name: string;
@@ -18,7 +29,9 @@ interface StudentCardProps {
   image: string; // Path or URL to the student's photo
   bio: string; // Short description of the student
   gallery: string[];
-  onVote: () => void; // Callback when the vote button is clicked
+  votetype: string;
+  alreadyVoted: boolean;
+  setUserVoted: () => void;
 }
 
 const StudentCard: FC<StudentCardProps> = ({
@@ -27,7 +40,9 @@ const StudentCard: FC<StudentCardProps> = ({
   image,
   gender,
   gallery,
-  onVote,
+  votetype,
+  alreadyVoted,
+  setUserVoted,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -46,6 +61,11 @@ const StudentCard: FC<StudentCardProps> = ({
 
     return () => unsubscribe(); // Cleanup listener on unmount
   }, []);
+  const { user } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isUserVotedSelection, setIsUserVotedSelection] = useState(false);
+
+  console.log(user);
 
   const openModal = (image: string) => {
     setSelectedImage(image);
@@ -56,6 +76,92 @@ const StudentCard: FC<StudentCardProps> = ({
     setSelectedImage(null);
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    async function checkUserVotedSelection() {
+      const q = query(
+        collection(db, "selections"),
+        where("name", "==", name) // Filter by name field
+      );
+
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        console.log("No students found with the name:", name);
+        return;
+      }
+
+      querySnapshot.forEach(async (docSnapshot) => {
+        const student = docSnapshot.data();
+        if (
+          student[votetype].some(
+            (vote: { email: string }) => vote.email === user?.email
+          )
+        ) {
+          // Update the vote array
+          setIsUserVotedSelection(true);
+        }
+      });
+    }
+
+    checkUserVotedSelection();
+  }, []);
+
+  async function handelVoting(name: string, votetype: string) {
+    try {
+      setIsLoading(true);
+      const q = query(
+        collection(db, "selections"),
+        where("name", "==", name) // Filter by name field
+      );
+
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        console.log("No students found with the name:", name);
+        return;
+      }
+      querySnapshot.forEach(async (docSnapshot) => {
+        const student = docSnapshot.data();
+        if (
+          student[votetype].some(
+            (vote: { email: string }) => vote.email === user?.email
+          )
+        ) {
+          // Update the vote array
+
+          return;
+        }
+
+        const docRef = doc(db, "selections", docSnapshot.id);
+        const vote = { email: user?.email, vote: 1 };
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const allVoteTypes: any = {
+          kingVotes: {
+            kingVotes: arrayUnion(vote),
+          },
+          queenVotes: {
+            queenVotes: arrayUnion(vote),
+          },
+          popularVotes: {
+            popularVotes: arrayUnion(vote),
+          },
+          innocentVotes: {
+            innocentVotes: arrayUnion(vote),
+          },
+        };
+
+        await updateDoc(docRef, allVoteTypes[votetype]);
+        setUserVoted();
+        setIsUserVotedSelection(true);
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <div className="relative bg-[#143848] w-[340px] py-[30px] rounded-xl space-y-6 mx-auto">
@@ -144,22 +250,49 @@ const StudentCard: FC<StudentCardProps> = ({
         </h4>
         <div className="flex justify-between items-center">
           <p className="mx-3 text-white opacity-80 uppercase">Section - A</p>
-          {isTimeToVote ? (
-            <button
-              onClick={onVote}
-              className="w-[50%] translate-x-[40px] hover:translate-x-0 hover:bg-yellow-100 transition-all duration-300 p-3 bg-gold rounded-l-full text-right font-semibold text-[16px] capitalize inline-flex justify-end items-center gap-2"
-            >
-              Vote now
-              <Vote className="text-golden animate-bounce" />
-            </button>
-          ) : (
+          {isUserVotedSelection ? (
             <button
               disabled
-              className="w-[50%] p-3 bg-gold rounded-l-full justify-center items-center gap-2 opacity-50 inline-flex"
+              onClick={() => {
+                handelVoting(name, votetype);
+              }}
+              className="w-[50%] p-3 bg-green-400 rounded-l-full  justify-center items-center gap-2  opacity-50 inline-flex"
             >
-              <Loader2 className="animate-spin" />
-              Can&apos;t vote now
+              Your Choice
+              <Check className="text-black font-mono" />
             </button>
+          ) : (
+            <>
+              {!alreadyVoted && isTimeToVote ? (
+                <button
+                  disabled={isLoading}
+                  onClick={() => {
+                    handelVoting(name, votetype);
+                  }}
+                  className="w-[50%] cursor-pointer translate-x-[40px] hover:translate-x-0 hover:bg-yellow-100 transition-all duration-300 p-3 bg-gold rounded-l-full  text-right font-semibold text-[16px] capitalize inline-flex justify-end items-center gap-2 disabled:bg-yellow-200/50 disabled:cursor-not-allowed"
+                >
+                  {isLoading ? (
+                    <>
+                      Voting...
+                      <Clock className="text-golden animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      Vote now
+                      <Vote className="text-golden animate-bounce" />
+                    </>
+                  )}
+                </button>
+              ) : (
+                <button
+                  disabled
+                  className="w-[50%] p-3 bg-gold rounded-l-full  justify-center items-center gap-2  opacity-50 inline-flex"
+                >
+                  <Loader2 className="animate-spin" />
+                  Can&apos;t vote now
+                </button>
+              )}
+            </>
           )}
         </div>
       </div>
