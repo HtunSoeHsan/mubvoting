@@ -1,10 +1,11 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-cards";
 import { EffectCards } from "swiper/modules";
-import { Loader2,Vote } from "lucide-react";
+import { Loader2, Vote } from "lucide-react";
+import { Gallery } from "@/interface/selection";
 
 interface StudentCardProps {
   name: string;
@@ -13,6 +14,7 @@ interface StudentCardProps {
   grade: string;
   image: string; // Path or URL to the student's photo
   bio: string; // Short description of the student
+  gallery: Gallery[];
   onVote: () => void; // Callback when the vote button is clicked
 }
 
@@ -21,23 +23,35 @@ const StudentCard: FC<StudentCardProps> = ({
   name,
   image,
   gender,
+  gallery,
 }) => {
-  const isMale = gender === "male";
-  const crownIcon = isMale ? "/king-crown.png" : "/queen-crown.png";
   const isTimeToVote = true;
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const openModal = (image: string) => {
+    setSelectedImage(image);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="relative bg-[#143848] w-[340px] py-[30px] rounded-xl space-y-6 mx-auto">
       <div className="h-[50px] flex justify-center">
         {/* Image at the top,It'used for show profile  */}
-        <div className="absolute top-[-80px] rounded-full w-[140px] h-[140px] bg-white bg-cover overflow-hidden p-1">
+        <div className="absolute top-[-80px] rounded-full w-[140px] h-[140px] border-2 border-white bg-cover overflow-hidden">
           <Image
             priority
-            alt={`${name}'s photo`}
+            alt={`${name} photo`}
             src={image}
-            width={100}
-            height={100}
-            className="w-full h-full rounded-full object-cover border-2 border-black"
+            width={1920} // Full HD width
+            height={1080} // Full HD height
+            className="w-full h-full rounded-full object-cover"
           />
         </div>
         {/* This circle describe the no of the selection  */}
@@ -46,8 +60,12 @@ const StudentCard: FC<StudentCardProps> = ({
             {/* This is image is used as crown icon  */}
             <Image
               priority
-              alt={`${name}'s photo`}
-              src={crownIcon}
+              alt={`${name} photo`}
+              src={
+                gender === "FEMALE"
+                  ? "/images/queen-crown.png"
+                  : "/images/king-crown.png"
+              }
               width={100}
               height={100}
               className="absolute top-[-25px] right-[-10px]"
@@ -65,55 +83,42 @@ const StudentCard: FC<StudentCardProps> = ({
           modules={[EffectCards]}
           className="mySwiper"
         >
-          <SwiperSlide>
-            <Image
-              alt={`${name}'s photo`}
-              priority
-              src={
-                "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600"
-              }
-              width={100}
-              height={100}
-              className="w-full h-full"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image
-              alt={`${name}'s photo`}
-              priority
-              src={
-                "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=600"
-              }
-              width={100}
-              height={100}
-              className="w-full h-full"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image
-              alt={`${name}'s photo`}
-              priority
-              src={
-                "https://images.pexels.com/photos/29787237/pexels-photo-29787237/free-photo-of-trendy-young-man-posing-in-stylish-outfit.jpeg?auto=compress&cs=tinysrgb&w=600"
-              }
-              width={100}
-              height={100}
-              className="w-full h-full"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image
-              alt={`${name}'s photo`}
-              priority
-              src={
-                "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600"
-              }
-              width={100}
-              height={100}
-              className="w-full h-full"
-            />
-          </SwiperSlide>
+          {gallery.map((g) => (
+            <SwiperSlide key={g.id} onClick={() => openModal(g.image)}>
+              <Image
+                alt={`${name} photo`}
+                priority
+                src={g.image}
+                width={1920}
+                height={1080}
+                className="w-full h-full object-cover"
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
+        {/* Modal */}
+        {isModalOpen && (
+          <div
+            className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-75 z-50"
+            onClick={closeModal}
+          >
+            <div className="relative max-w-5xl max-h-[90vh] w-full h-full">
+              <Image
+                alt="Enlarged view"
+                src={selectedImage!}
+                layout="fill"
+                objectFit="contain"
+                className="cursor-pointer"
+              />
+            </div>
+            <button
+              className="absolute top-4 right-4 text-white text-2xl"
+              onClick={closeModal}
+            >
+              ✕
+            </button>
+          </div>
+        )}
       </div>
 
       {/* This section show the  name and section of selection  */}
@@ -126,7 +131,7 @@ const StudentCard: FC<StudentCardProps> = ({
           {isTimeToVote ? (
             <button className="w-[50%] translate-x-[40px] hover:translate-x-0 hover:bg-yellow-100 transition-all duration-300 p-3 bg-gold rounded-l-full  text-right font-semibold text-[16px] capitalize inline-flex justify-end items-center gap-2">
               Vote now
-              <Vote className="text-golden animate-bounce"/>
+              <Vote className="text-golden animate-bounce" />
             </button>
           ) : (
             <button
@@ -134,7 +139,7 @@ const StudentCard: FC<StudentCardProps> = ({
               className="w-[50%] p-3 bg-gold rounded-l-full  justify-center items-center gap-2  opacity-50 inline-flex"
             >
               <Loader2 className="animate-spin" />
-              Can't vote now
+              Can&apos;t vote now
             </button>
           )}
         </div>

@@ -1,11 +1,15 @@
+"use server";
 import {
+  getAllSelections,
   getSelectionById,
+  saveVotingCount,
   updateSelectionVote,
 } from "@/repository/selection.repo";
 import { getUserByEmail, updateUserVoteStatus } from "@/repository/user.repo";
 import {
   createVote,
   deleteVote,
+  getSelectionVotingCount,
   getTotalVoteCount,
   getUniqueVote,
   getVotes,
@@ -121,5 +125,66 @@ export const devote = async ({
   if (userVote?.selection_id === selection_id) {
     await updateSelectionVote(selection_id, vote_type, false);
     await deleteVote(userVote.id);
+  }
+};
+export const getVotingCount = async () => {
+  try {
+    // Fetch selections
+    const [kingSelections, queenSelections] = await Promise.all([
+      getAllSelections("MALE"),
+      getAllSelections("FEMALE"),
+    ]);
+
+    // Fetch votes concurrently
+    const kingVotes = await Promise.all(
+      kingSelections.map(async(selection) => ({id: selection.id, name: selection.name, no: selection.selection_no, count: await getSelectionVotingCount(selection.id, "KING")}))
+    );
+    const queenVotes = await Promise.all(
+      queenSelections.map(async(selection) => ({id: selection.id, name: selection.name, no: selection.selection_no, count: await getSelectionVotingCount(selection.id, "QUEEN")}))
+    );
+    const popularVotes = await Promise.all(
+      kingSelections.map(async(selection) => ({id: selection.id, name: selection.name, no: selection.selection_no, count: await getSelectionVotingCount(selection.id, "POPULAR")}))
+    );
+    const innocentVotes = await Promise.all(
+      queenSelections.map(async(selection) => ({id: selection.id, name: selection.name, no: selection.selection_no, count: await getSelectionVotingCount(selection.id, "INNOCENT")}))
+    );
+
+    // Return structured results
+    return {
+      kingVotes:kingVotes.sort((a, b) => b.count - a.count),
+      queenVotes : queenVotes.sort((a, b) => b.count - a.count),
+      popularVotes : popularVotes.sort((a, b) => b.count - a.count),
+      innocentVotes : innocentVotes.sort((a, b) => b.count - a.count),
+    };
+  } catch (error) {
+    console.error("Error fetching voting counts:", error);
+    throw error;
+  }
+};
+export const collectVoting = async () => {
+  try {
+    
+  const { kingVotes, queenVotes, popularVotes, innocentVotes } = await getVotingCount();
+
+  // Save voting counts for each category
+  await Promise.all(
+    kingVotes.map((k) => saveVotingCount({ king: k.count }, k.id)) // Ensure all saveVotingCount calls are awaited
+  );
+
+  await Promise.all(
+    queenVotes.map((q) => saveVotingCount({ queen: q.count }, q.id))
+  );
+
+  await Promise.all(
+    popularVotes.map((p) => saveVotingCount({ popular: p.count }, p.id))
+  );
+
+  await Promise.all(
+    innocentVotes.map((i) => saveVotingCount({ innocent: i.count }, i.id))
+  );
+  } catch (error) {
+    
+    console.error("Error collecting voting counts:", error);
+    throw error;
   }
 };

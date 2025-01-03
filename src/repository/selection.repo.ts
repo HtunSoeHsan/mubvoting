@@ -1,10 +1,10 @@
 import { prisma } from "@/config/db";
-import { Selection } from "@/interface/selection";
-import { VoteType } from "@prisma/client";
+import { SelectionPayload } from "@/interface/selection";
+import { Gender, VoteType } from "@prisma/client";
 
-export const addSelections = async (selections: Selection[]) => {
-  // Create selections
-  const createdSelections = await Promise.all(
+  
+export const addSelections = async (selections: SelectionPayload[]) => {
+   await Promise.all(
     selections.map(async (selection) => {
       const createdSelection = await prisma.selection.create({
         data: {
@@ -15,11 +15,11 @@ export const addSelections = async (selections: Selection[]) => {
           section: selection.section,
           dob: selection.dob,
           address: selection.address,
+          selection_no: selection.selection_no,
           selection_year: selection.selection_year,
         },
       });
 
-      // Create associated gallery images if provided
       if (selection.gallery && selection.gallery.length > 0) {
         await prisma.gallery.createMany({
           data: selection.gallery.map((image) => ({
@@ -33,16 +33,21 @@ export const addSelections = async (selections: Selection[]) => {
     })
   );
 
-  return createdSelections;
+  console.log("######### selection seed successfully #########")
 };
 
-export const getAllSelections = async () => {
+export const getAllSelections = async (gender?: Gender) => {
+  const where = gender ? { gender } : undefined;
+
   return await prisma.selection.findMany({
-    include: {
+    select: {
+      id: true, age: true, name: true, address: true, gender: true, profile: true,selected: true, section: true, selection_no: true, 
       gallery: true,
     },
+    where
   });
 };
+
 
 export const getSelectionById = async (id: number) => {
   return await prisma.selection.findUnique({
@@ -87,3 +92,7 @@ export const updateSelectionVote = async (
     data: vote[vote_type],
   });
 };
+
+export const saveVotingCount = async (data: { king?: number; queen?: number; popular?: number; innocent?: number }, selection_id: number) => {
+   await prisma.selection.update({data, where:{id: selection_id}});
+}

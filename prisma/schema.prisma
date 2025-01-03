@@ -35,12 +35,14 @@ model Selection {
   profile        String
   age            Int?
   gender         Gender
-  section        String?
+  section        String
   king           Int?      @default(0)
   queen          Int?      @default(0)
   popular        Int?      @default(0)
   innocent       Int?      @default(0)
   dob            DateTime?
+  selection_no   Int
+  vote_status    Boolean   @default(true)
   address        String?   @db.VarChar(500)
   selection_year String?   @db.VarChar(4) // Restrict year format to 4 characters
   selected       Boolean   @default(false)
@@ -82,11 +84,12 @@ model Voting {
 }
 
 model Admin {
-  id         Int       @id @default(autoincrement())
-  status     Boolean   @default(true)
-  created_at DateTime  @default(now())
-  updated_at DateTime? @updatedAt
-  deleted_at DateTime?
+  id          Int       @id @default(autoincrement())
+  status      Boolean   @default(true)
+  vote_status Boolean
+  created_at  DateTime  @default(now())
+  updated_at  DateTime? @updatedAt
+  deleted_at  DateTime?
 
   @@map("tbl_admin")
 }

@@ -68,3 +68,7 @@ export const getTotalVoteCount = async (id: number) => {
     },
   });
 };
+
+export const getSelectionVotingCount = async (selection_id: number, vote_type: VoteType) => {
+  return await prisma.voting.count({where: {selection_id, vote_type}});
+}

@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { getSelections } from "@/service/selection.service";
-import { devote, postVote } from "@/service/vote.service";
-import { VoteType } from "@prisma/client";
-import React from "react";
+// import { Button } from "@/components/ui/button";
+// import { getSelections } from "@/service/selection.service";
+// import { devote, postVote } from "@/service/vote.service";
+// import { VoteType } from "@prisma/client";
+// import React from "react";
 
 async function page() {
   //   console.log(await getAllVotes());
@@ -14,7 +14,7 @@ async function page() {
   return (
     <div className=" w-screen h-screen bg-green-500 text-5xl text-white font-mono flex-col flex items-center justify-center">
       THIS PAGE IS TESTING FOR ALL BACKEND LOGIC
-      <div className="flex gap-4 mt-4">
+      {/* <div className="flex gap-4 mt-4">
         <Button
           onClick={async () => {
             "use server";
@@ -55,7 +55,7 @@ async function page() {
         >
           Vote Innocent
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }

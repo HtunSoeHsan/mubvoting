@@ -5,6 +5,7 @@ import { UserTypes } from "@/types";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [Google],
+  trustHost: true,
   callbacks: {
     async jwt({ token, user }) {
       if (user) {

@@ -1,5 +1,4 @@
 "use client";
-import clsx from "clsx";
 import { TypeAnimation } from "react-type-animation";
 
 export const TypeTextAni = () => {

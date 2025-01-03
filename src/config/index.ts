@@ -1,5 +1,5 @@
 import { links } from "./link";
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { Calendar, Home, Inbox, Settings } from "lucide-react";
 
 
 export const conf = {
