@@ -8,6 +8,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { conf } from "@/config";
+import Link from "next/link";
 
 const iconLog = "/images/logo.png";
 
@@ -25,13 +26,13 @@ export function AppSidebar() {
               {conf.admin_menu.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a
+                    <Link
                       href={item.url}
                       className="mt-1 p-2 text-bold bg-blue-100"
                     >
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

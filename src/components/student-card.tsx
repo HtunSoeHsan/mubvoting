@@ -131,6 +131,9 @@ const StudentCard: FC<StudentCardProps> = ({
           return;
         }
 
+        // previos vote count
+        const previousVoteCount = student[votetype].length;
+
         const docRef = doc(db, "selections", docSnapshot.id);
         const vote = { email: user?.email, vote: 1 };
 
@@ -138,15 +141,19 @@ const StudentCard: FC<StudentCardProps> = ({
         const allVoteTypes: any = {
           kingVotes: {
             kingVotes: arrayUnion(vote),
+            kingVotesCount: previousVoteCount + 1,
           },
           queenVotes: {
             queenVotes: arrayUnion(vote),
+            queenVotesCount: previousVoteCount + 1,
           },
           popularVotes: {
             popularVotes: arrayUnion(vote),
+            popularVotesCount: previousVoteCount + 1,
           },
           innocentVotes: {
             innocentVotes: arrayUnion(vote),
+            innocentVotesCount: previousVoteCount + 1,
           },
         };
 

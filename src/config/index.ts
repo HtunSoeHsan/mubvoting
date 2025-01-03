@@ -39,7 +39,7 @@ export const conf = {
       },
       {
         title: "Settings",
-        url: "#",
+        url: "/admin/setting",
         icon: Settings,
       },
     ],
