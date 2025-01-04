@@ -1,5 +1,6 @@
 "use client";
 import LoadingSpinner from "@/components/cell/LoadingSpinner";
+import ResetAll from "@/components/cell/ResetAll";
 import {
   Card,
   CardDescription,
@@ -112,7 +113,7 @@ export default function Page() {
             </Card>
           </div>
         </div>
-
+        <ResetAll />
         <div className="flex flex-wrap m-4 p1  ">
           <VoteBoardCard items={selections.male} title="King" />
           <VoteBoardCard items={selections.female} title="Queen" />

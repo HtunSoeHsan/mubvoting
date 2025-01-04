@@ -25,7 +25,7 @@ export interface Gallery {
 }
 
 export interface Selection {
-  id: number;
+  id: string;
   uuid: string;
     name: string;
     profile: string;

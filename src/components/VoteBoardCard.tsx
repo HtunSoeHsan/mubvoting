@@ -79,13 +79,25 @@ export default function VoteBoardCard({
 
   return (
     <div className="pt-2 mx-2 rounded-lg flex flex-col border-2 bg-[#053025] pb-4">
-      <p className="text-left rounded-r-full bg-[#FFC145] font-bold text-lg px-14 py-2 mb-8">
-        {title}
+      <p className="flex justify-around items-center text-left rounded-r-full bg-[#FFC145] font-bold text-lg px-14 py-2 mb-8">
+        {title}{" "}
+        <span className="bg-white rounded-lg">
+          {title === "King" && "👑"}
+          {title === "Queen" && "👸"}
+          {title === "Popular" && "🌟"}
+          {title === "Innocent" && "😇"}
+        </span>
       </p>
       {sortedItems.map((item, i) => (
         <div key={i} className="flex items-center justify-center">
           <button
-            disabled={cookies[title]}
+            disabled={
+              cookies[title] ||
+              item.isKing ||
+              item.isQueen ||
+              item.isPopular ||
+              item.isInnocent
+            }
             className={`text-start flex-1 text-black font-bold text-lg rounded-l-full rounded-r-md rounded-md shadow-md p-2 mt-2 ms-4 mr-1 hover:bg-[#0E2C70] hover:text-white ${
               item.isKing || item.isQueen || item.isPopular || item.isInnocent
                 ? "bg-[#0E2C70] text-white"
