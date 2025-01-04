@@ -4,8 +4,12 @@ import { FC, useState, useEffect } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 import "swiper/css/effect-cards";
 import { EffectCards } from "swiper/modules";
+import { Pagination, Navigation } from "swiper/modules";
+
 import { db } from "@/firebase";
 import { Check, Clock, Loader2, Vote } from "lucide-react";
 
@@ -45,8 +49,33 @@ const StudentCard: FC<StudentCardProps> = ({
   setUserVoted,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isTimeToVote, setIsTimeToVote] = useState<boolean>(false); // Dynamic voting control
+
+  const stylesModalImages = {
+    swiper: {
+      "--swiper-navigation-color": "#fff",
+      "--swiper-pagination-color": "#fff",
+      width: "100%",
+      height: "100%",
+    },
+    swiperSlide: {
+      textAlign: "center",
+      fontSize: "18px",
+      background: "#000",
+      color: "#fff",
+      position: "relative", // Needed for centering child content
+    },
+    swiperSlideImg: {
+      width: "auto",
+      height: "auto",
+      maxWidth: "100%",
+      maxHeight: "100%",
+      position: "absolute",
+      left: "50%",
+      top: "50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
 
   // Fetch vote status in real-time
   useEffect(() => {
@@ -66,12 +95,10 @@ const StudentCard: FC<StudentCardProps> = ({
   const [isUserVotedSelection, setIsUserVotedSelection] = useState(false);
 
   const openModal = (image: string) => {
-    setSelectedImage(image);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setSelectedImage(null);
     setIsModalOpen(false);
   };
 
@@ -225,21 +252,32 @@ const StudentCard: FC<StudentCardProps> = ({
         </Swiper>
         {/* Modal */}
         {isModalOpen && (
-          <div
-            className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-75 z-50"
-            onClick={closeModal}
-          >
-            <div className="relative max-w-5xl max-h-[90vh] w-full h-full">
-              <Image
-                alt="Enlarged view"
-                src={selectedImage!}
-                layout="fill"
-                objectFit="contain"
-                className="cursor-pointer"
-              />
-            </div>
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-75 z-50">
+            <Swiper
+              style={stylesModalImages.swiper}
+              pagination={{
+                clickable: true,
+              }}
+              navigation={true}
+              modules={[Pagination, Navigation]}
+              className="mySwiper"
+            >
+              {gallery.map((g, i) => (
+                <SwiperSlide key={i} style={stylesModalImages.swiperSlide}>
+                  <Image
+                    alt={`${name} photo`}
+                    priority
+                    src={g}
+                    width={500}
+                    height={500}
+                    style={stylesModalImages.swiperSlideImg}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
             <button
-              className="absolute top-4 right-4 text-white text-2xl"
+              className="absolute top-4 right-4 text-white text-2xl z-20"
               onClick={closeModal}
             >
               ✕
@@ -297,7 +335,6 @@ const StudentCard: FC<StudentCardProps> = ({
                     "Already Voted"
                   ) : (
                     <span className="flex items-center gap-2">
-                      {" "}
                       Can&apos;t vote now <Loader2 className="animate-spin" />
                     </span>
                   )}

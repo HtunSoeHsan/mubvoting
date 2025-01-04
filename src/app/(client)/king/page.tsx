@@ -12,7 +12,6 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const [isUserAlreadyVoted, setIsUserAlreadyVoted] = useState(false);
   const { user } = useAuth();
-
   const getIt = useCallback(async () => {
     try {
       setLoading(true);

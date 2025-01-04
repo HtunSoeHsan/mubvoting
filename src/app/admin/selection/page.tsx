@@ -116,7 +116,10 @@ export default function Page() {
 
   return (
     <div className="flex  overflow-y-hidden flex-col  m-8 min-w-[300px]  md:min-w-[600px] lg:min-w-[1000px] w-full">
+<<<<<<< HEAD
+=======
       <AddSelectionData />
+>>>>>>> db110bc1f12e6213a9ec26aced744fd2b13279be
       <div className="flex-grow mt-4 relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-blue-50 dark:bg-gray-700 dark:text-gray-400">
