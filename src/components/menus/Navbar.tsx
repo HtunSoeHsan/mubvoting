@@ -1,22 +1,21 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { LogOut } from "lucide-react";
 import { links } from "@/config/link";
 import { conf } from "@/config";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/auth";
-import { useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 const Navbar = () => {
   const pathname = usePathname();
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const isActive = (path: string) => pathname === path;
 
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-  const toggleProfileMenu = () => {
-    setIsProfileMenuOpen(!isProfileMenuOpen);
-  };
   return (
     <nav className="sticky top-0 z-50 bg-[#0D2E6E] text-white shadow-lg">
       <div className="container mx-auto flex items-center justify-between py-2 px-4 lg:px-8">
@@ -65,41 +64,39 @@ const Navbar = () => {
         </div>
 
         {/*  Profile Section */}
-        <div className=" items-center space-x-4" onClick={toggleProfileMenu}>
-          {user ? (
-            <>
-              <Image
-                src={user.photoURL || "/young-man.png"}
-                alt="Profile"
-                width={40}
-                height={40}
-                className="rounded-full"
-              />
-            </>
-          ) : (
-            <Link href={links.login}>Login</Link>
-          )}
-          {/* Profile Dropdown */}
-          {isProfileMenuOpen && user && (
-            <div className="absolute right-0 top-14 bg-white text-black shadow-lg rounded-md w-48 p-3 z-[1000]">
+        <DropdownMenu>
+          {/* Trigger Button */}
+          <DropdownMenuTrigger asChild>
+            <button className="flex items-center space-x-4">
+              {user ? (
+                <Image
+                  src={user.photoURL || "/young-man.png"}
+                  alt="Profile"
+                  width={40}
+                  height={40}
+                  className="rounded-full cursor-pointer"
+                />
+              ) : (
+                <Link href={links.login}>Login</Link>
+              )}
+            </button>
+          </DropdownMenuTrigger>
+
+          {/* Dropdown Content */}
+          {user && (
+            <DropdownMenuContent
+              side="bottom"
+              align="end"
+              className="bg-white shadow-lg rounded-md w-48 p-3 z-[1000] text-black"
+            >
+              {/* User Info */}
               <div className="px-3 py-2 border-b">
                 <p className="text-sm font-bold">{user.displayName}</p>
                 <p className="text-xs text-gray-500">{user.email}</p>
               </div>
-              <ul className="mt-2 space-y-2">
-                <li>
-                  <button
-                    onClick={logout}
-                    className="w-full text-left text-sm text-red-500 hover:bg-gray-100 p-2 rounded"
-                  >
-                    <LogOut className="inline-block mr-2" />
-                    Logout
-                  </button>
-                </li>
-              </ul>
-            </div>
+            </DropdownMenuContent>
           )}
-        </div>
+        </DropdownMenu>
       </div>
       {/* Menu */}
       <div

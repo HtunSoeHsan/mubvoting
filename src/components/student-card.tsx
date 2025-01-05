@@ -263,7 +263,7 @@ const StudentCard: FC<StudentCardProps> = ({
               pagination={{
                 clickable: true,
               }}
-              navigation={true}
+              navigation={false}
               modules={[Pagination, Navigation]}
               className="mySwiper"
             >
