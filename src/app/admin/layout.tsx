@@ -8,10 +8,12 @@ import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { LogOut } from "lucide-react";
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <>
@@ -48,14 +50,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </div>
 
               {/* Logout Button */}
-              {/* <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild>
                 <button
-                  onClick={() => alert("Logout clicked!")} // Replace with actual logout function
-                  className="w-full text-left text-sm text-red-500 hover:bg-gray-100 p-2 rounded"
+                  onClick={logout} // Replace with actual logout function
+                  className="w-full text-left text-sm text-red-500 hover:bg-gray-100 p-2 rounded flex gap-1"
                 >
-                  Logout
+                  <LogOut /> Logout
                 </button>
-              </DropdownMenuItem> */}
+              </DropdownMenuItem>
             </DropdownMenuContent>
           )}
         </DropdownMenu>
