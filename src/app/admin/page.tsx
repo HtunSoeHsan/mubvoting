@@ -94,36 +94,6 @@ export default function Page() {
     );
   }
 
-  const [votings, setVoting] = useState<{
-    kingVotes: {
-      name: string;
-      no: number;
-      count: number;
-    }[];
-    queenVotes: {
-      name: string;
-      no: number;
-      count: number;
-    }[];
-    popularVotes: {
-      name: string;
-      no: number;
-      count: number;
-    }[];
-    innocentVotes: {
-      name: string;
-      no: number;
-      count: number;
-    }[];
-  } | null>(null);
-  const fetch = async () => {
-    await getVotingCount()
-      .then((data) => setVoting(data))
-      .catch((err) => console.log(err));
-  };
-  useEffect(() => {
-    fetch();
-  }, []);
   return (
     <>
       <div className="m-4 ">

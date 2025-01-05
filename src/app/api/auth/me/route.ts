@@ -6,7 +6,7 @@ export async function POST(req: Request) {
   try {
     const authHeader = req.headers.get("authorization");
     const token = authHeader?.split("Bearer ")[1];
-    console.log("Token:", token);
+    console.log({token})
     if (!token) {
       return NextResponse.json(
         { message: "Unauthorized: No token provided" },
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.log("Authentication error:", error);
+    console.log("me error", error)
     return NextResponse.json(
       { message: "Unauthorized: Invalid token" },
       { status: 401 }

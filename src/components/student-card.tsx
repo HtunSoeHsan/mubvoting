@@ -95,6 +95,7 @@ const StudentCard: FC<StudentCardProps> = ({
   const [isUserVotedSelection, setIsUserVotedSelection] = useState(false);
 
   const openModal = (image: string) => {
+    console.log(image);
     setIsModalOpen(true);
   };
 
@@ -160,9 +161,9 @@ const StudentCard: FC<StudentCardProps> = ({
 
         // previos vote count
         const previousVoteCount = student[votetype].length;
-
+        if (!user?.email) return;
         const docRef = doc(db, "selections", docSnapshot.id);
-        const vote = { email: user?.email, vote: 1 };
+        const vote = { email: user.email, vote: 1 };
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const allVoteTypes: any = {
@@ -185,6 +186,10 @@ const StudentCard: FC<StudentCardProps> = ({
         };
 
         await updateDoc(docRef, allVoteTypes[votetype]);
+        const userDocRef = doc(db, "users", user.uid);
+        await updateDoc(userDocRef, {
+          voted: true,
+        });
         setUserVoted();
         setIsUserVotedSelection(true);
       });
@@ -263,14 +268,19 @@ const StudentCard: FC<StudentCardProps> = ({
               className="mySwiper"
             >
               {gallery.map((g, i) => (
-                <SwiperSlide key={i} style={stylesModalImages.swiperSlide}>
+                <SwiperSlide
+                  key={i}
+                  style={stylesModalImages.swiperSlide as React.CSSProperties}
+                >
                   <Image
                     alt={`${name} photo`}
                     priority
                     src={g}
                     width={500}
                     height={500}
-                    style={stylesModalImages.swiperSlideImg}
+                    style={
+                      stylesModalImages.swiperSlideImg as React.CSSProperties
+                    }
                   />
                 </SwiperSlide>
               ))}

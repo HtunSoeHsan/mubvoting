@@ -9,8 +9,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { LogOut } from "lucide-react";
 export default function Layout({ children }: { children: React.ReactNode }) {
-  // const cookieStore = await cookies();
-  // const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
   const { user, logout } = useAuth();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const toggleProfileMenu = () => {

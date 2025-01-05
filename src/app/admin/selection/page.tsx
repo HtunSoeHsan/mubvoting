@@ -2,107 +2,30 @@
 
 import AddSelectionData from "@/components/addSelectionData";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { useState } from "react";
-export default function Page() {
-  const items = [
-    {
-      id: 1,
-      title: "Back End Developer",
-      department: "Engineering",
-      type: "Full-time",
-      location: "Remote",
-    },
-    {
-      id: 2,
-      title: "Front End Developer",
-      department: "Engineering",
-      type: "Full-time",
-      location: "Remote",
-    },
-    {
-      id: 4,
-      title: "User Interface Designer",
-      department: "Design",
-      type: "Full-time",
-      location: "Remote",
-    },
-    {
-      id: 5,
-      title: "User Interface Designer",
-      department: "Design",
-      type: "Full-time",
-      location: "Remote",
-    },
-    {
-      id: 6,
-      title: "User Interface Designer",
-      department: "Design",
-      type: "Full-time",
-      location: "Remote",
-    },
-    {
-      id: 7,
-      title: "User Interface Designer",
-      department: "Design",
-      type: "Full-time",
-      location: "Remote",
-    },
-    {
-      id: 8,
-      title: "User Interface Designer",
-      department: "Design",
-      type: "Full-time",
-      location: "Remote",
-    },
-    {
-      id: 9,
-      title: "User Interface Designer",
-      department: "Design",
-      type: "Full-time",
-      location: "Remote",
-    },
-    {
-      id: 10,
-      title: "User Interface Designer",
-      department: "Design",
-      type: "Full-time",
-      location: "Remote",
-    },
-    {
-      id: 11,
-      title: "User Interface Designer",
-      department: "Design",
-      type: "Full-time",
-      location: "Remote",
-    },
-    {
-      id: 12,
-      title: "User Interface Designer",
-      department: "Design",
-      type: "Full-time",
-      location: "Remote",
-    },
-    {
-      id: 13,
-      title: "User Interface Designer",
-      department: "Design",
-      type: "Full-time",
-      location: "Remote",
-    },
-    {
-      id: 14,
-      title: "User Interface Designer",
-      department: "Design",
-      type: "Full-time",
-      location: "Remote",
-    },
-  ];
+import { useState, useEffect } from "react";
+import { db } from "@/firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { Selection } from "@/interface/selection";
 
+export default function Page() {
+  const [items, setItems] = useState<Selection[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
-  const totalPages = Math.ceil(items.length / itemsPerPage);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data: Selection[] = [];
+      const querySnapshot = await getDocs(collection(db, "selections"));
+      querySnapshot.forEach((doc) => {
+        data.push(doc.data() as Selection);
+      });
+      setItems(data);
+    };
 
+    fetchData();
+  }, []);
+
+  const totalPages = Math.ceil(items.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = items.slice(startIndex, startIndex + itemsPerPage);
 
@@ -115,11 +38,8 @@ export default function Page() {
   };
 
   return (
-    <div className="flex  overflow-y-hidden flex-col  m-8 min-w-[300px]  md:min-w-[600px] lg:min-w-[1000px] w-full">
-<<<<<<< HEAD
-=======
+    <div className="flex flex-col m-8 min-w-[300px] md:min-w-[600px] lg:min-w-[1000px] w-full">
       <AddSelectionData />
->>>>>>> db110bc1f12e6213a9ec26aced744fd2b13279be
       <div className="flex-grow mt-4 relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-blue-50 dark:bg-gray-700 dark:text-gray-400">
@@ -128,15 +48,21 @@ export default function Page() {
                 User
               </th>
               <th scope="col" className="px-6 py-3">
-                Email
+                No
               </th>
               <th scope="col" className="px-6 py-3">
-                Vote
+                Gender
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Section
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Address
               </th>
             </tr>
           </thead>
           <tbody>
-            {currentItems.map((user, index) => (
+            {currentItems.map((selection, index) => (
               <tr
                 key={index}
                 className={`${
@@ -146,10 +72,12 @@ export default function Page() {
                 }`}
               >
                 <td className="px-6 py-4 text-gray-900 dark:text-white">
-                  {user.title}
+                  {selection.name}
                 </td>
-                <td className="px-6 py-4">{user.department}</td>
-                <td className="px-6 py-4">{user.type}</td>
+                <td className="px-6 py-4">{selection.selection_no}</td>
+                <td className="px-6 py-4">{selection.gender}</td>
+                <td className="px-6 py-4">{selection.section}</td>
+                <td className="px-6 py-4">{selection.address}</td>
               </tr>
             ))}
           </tbody>

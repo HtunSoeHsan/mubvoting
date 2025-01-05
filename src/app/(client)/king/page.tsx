@@ -1,4 +1,5 @@
 "use client";
+import { CustomAlert } from "@/components/cell/Alert";
 import LoadingSpinner from "@/components/cell/LoadingSpinner";
 import StudentCard from "@/components/student-card";
 import { useAuth } from "@/context/auth";
@@ -11,6 +12,8 @@ export default function Page() {
   const [selections, setSelections] = useState<Selection[]>([]);
   const [loading, setLoading] = useState(false);
   const [isUserAlreadyVoted, setIsUserAlreadyVoted] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
   const { user } = useAuth();
   const getIt = useCallback(async () => {
     try {
@@ -46,6 +49,7 @@ export default function Page() {
       });
       setSelections(selectionsArray);
     } catch (error) {
+      setErr("Something went wrong!");
       console.log(error);
     } finally {
       setLoading(false);
@@ -66,6 +70,10 @@ export default function Page() {
 
   return (
     <div className="bg-background text-foreground overflow-x-hidden">
+      {err && (
+        <CustomAlert key={err} variant="error" message={err} title="Error" />
+      )}
+
       <div className="relative dark:bg-background  py-8">
         <div className="text-wrapper mb-24 md:mb-32 text-center">
           <div className="text-container text-background">Vote for King</div>

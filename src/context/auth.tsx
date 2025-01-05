@@ -28,7 +28,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [cookie, setCookie] = useCookies(["token"]);
+  const [cookie, setCookie, removeCookie] = useCookies(["token"]);
   const router = useRouter(); // Initialize useRouter
 
   useEffect(() => {
@@ -83,6 +83,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logout = async () => {
     await signOut(auth);
+    removeCookie("token", { path: "/" });
   };
 
   return (

@@ -11,9 +11,10 @@ import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import selections from "@/app/data/selection.json";
 import { Button } from "../ui/button";
+import LoadingSpinner from "./LoadingSpinner";
 const ResetAll = () => {
   const [loading, setLoading] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [, setCookies] = useCookies();
 
   const deleteAndAddSelectionsToFirestore = async () => {
     setLoading(true);
@@ -37,15 +38,16 @@ const ResetAll = () => {
       console.log("New selections added.");
     } catch (e) {
       console.error("Error during delete/add process: ", e);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   const clearCookies = () => {
-    Object.keys(cookies).forEach((cookieName) => {
-      removeCookie(cookieName, { path: "/" }); // Specify the path if required
-    });
+    setCookies("King", "false", { path: "/" });
+    setCookies("Queen", "false", { path: "/" });
+    setCookies("Popular", "false", { path: "/" });
+    setCookies("Innocent", "false", { path: "/" });
   };
 
   const reset = async () => {
@@ -54,7 +56,9 @@ const ResetAll = () => {
   };
   return (
     <div>
-      <Button onClick={reset}>Reset All</Button>
+      <Button onClick={reset} disabled={loading} className="flex gap-1">
+        <span>Reset All</span> {loading && <LoadingSpinner />}
+      </Button>
     </div>
   );
 };

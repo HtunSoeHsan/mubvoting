@@ -77,7 +77,7 @@ export default function Home() {
     <div className="bg-background text-foreground">
       <Hero />
       <div>
-        <div className="flex justify-center gap-32 lg:gap-10 m-10 flex-wrap mt-[300px] lg:mt-20">
+        <div className="flex justify-center gap-32 lg:gap-10 m-10 flex-wrap mt-[300px] lg:mt-[150px]">
           <WhoWinCard
             iconh={50}
             iconw={60}
@@ -99,7 +99,7 @@ export default function Home() {
           <WhoWinCard
             iconh={100}
             iconw={100}
-            title="Popular"
+            title="POPULAR"
             crownSrc="/images/star.png"
             person={popular}
             loading={loading}
@@ -108,7 +108,7 @@ export default function Home() {
           <WhoWinCard
             iconh={50}
             iconw={50}
-            title="Innocent"
+            title="INNOCENT"
             crownSrc="/images/innocent.png"
             person={innocent}
             loading={loading}

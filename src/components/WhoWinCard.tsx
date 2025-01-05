@@ -8,7 +8,7 @@ import { conf } from "@/config";
 interface CardProps {
   iconw: number;
   iconh: number;
-  title: string;
+  title: "KING" | "QUEEN" | "POPULAR" | "INNOCENT";
   crownSrc: string;
   person: Selection | undefined;
   loading: boolean;
@@ -78,10 +78,20 @@ const WhoWinCard = ({
             .map((candidate, i) => (
               <div
                 key={i}
-                className="py-2 px-4 rounded-l-full ml-auto bg-gold flex w-[90%] items-center justify-between hover:bg-[#0E2C70] hover:text-white"
+                className="py-2 px-4 hover:border hover:border-white rounded-l-full ml-auto bg-gold flex w-[90%] items-center justify-between hover:bg-[#0E2C70] hover:text-white"
               >
-                <p className="font-semibold">{candidate.selection_no}</p>
-                <p>{candidate.name}</p>
+                <div className="text-left flex gap-2">
+                  <p className="font-semibold text-white">
+                    {candidate.selection_no}
+                  </p>
+                  <p>{candidate.name}</p>
+                </div>
+                <p>
+                  {title === "KING" && candidate.kingVotesCount}{" "}
+                  {title === "QUEEN" && candidate.queenVotesCount}{" "}
+                  {title === "POPULAR" && candidate.popularVotesCount}{" "}
+                  {title === "INNOCENT" && candidate.innocentVotesCount}
+                </p>
               </div>
             ))
         )}

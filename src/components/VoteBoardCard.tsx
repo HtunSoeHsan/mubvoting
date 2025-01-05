@@ -39,7 +39,6 @@ export default function VoteBoardCard({
 
   const voteCountProperty = getVoteCountProperty();
 
-  // Sort the items based on the corresponding vote count property
   const sortedItems = [...items].sort((a, b) => {
     if (!voteCountProperty) return 0; // No sorting if property is null
     return b[voteCountProperty] - a[voteCountProperty];
@@ -47,10 +46,6 @@ export default function VoteBoardCard({
 
   const handleSelect = async (selection_no: number, gender: string) => {
     try {
-      // const maxVotes = sortedItems[0][voteCountProperty];
-      // const winner = sortedItems.filter(
-      //   (item) => item[voteCountProperty] === maxVotes
-      // );
       const selectionsCollection = collection(db, "selections");
       const q = query(
         selectionsCollection,
@@ -98,7 +93,7 @@ export default function VoteBoardCard({
               item.isPopular ||
               item.isInnocent
             }
-            className={`text-start flex-1 text-black font-bold text-lg rounded-l-full rounded-r-md rounded-md shadow-md p-2 mt-2 ms-4 mr-1 hover:bg-[#0E2C70] hover:text-white ${
+            className={`text-start flex-1 text-black font-bold text-lg rounded-l-full rounded-r-md rounded-md shadow-md p-2 mt-2 ms-4 mr-1 hover:border hover:border-white hover:bg-[#0E2C70] hover:text-white ${
               item.isKing || item.isQueen || item.isPopular || item.isInnocent
                 ? "bg-[#0E2C70] text-white"
                 : "bg-[#13AEF0]"

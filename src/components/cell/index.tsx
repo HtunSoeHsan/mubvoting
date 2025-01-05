@@ -5,14 +5,11 @@ export const TypeTextAni = () => {
   return (
     <TypeAnimation
       sequence={[
-        // Same substring at the start will only be typed out once, initially
-        // "We produce food for Mice",
-        // 1000, // wait 1s before replacing "Mice" with "Hamsters"
-        // "We produce food for Hamsters",
-        // 1000,
-        // "We produce food for Guinea Pigs",
-        // 1000,
-        "Welcome To Our University, Polytechnic University (MAUBIN).",
+        "Welcome To Our Voting System, ",
+        1000,
+        "Computer University (MAUBIN).",
+        1000,
+        "Polytechnic University (MAUBIN).",
         1000,
       ]}
       //   wrapper="span"

@@ -3,8 +3,20 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: ["images.hellomagazine.com", "lh3.googleusercontent.com",'images.pexels.com'], // Add the external domain here
-    remotePatterns: []
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.hellomagazine.com",
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.pexels.com",
+      },
+    ],
   },
 };
 

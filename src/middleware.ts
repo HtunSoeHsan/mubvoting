@@ -2,15 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const isProtectedRoute = pathname.startsWith("/admin");
+  const isProtectedRoute =
+  pathname.startsWith("/admin") ||
+  pathname.startsWith("/king") ||
+  pathname.startsWith("/queen") ||
+  pathname.startsWith("/innocent") ||
+  pathname.startsWith("/popular");
 
-  if (isProtectedRoute) {
-    const token = req.cookies.get("token")?.value;
-    if (!token) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    }
-
-    // Validate token using the API route
+if (isProtectedRoute) {
+  const token = req.cookies.get("token")?.value;
+  if (!token) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+  if (pathname.startsWith("/admin")) {
     const response = await fetch(
       new URL("/api/auth/me", req.url),
       {
@@ -20,7 +24,6 @@ export async function middleware(req: NextRequest) {
     );
 
     const user = await response.json();
-    console.log("user", user.user.role)
     if (!response.ok) {
       return NextResponse.redirect(new URL("/login", req.url));
     }
@@ -29,6 +32,7 @@ export async function middleware(req: NextRequest) {
     }
   }
   return NextResponse.next();
+}
 }
 
 export const config = {
