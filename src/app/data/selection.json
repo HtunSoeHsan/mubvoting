@@ -163,7 +163,7 @@
           "gender": "female",
           "section": "A",
           "address": "Kyaiklat",
-          "gallery": ["/images/Yoon_Lae_Lae_Khaing/image_1.jpg", "/images/Yoon_Lae_Lae_Khaing/image_2.jpg", "/images/Yoon_Lae_Lae_Khaing/image_3.jpg"],
+          "gallery": ["/images/Yoon_Lae_Lae_Khaing/image_1.jpg", "/images/Yoon_Lae_Lae_Khaing/image_2.jpg", "/images/Yoon_Lae_Lae_Khaing/image_3.jpg","/images/Yoon_Lae_Lae_Khaing/image_4.jpg","/images/Yoon_Lae_Lae_Khaing/image_5.jpg"],
           "kingVotes": [],
           "queenVotes": [],
           "popularVotes": [],
