@@ -23,7 +23,7 @@ export default function Page() {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithGoogle();
-      redirect("/");
+      window.location.href = "/";
     } catch (error) {
       console.log("Google sign-in failed", error);
     }
