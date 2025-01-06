@@ -63,8 +63,10 @@ const WhoWinCard = ({
                 className="w-full h-[200px] object-cover rounded-xl"
               />
             </div>
-            <div className="py-2 px-4 rounded-l-full ml-auto bg-gold flex w-[90%] items-center justify-between hover:bg-[#0E2C70] hover:text-white">
-              <p className="font-semibold">{person.selection_no}</p>
+            <div className="py-2 px-4 rounded-l-full ml-auto bg-gold flex w-[90%] items-center justify-between hover:bg-[#0E2C70] hover:text-white hover:border hover:border-white">
+              <p className="font-semibold border rounded-lg px-2 text-white">
+                {person.selection_no}
+              </p>
               <p>{person.name}</p>
             </div>
           </>
