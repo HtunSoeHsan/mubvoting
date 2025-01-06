@@ -29,6 +29,7 @@ interface StudentCardProps {
   name: string;
   no: number;
   gender: string;
+  section: string;
   grade: string;
   image: string; // Path or URL to the student's photo
   bio: string; // Short description of the student
@@ -46,6 +47,7 @@ const StudentCard: FC<StudentCardProps> = ({
   gallery,
   votetype,
   alreadyVoted,
+  section,
   setUserVoted,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -302,7 +304,9 @@ const StudentCard: FC<StudentCardProps> = ({
           {name}
         </h4>
         <div className="flex justify-between items-center">
-          <p className="mx-3 text-white opacity-80 uppercase">Section - A</p>
+          <p className="mx-3 text-white opacity-80 uppercase">
+            Section - {section}
+          </p>
           {isUserVotedSelection ? (
             <button
               disabled

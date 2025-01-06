@@ -86,12 +86,12 @@ const WhoWinCard = ({
                   </p>
                   <p>{candidate.name}</p>
                 </div>
-                <p>
+                {/* <p>
                   {title === "KING" && candidate.kingVotesCount}{" "}
                   {title === "QUEEN" && candidate.queenVotesCount}{" "}
                   {title === "POPULAR" && candidate.popularVotesCount}{" "}
                   {title === "INNOCENT" && candidate.innocentVotesCount}
-                </p>
+                </p> */}
               </div>
             ))
         )}

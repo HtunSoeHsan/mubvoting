@@ -94,6 +94,7 @@ export default function Page() {
                     image={student.profile}
                     gender={student.gender}
                     bio={""}
+                    section={student.section}
                     gallery={student.gallery}
                     votetype="kingVotes"
                     alreadyVoted={isUserAlreadyVoted}
