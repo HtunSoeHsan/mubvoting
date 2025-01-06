@@ -10,8 +10,6 @@ import {
 import { doc } from "firebase/firestore";
 import { useCookies } from "react-cookie";
 import { auth, db } from "@/firebase";
-import { useRouter } from "next/navigation"; // Import useRouter
-
 interface AuthContextType {
   user: User | null;
   loading: boolean;
@@ -29,7 +27,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [cookie, setCookie, removeCookie] = useCookies(["token"]);
-  const router = useRouter(); // Initialize useRouter
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -74,8 +71,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             createdAt: new Date(),
           });
         }
-        router.push("/"); // Redirect to home page
       }
+      setCookie("token", result.user.uid);
     } catch (error) {
       console.error("Google sign-in error:", error);
     }
