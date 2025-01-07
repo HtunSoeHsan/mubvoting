@@ -1,6 +1,5 @@
 "use client";
 
-import AddSelectionData from "@/components/addSelectionData";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useState, useEffect } from "react";
 import { db } from "@/firebase";
@@ -39,7 +38,7 @@ export default function Page() {
 
   return (
     <div className="flex flex-col m-8 min-w-[300px] md:min-w-[600px] lg:min-w-[1000px] w-full">
-      <AddSelectionData />
+      {/* <AddSelectionData /> */}
       <div className="flex-grow mt-4 relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-blue-50 dark:bg-gray-700 dark:text-gray-400">
