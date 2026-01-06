@@ -239,7 +239,7 @@ const StudentCard: FC<StudentCardProps> = ({
               height={100}
               className="absolute top-[-25px] right-[-10px] transform rotate-[15deg]"
             />
-            <span className="font-extrabold text-[26px]">{no}</span>
+            <span className="font-extrabold text-[26px] text-gray-800">{no}</span>
           </div>
         </div>
       </div>

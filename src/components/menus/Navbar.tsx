@@ -32,7 +32,7 @@ const Navbar = () => {
             />
           </div>
           <span className="text-xl font-bold gradient-text hidden sm:block">
-            MUB-VOTING
+            POLY-VOTING
           </span>
         </Link>
 
