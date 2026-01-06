@@ -1,6 +1,5 @@
 "use client";
 import { TypeAnimation } from "react-type-animation";
-import { useRouter } from "next/navigation";
 
 export const TypeTextAni = () => {
   return (
