@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { TypeTextAni } from "./cell";
-import Particle from "./Particle";
 
 export const Hero = () => {
   return (

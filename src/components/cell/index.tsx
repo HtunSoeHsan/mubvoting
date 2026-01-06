@@ -3,8 +3,6 @@ import { TypeAnimation } from "react-type-animation";
 import { useRouter } from "next/navigation";
 
 export const TypeTextAni = () => {
-  const router = useRouter();
-
   return (
     <div className="space-y-8 text-center">
       {/* Main heading */}
