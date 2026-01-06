@@ -52,6 +52,7 @@ const StudentCard: FC<StudentCardProps> = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTimeToVote, setIsTimeToVote] = useState<boolean>(false); // Dynamic voting control
+  const [imageLoading, setImageLoading] = useState(true);
 
   const stylesModalImages = {
     swiper: {
@@ -81,7 +82,7 @@ const StudentCard: FC<StudentCardProps> = ({
 
   // Fetch vote status in real-time
   useEffect(() => {
-    const settingsDocRef = doc(db, "setting", "PaOqyekj0ixF1GBAYMLF"); // Adjust your Firestore path
+    const settingsDocRef = doc(db, "setting", "setting"); // Adjust your Firestore path
     const unsubscribe = onSnapshot(settingsDocRef, (docSnapshot) => {
       if (docSnapshot.exists()) {
         const data = docSnapshot.data();
@@ -207,6 +208,11 @@ const StudentCard: FC<StudentCardProps> = ({
       <div className="h-[50px] flex justify-center">
         {/* Profile Image */}
         <div className="absolute top-[-80px] rounded-full w-[140px] h-[140px] border-2 border-white bg-cover overflow-hidden">
+          {imageLoading && (
+            <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-full flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-gray-400 animate-spin" />
+            </div>
+          )}
           <Image
             priority
             alt={`${name} photo`}
@@ -214,6 +220,8 @@ const StudentCard: FC<StudentCardProps> = ({
             width={1920}
             height={1080}
             className="w-full h-full rounded-full object-cover"
+            onLoad={() => setImageLoading(false)}
+            onError={() => setImageLoading(false)}
           />
         </div>
         {/* Student Number */}

@@ -3,9 +3,11 @@ import { ReactNode } from "react";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <div>
+    <div className="min-h-screen">
       <Navbar />
-      {children}
+      <main className="pt-20">
+        {children}
+      </main>
     </div>
   );
 }

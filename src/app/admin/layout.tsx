@@ -41,7 +41,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <DropdownMenuContent
               side="bottom"
               align="end"
-              className="bg-white shadow-lg rounded-md w-48 p-3 z-[1000] text-black"
+              className="shadow-lg rounded-md w-48 p-3 z-[1000] text-black"
             >
               {/* User Info */}
               <div className="px-3 py-2 border-b">

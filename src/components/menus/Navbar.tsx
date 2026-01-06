@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { links } from "@/config/link";
 import { conf } from "@/config";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/auth";
@@ -17,107 +16,114 @@ const Navbar = () => {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#0D2E6E] text-white shadow-lg">
-      <div className="container mx-auto flex items-center justify-between py-2 px-4 lg:px-8">
-        <Image
-          src={"/images/logo.png"}
-          alt="LOGO"
-          width={40}
-          height={40}
-          className="rounded-full lg:hidden"
-        />
+    <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-border/50">
+      <div className="container mx-auto flex items-center justify-between py-4 px-4 lg:px-8">
 
         {/* Brand */}
-        <div className="flex items-center">
-          <Image
-            src={"/images/logo.png"}
-            alt="LOGO"
-            width={40}
-            height={40}
-            className="rounded-full hidden lg:block"
-          />
-          <Link href={"/"} className="text-lg font-bold text-yellow-400">
+        <Link href="/" className="flex items-center space-x-3 group">
+          <div className="relative">
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-gold rounded-full opacity-75 group-hover:opacity-100 blur transition-all duration-300" />
+            <Image
+              src="/images/logo.png"
+              alt="LOGO"
+              width={40}
+              height={40}
+              className="relative rounded-full"
+            />
+          </div>
+          <span className="text-xl font-bold gradient-text hidden sm:block">
             MUB-VOTING
-          </Link>
+          </span>
+        </Link>
+
+        {/* Desktop Menu */}
+        <div className="hidden lg:flex items-center space-x-8">
+          {conf.menus.map((m, i) => (
+            <Link
+              key={i}
+              href={m.link}
+              className={`relative px-4 py-2 rounded-full font-medium transition-all duration-300 ${
+                isActive(m.link)
+                  ? "bg-primary/20 text-primary"
+                  : "hover:bg-accent/50 text-foreground/80 hover:text-foreground"
+              }`}
+            >
+              {m.label}
+              {isActive(m.link) && (
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-primary rounded-full" />
+              )}
+            </Link>
+          ))}
         </div>
 
-        {/* Menu */}
-        <div
-          className={`hidden lg:block relative top-full left-0 w-full lg:w-auto lg:flex lg:items-center lg:space-x-6 bg-[#0D2E6E] lg:bg-transparent`}
-        >
-          <ul className="flex flex-row justify-center items-center gap-3 lg:space-y-0 lg:space-x-6 pt-2 lg:px-0 lg:py-0">
-            {conf.menus.map((m, i) => (
-              <li className="nav-item" key={i}>
-                <Link
-                  href={m.link}
-                  className={`uppercase text-sm font-medium ${
-                    isActive(m.link)
-                      ? "text-yellow-400"
-                      : "hover:text-gray-300 transition"
-                  }`}
-                >
-                  {m.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/*  Profile Section */}
+        {/* Profile Section */}
         <DropdownMenu>
-          {/* Trigger Button */}
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center space-x-4">
+            <button className="flex items-center space-x-3 hover-lift">
               {user ? (
-                <Image
-                  src={user.photoURL || "/young-man.png"}
-                  alt="Profile"
-                  width={40}
-                  height={40}
-                  className="rounded-full cursor-pointer"
-                />
+                <div className="relative">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-primary to-gold rounded-full opacity-75 blur" />
+                  <Image
+                    src={user.photoURL || "/young-man.png"}
+                    alt="Profile"
+                    width={40}
+                    height={40}
+                    className="relative rounded-full border-2 border-primary/20"
+                  />
+                </div>
               ) : (
-                <Link href={links.login}>Login</Link>
+                <div className="px-6 py-2 bg-gradient-to-r from-primary to-gold rounded-full text-primary-foreground font-medium hover-lift">
+                  Login
+                </div>
               )}
             </button>
           </DropdownMenuTrigger>
 
-          {/* Dropdown Content */}
           {user && (
             <DropdownMenuContent
               side="bottom"
               align="end"
-              className="bg-white shadow-lg rounded-md w-48 p-3 z-[1000] text-black"
+              className="glass-card border border-border/50 w-64 p-4 z-[1000]"
             >
-              {/* User Info */}
-              <div className="px-3 py-2 border-b">
-                <p className="text-sm font-bold">{user.displayName}</p>
-                <p className="text-xs text-gray-500">{user.email}</p>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3 p-3 rounded-lg bg-accent/20">
+                  <Image
+                    src={user.photoURL || "/young-man.png"}
+                    alt="Profile"
+                    width={48}
+                    height={48}
+                    className="rounded-full"
+                  />
+                  <div>
+                    <p className="font-semibold text-foreground">{user.displayName}</p>
+                    <p className="text-sm text-muted-foreground">{user.email}</p>
+                  </div>
+                </div>
               </div>
             </DropdownMenuContent>
           )}
         </DropdownMenu>
       </div>
-      {/* Menu */}
-      <div
-        className={`relative top-full left-0 w-full lg:w-auto lg:flex lg:items-center lg:space-x-6 bg-[#0D2E6E] lg:bg-transparent`}
-      >
-        <ul className="block lg:hidden flex flex-row justify-center items-center gap-3 lg:space-y-0 lg:space-x-6 text-xs p-2 border-t-2 border-[#e5da0b] lg:px-0 lg:py-0">
-          {conf.menus.map((m, i) => (
-            <li className="nav-item" key={i}>
+
+      {/* Mobile Menu */}
+      <div className="lg:hidden border-t border-border/50 glass-card">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex justify-center space-x-6">
+            {conf.menus.map((m, i) => (
               <Link
+                key={i}
                 href={m.link}
-                className={`uppercase text-sm font-medium ${
+                className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   isActive(m.link)
-                    ? "text-yellow-400"
-                    : "hover:text-gray-300 transition"
+                    ? "bg-primary/20 text-primary"
+                    : "text-foreground/70 hover:text-foreground hover:bg-accent/30"
                 }`}
               >
                 {m.label}
               </Link>
-            </li>
-          ))}
-        </ul>
+            ))}
+          </div>
+        </div>
       </div>
     </nav>
   );

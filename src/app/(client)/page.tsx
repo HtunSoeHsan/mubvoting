@@ -74,48 +74,99 @@ export default function Home() {
   const innocent = selections.female.find((s) => s.isInnocent);
 
   return (
-    <div className="bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground">
       <Hero />
-      <div>
-        <div className="flex justify-center gap-32 lg:gap-10 m-10 flex-wrap mt-[300px] lg:mt-[150px]">
-          <WhoWinCard
-            iconh={50}
-            iconw={60}
-            title="KING"
-            crownSrc="/images/king-crown.png"
-            person={king}
-            loading={loading}
-            selections={selections.male}
-          />
-          <WhoWinCard
-            iconh={100}
-            iconw={100}
-            title="QUEEN"
-            crownSrc="/images/crown-normal-queen.png"
-            person={queen}
-            loading={loading}
-            selections={selections.female}
-          />
-          <WhoWinCard
-            iconh={100}
-            iconw={100}
-            title="POPULAR"
-            crownSrc="/images/star.png"
-            person={popular}
-            loading={loading}
-            selections={selections.male}
-          />
-          <WhoWinCard
-            iconh={50}
-            iconw={50}
-            title="INNOCENT"
-            crownSrc="/images/innocent.png"
-            person={innocent}
-            loading={loading}
-            selections={selections.female}
-          />
+      
+      {/* Results Section */}
+      <section className="relative py-20 lg:py-32">
+        {/* Background decoration */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-accent/5 to-background" />
+        
+        <div className="relative container mx-auto px-4 lg:px-8">
+          {/* Section header */}
+          <div className="text-center mb-16 fade-in">
+            <h2 className="text-4xl lg:text-6xl font-bold gradient-text mb-6">
+              Election Results
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              Voting results will be announced here in real-time after the election concludes.
+            </p>
+          </div>
+          
+          {/* Cards grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 lg:gap-12 justify-items-center">
+            <div className="slide-up mt-10" style={{ animationDelay: '0.1s' }}>
+              <WhoWinCard
+                iconh={60}
+                iconw={70}
+                title="KING"
+                crownSrc="/images/king-crown.png"
+                person={king}
+                loading={loading}
+                selections={selections.male}
+              />
+            </div>
+            
+            <div className="slide-up mt-10" style={{ animationDelay: '0.2s' }}>
+              <WhoWinCard
+                iconh={100}
+                iconw={100}
+                title="QUEEN"
+                crownSrc="/images/crown-normal-queen.png"
+                person={queen}
+                loading={loading}
+                selections={selections.female}
+              />
+            </div>
+            
+            <div className="slide-up mt-10" style={{ animationDelay: '0.3s' }}>
+              <WhoWinCard
+                iconh={80}
+                iconw={80}
+                title="POPULAR"
+                crownSrc="/images/star.png"
+                person={popular}
+                loading={loading}
+                selections={selections.male}
+              />
+            </div>
+            
+            <div className="slide-up mt-10" style={{ animationDelay: '0.4s' }}>
+              <WhoWinCard
+                iconh={60}
+                iconw={60}
+                title="INNOCENT"
+                crownSrc="/images/innocent.png"
+                person={innocent}
+                loading={loading}
+                selections={selections.female}
+              />
+            </div>
+          </div>
+          
+          {/* Stats section */}
+          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 fade-in">
+            <div className="text-center glass-card p-6 rounded-2xl">
+              <div className="text-3xl font-bold gradient-text mb-2">
+                {selections.male.length + selections.female.length}
+              </div>
+              <div className="text-muted-foreground">Total Candidates</div>
+            </div>
+            <div className="text-center glass-card p-6 rounded-2xl">
+              <div className="text-3xl font-bold gradient-text mb-2">4</div>
+              <div className="text-muted-foreground">Categories</div>
+            </div>
+            <div className="text-center glass-card p-6 rounded-2xl">
+              <div className="text-3xl font-bold gradient-text mb-2">100%</div>
+              <div className="text-muted-foreground">Transparency</div>
+            </div>
+            <div className="text-center glass-card p-6 rounded-2xl">
+              <div className="text-3xl font-bold gradient-text mb-2">∞</div>
+              <div className="text-muted-foreground">Trust</div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

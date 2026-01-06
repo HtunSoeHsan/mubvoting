@@ -42,7 +42,7 @@ export default function Setting() {
 
   return (
     <div className="flex flex-1  overflow-y-hidden flex-col  m-8 min-w-[300px]  md:min-w-[600px] lg:min-w-[1000px] w-full">
-      <div className="bg-white px-4 py-4 rounded-md shadow-md w-[75%] lg:w-1/2 ">
+      <div className="px-4 py-4 rounded-md shadow-md w-[75%] lg:w-1/2 ">
         <h2 className="flex space-x-2 mb-6 text-2xl font-bold leading-tight">
           Setting{" "}
           <Settings className=" animate-spin" width={"20"} height={"20"} />

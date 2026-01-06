@@ -28,7 +28,7 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <Link
                       href={item.url}
-                      className="mt-1 p-2 text-bold bg-blue-100"
+                      className="mt-1 p-2 text-bold"
                     >
                       <item.icon />
                       <span>{item.title}</span>

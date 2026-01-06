@@ -19,9 +19,11 @@ export default {
         zoomIn: "zoomIn 1s ease-out forwards",
       },
       colors: {
-        gold: "var(--gold-color)",
-        golden : "var(--gold)",
-        fadeDark : "var(--light-black)",
+        gold: "hsl(var(--gold-color))",
+        golden: "var(--gold)",
+        fadeDark: "var(--light-black)",
+        glass: "var(--glass)",
+        "glass-border": "var(--glass-border)",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

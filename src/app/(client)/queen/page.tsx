@@ -67,9 +67,11 @@ export default function Page() {
       )}
 
       <div className="relative dark:bg-background  py-8">
-        <div className="text-wrapper mb-24 md:mb-32 text-center">
-          <div className="text-container text-background">Vote for Queen</div>
-          <div className="text-container text-front">Vote for Queen</div>
+        <div className="text-center mb-40">
+          <h1 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
+            VOTE FOR QUEEN
+          </h1>
+          <div className="w-20 h-1 bg-purple-600 mx-auto rounded-full"></div>
         </div>
 
         <div className="lg:max-w-[90%]  space-y-5 md:space-y-28 mx-auto">

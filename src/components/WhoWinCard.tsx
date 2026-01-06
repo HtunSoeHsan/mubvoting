@@ -24,79 +24,115 @@ const WhoWinCard = ({
   loading,
   selections,
 }: CardProps) => {
+  const getTitleColor = () => {
+    switch (title) {
+      case "KING": return "from-yellow-400 to-yellow-600";
+      case "QUEEN": return "from-pink-400 to-purple-600";
+      case "POPULAR": return "from-blue-400 to-cyan-600";
+      case "INNOCENT": return "from-green-400 to-emerald-600";
+      default: return "from-primary to-gold";
+    }
+  };
+
   return (
-    <div className="w-[300px] bg-[#143848] py-2 relative rounded-t-lg pb-5 ">
-      <div className="h-[80px] flex justify-center">
-        <div className="absolute z-30 top-[-110px]">
-          <Image
-            priority
-            alt="Crown"
-            src={crownSrc}
-            width={iconw}
-            height={iconh}
-            className="object-contain"
-          />
-        </div>
-        <div className="absolute top-[-80px] rounded-full w-[150px] h-[150px] bg-[#143848] bg-cover overflow-hidden p-1">
-          <Image
-            priority
-            alt="Person's Photo"
-            src={person?.profile || "/images/questionmark.png"}
-            width={conf.resolution.w}
-            height={conf.resolution.h}
-            className="w-full h-full rounded-full object-cover border-2 border-black"
-          />
-        </div>
-      </div>
-      <h4 className="w-[80%] text-white bg-gold rounded-r-full font-bold text-lg px-10 py-2">
-        {title}
-      </h4>
-      <div className="grid gap-2 mt-5">
-        {person ? (
-          <>
-            <div className="p-2">
+    <div className="group relative">
+      {/* Card container */}
+      <div className="w-[320px] glass-card rounded-2xl hover-lift pulse-glow">
+        
+        {/* Header with crown and profile */}
+        <div className="relative h-32 bg-gradient-to-br from-accent/20 to-accent/5 overflow-visible">
+          {/* Crown */}
+          <div className="absolute -top-24 left-1/2 transform -translate-x-1/2 z-20">
+            <div className="relative group-hover:scale-110 transition-transform duration-300">
+              <div className="absolute -inset-2 bg-gradient-to-r from-gold/30 to-primary/30 rounded-full blur-lg" />
               <Image
-                alt={`${title} Profile`}
-                src={person.profile || "/images/questionmark.png"}
-                width={conf.resolution.w}
-                height={conf.resolution.h}
-                className="w-full h-[200px] object-cover rounded-xl"
+                priority
+                alt="Crown"
+                src={crownSrc}
+                width={iconw}
+                height={iconh}
+                className="relative object-contain drop-shadow-2xl"
               />
             </div>
-            <div className="py-2 px-4 rounded-l-full ml-auto bg-gold flex w-[90%] items-center justify-between hover:bg-[#0E2C70] hover:text-white hover:border hover:border-white">
-              <p className="font-semibold border rounded-lg px-2 text-white">
-                {person.selection_no}
-              </p>
-              <p>{person.name}</p>
-            </div>
-          </>
-        ) : loading ? (
-          <p className="text-center text-white">
-            <LoadingSpinner />
-          </p>
-        ) : (
-          selections
-            .sort((a, b) => a.selection_no - b.selection_no)
-            .map((candidate, i) => (
-              <div
-                key={i}
-                className="py-2 px-4 hover:border hover:border-white rounded-l-full ml-auto bg-gold flex w-[90%] items-center justify-between hover:bg-[#0E2C70] hover:text-white"
-              >
-                <div className="text-left flex gap-2">
-                  <p className="font-semibold text-white">
-                    {candidate.selection_no}
-                  </p>
-                  <p>{candidate.name}</p>
-                </div>
-                {/* <p>
-                  {title === "KING" && candidate.kingVotesCount}{" "}
-                  {title === "QUEEN" && candidate.queenVotesCount}{" "}
-                  {title === "POPULAR" && candidate.popularVotesCount}{" "}
-                  {title === "INNOCENT" && candidate.innocentVotesCount}
-                </p> */}
+          </div>
+          
+          {/* Profile picture */}
+          <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 z-[9999]">
+            <div className="relative">
+              <div className="absolute -inset-2 bg-gradient-to-r from-primary/50 to-gold/50 rounded-full blur-md" />
+              <div className="relative w-60 h-60 rounded-full overflow-hidden border-4 border-background shadow-2xl">
+                <Image
+                  priority
+                  alt="Person's Photo"
+                  src={person?.profile || "/images/questionmark.png"}
+                  width={conf.resolution.w}
+                  height={conf.resolution.h}
+                  className="w-full h-full object-cover"
+                />
               </div>
-            ))
-        )}
+            </div>
+          </div>
+        </div>
+
+        {/* Title badge */}
+        <div className="px-6 pt-16 pb-4">
+          <div className={`inline-flex px-6 py-3 bg-gradient-to-r ${getTitleColor()} rounded-full shadow-lg`}>
+            <h3 className="text-white font-bold text-lg tracking-wide">{title}</h3>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="px-6 pb-6 space-y-4">
+          {person ? (
+            <>
+              {/* Winner image */}
+              <div className="relative overflow-hidden rounded-xl group-hover:scale-105 transition-transform duration-300">
+                <Image
+                  alt={`${title} Profile`}
+                  src={person.profile || "/images/questionmark.png"}
+                  width={conf.resolution.w}
+                  height={conf.resolution.h}
+                  className="w-full h-50 object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="flex items-center justify-between text-white">
+                    <span className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm font-semibold">
+                      #{person.selection_no}
+                    </span>
+                    <span className="font-bold text-lg">{person.name}</span>
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : loading ? (
+            <div className="flex justify-center items-center h-48">
+              <LoadingSpinner />
+            </div>
+          ) : (
+            <div className="space-y-3 max-h-64 overflow-y-auto custom-scrollbar">
+              {selections
+                .sort((a, b) => a.selection_no - b.selection_no)
+                .map((candidate, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center justify-between p-3 glass-card rounded-xl hover:bg-accent/20 smooth-transition group/item"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-gradient-to-r from-primary to-gold rounded-full flex items-center justify-center text-white text-sm font-bold">
+                        {candidate.selection_no}
+                      </div>
+                      <span className="font-medium group-hover/item:text-primary transition-colors">
+                        {candidate.name}
+                      </span>
+                    </div>
+                    <div className="w-2 h-2 bg-muted rounded-full group-hover/item:bg-primary transition-colors" />
+                  </div>
+                ))
+              }
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

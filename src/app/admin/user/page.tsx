@@ -131,7 +131,7 @@ export default function SearchBox() {
             setSearchQuery(e.target.value)
           }
         />
-        <button type="submit" className="p-2 bg-[#0E8388] text-white rounded">
+        <button type="submit" className="p-2 text-white rounded">
           Search
         </button>
         <button
@@ -141,7 +141,7 @@ export default function SearchBox() {
             setCurrentPage(1);
             fetchUsers(1);
           }}
-          className="p-2 bg-[#0E8388] text-white rounded"
+          className="p-2 text-white rounded"
         >
           Refresh
         </button>
@@ -149,7 +149,7 @@ export default function SearchBox() {
 
       <div className="mt-4 relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-blue-50 dark:bg-gray-700 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th className="px-6 py-3">Profile</th>
               <th className="px-6 py-3">Email</th>
@@ -169,7 +169,7 @@ export default function SearchBox() {
               users.map((user) => (
                 <tr
                   key={user.id}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  className="border-b dark:bg-gray-800 dark:border-gray-700"
                 >
                   <td className="px-6 py-4 text-gray-900 dark:text-white">
                     <Avatar>
@@ -210,7 +210,7 @@ export default function SearchBox() {
         </table>
       </div>
 
-      <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+      <div className="flex items-center justify-between border-t border-gray-200 px-4 py-3 sm:px-6">
         <p className="text-sm text-gray-700">
           Page {currentPage} of {totalPages}
         </p>
