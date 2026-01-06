@@ -66,7 +66,7 @@ export default function Page() {
       )}
 
       <div className="relative dark:bg-background  py-8">
-        <div className="text-center mb-40">
+        <div className="text-center mb-40 mt-10 fade-in">
           <h1 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
             VOTE FOR POPULAR
           </h1>

@@ -48,6 +48,17 @@ export default function Page() {
           bgColor="bg-gold"
           opacity={60}
         />
+        <div className="mb-8 text-center">
+          <Image
+            src="/images/logo.png"
+            alt="Logo"
+            width={80}
+            height={80}
+            className="mx-auto mb-4"
+            priority
+          />
+          <h1 className="text-3xl font-bold text-gold">POLY VOTING</h1>
+        </div>
         <LoginCard imgUrl={config.imgUrl} content={config.content}>
           <div className="">
             <Button

@@ -15,7 +15,7 @@ export const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/80 to-background/95" />
 
         {/* Animated particles */}
-        <Particle />
+        {/* <Particle /> */}
 
         {/* Content container */}
         <div className="relative z-10 container mx-auto px-4 lg:px-8">

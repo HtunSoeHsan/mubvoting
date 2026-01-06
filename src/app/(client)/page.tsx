@@ -145,7 +145,7 @@ export default function Home() {
           </div>
           
           {/* Stats section */}
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 fade-in">
+          {/* <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 fade-in">
             <div className="text-center glass-card p-6 rounded-2xl">
               <div className="text-3xl font-bold gradient-text mb-2">
                 {selections.male.length + selections.female.length}
@@ -164,7 +164,7 @@ export default function Home() {
               <div className="text-3xl font-bold gradient-text mb-2">∞</div>
               <div className="text-muted-foreground">Trust</div>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
     </div>

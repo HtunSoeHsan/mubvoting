@@ -19,7 +19,7 @@
 
 # production
 /build
-
+/raw
 # misc
 .DS_Store
 *.pem

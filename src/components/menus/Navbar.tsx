@@ -37,7 +37,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center space-x-8">
+        <div className="flex items-center space-x-8">
           {conf.menus.map((m, i) => (
             <Link
               key={i}
@@ -72,9 +72,9 @@ const Navbar = () => {
                   />
                 </div>
               ) : (
-                <div className="px-6 py-2 bg-gradient-to-r from-primary to-gold rounded-full text-primary-foreground font-medium hover-lift">
+                <Link href="/login" className="px-6 py-2 bg-gradient-to-r from-primary to-gold rounded-full text-primary-foreground font-medium hover-lift">
                   Login
-                </div>
+                </Link>
               )}
             </button>
           </DropdownMenuTrigger>
@@ -105,26 +105,6 @@ const Navbar = () => {
         </DropdownMenu>
       </div>
 
-      {/* Mobile Menu */}
-      <div className="lg:hidden border-t border-border/50 glass-card">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex justify-center space-x-6">
-            {conf.menus.map((m, i) => (
-              <Link
-                key={i}
-                href={m.link}
-                className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  isActive(m.link)
-                    ? "bg-primary/20 text-primary"
-                    : "text-foreground/70 hover:text-foreground hover:bg-accent/30"
-                }`}
-              >
-                {m.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
     </nav>
   );
 };

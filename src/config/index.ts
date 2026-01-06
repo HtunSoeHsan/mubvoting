@@ -17,8 +17,8 @@ export const conf = {
           link: links.queen,
           label: "Queen",
         },
-        {link: links.popular, label: "Popular"},
-        {link: links.innocent, label: "Innocent"}
+        // {link: links.popular, label: "Popular"},
+        // {link: links.innocent, label: "Innocent"}
         
       ],
     admin_menu:[

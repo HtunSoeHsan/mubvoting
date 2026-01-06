@@ -42,7 +42,7 @@ const WhoWinCard = ({
         {/* Header with crown and profile */}
         <div className="relative h-32 bg-gradient-to-br from-accent/20 to-accent/5 overflow-visible">
           {/* Crown */}
-          <div className="absolute -top-24 left-1/2 transform -translate-x-1/2 z-20">
+          <div className="absolute -top-10 -right-5 z-20">
             <div className="relative group-hover:scale-110 transition-transform duration-300">
               <div className="absolute -inset-2 bg-gradient-to-r from-gold/30 to-primary/30 rounded-full blur-lg" />
               <Image
@@ -51,7 +51,7 @@ const WhoWinCard = ({
                 src={crownSrc}
                 width={iconw}
                 height={iconh}
-                className="relative object-contain drop-shadow-2xl"
+                className="relative object-contain drop-shadow-2xl rotate-12 scale-50"
               />
             </div>
           </div>

@@ -66,8 +66,8 @@ export default function Page() {
         <CustomAlert key={err} variant="error" message={err} title="Error" />
       )}
 
-      <div className="relative dark:bg-background  py-8">
-        <div className="text-center mb-40">
+      <div className="relative dark:bg-background py-8">
+        <div className="text-center mb-40 mt-10 fade-in">
           <h1 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
             VOTE FOR QUEEN
           </h1>
